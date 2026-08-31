@@ -1,0 +1,6 @@
+{
+  "decision": "BLOCKED_BY_MODEL_ADAPTER",
+  "status": "JOINT_NOT_RUN_BY_ATOMIC_STOP_RULE",
+  "models": {},
+  "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
+}

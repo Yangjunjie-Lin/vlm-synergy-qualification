@@ -119,11 +119,7 @@ def build_reports() -> dict[str, Any]:
         next_action = "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
     else:
         potential = "NO_FEASIBLE_COHORT"
-        next_action = (
-            "RESOLVE_FROZEN_COHORT_BLOCKER_WITHOUT_MODEL_SUBSTITUTION"
-            if decision in {"BLOCKED_BY_COMPUTE", "BLOCKED_BY_MODEL_ADAPTER"}
-            else "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
-        )
+        next_action = "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
 
     REPORTS.mkdir(parents=True, exist_ok=True)
     atomic_text = _atomic_report(atomic)
@@ -164,6 +160,21 @@ def build_reports() -> dict[str, Any]:
             f"{model['dtype']} / {model['quantization']} | "
             f"{statuses.get(model['key'], {}).get('status', 'NOT_RUN')} |"
         )
+    gpus = registry.get("hardware", {}).get("gpus", [])
+    if gpus:
+        gpu = gpus[0]
+        torch = registry.get("hardware", {}).get("torch", {})
+        lines.extend(
+            [
+                "",
+                (
+                    f"Execution hardware: {gpu.get('name', 'unknown GPU')}, "
+                    f"{gpu.get('memory_total_mib', 'unknown')} MiB VRAM; "
+                    f"PyTorch {torch.get('version', 'unknown')}, CUDA runtime "
+                    f"{torch.get('cuda_runtime', 'unknown')}."
+                ),
+            ]
+        )
     lines.extend(["", "# 4. Atomic Qualification", ""])
     for model_key, result in atomic.get("models", {}).items():
         lines.append(
@@ -200,7 +211,7 @@ def build_reports() -> dict[str, Any]:
     )
     lines.extend(["# 7. Joint Composition", ""])
     lines.append(
-        "Joint screen details are in `reports/joint_composition_screen.md`; it is absent by design when the atomic gate does not pass."
+        "Joint screen status is recorded in `reports/joint_composition_screen.md`; inference was not run because the atomic gate did not pass."
     )
     lines.extend(["", "# 8. Failure Analysis", ""])
     if smoke.get("blocking_decision"):

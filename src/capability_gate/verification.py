@@ -60,14 +60,20 @@ def verify_artifacts() -> dict[str, Any]:
                 "required_fields": all(REQUIRED_PREDICTION_FIELDS <= row.keys() for row in rows),
             }
     checks["prediction_contracts"] = prediction_checks
-    checks["prediction_contract_fields"] = all(
-        value["required_fields"] for value in prediction_checks.values()
+    final_path = ARTIFACTS / "manifests" / "final_decision.json"
+    final = json.loads(final_path.read_text(encoding="utf-8"))
+    blocked = final["decision"] in {"BLOCKED_BY_COMPUTE", "BLOCKED_BY_MODEL_ADAPTER"}
+    checks["prediction_contract_fields"] = (
+        all(value["required_fields"] for value in prediction_checks.values())
+        if prediction_checks
+        else blocked
+    )
+    checks["prediction_contract_status"] = (
+        "VERIFIED" if prediction_checks else "NOT_APPLICABLE_NO_PREDICTIONS_BY_RECORDED_BLOCKER"
     )
     checks["no_activation_patching_module"] = not any(
         "patch" in path.name.lower() for path in (ROOT / "src" / "capability_gate").rglob("*.py")
     )
-    final_path = ARTIFACTS / "manifests" / "final_decision.json"
-    final = json.loads(final_path.read_text(encoding="utf-8"))
     checks["no_mechanism_claims"] = (
         not final["mechanism_claims"] and not final["activation_patching_executed"]
     )
@@ -82,13 +88,16 @@ def verify_artifacts() -> dict[str, Any]:
     checks["overall_gate"] = all(
         value
         for key, value in checks.items()
-        if key not in {"prediction_contracts", "overall_gate"}
+        if key not in {"prediction_contracts", "prediction_contract_status", "overall_gate"}
     )
     paths = [
-        path
-        for path in [*ARTIFACTS.glob("**/*.json"), *REPORTS.glob("*.md")]
-        if path.name != "artifact_verification.json"
+        *list((ARTIFACTS / "atomic").glob("*.json")),
+        *list((ARTIFACTS / "joint").glob("*.json")),
+        *list((ARTIFACTS / "manifests").glob("*.json")),
+        ARTIFACTS / "models" / "frozen_registry.json",
+        *list(REPORTS.glob("*.md")),
     ]
+    paths = [path for path in paths if path.name != "artifact_verification.json"]
     result = {
         "schema_version": 1,
         "checks": checks,

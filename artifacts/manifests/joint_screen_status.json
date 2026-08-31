@@ -1,0 +1,5 @@
+{
+  "status": "NOT_RUN_BY_STOP_RULE",
+  "upstream_decision": "BLOCKED_BY_MODEL_ADAPTER",
+  "model_forward_passes": 0
+}

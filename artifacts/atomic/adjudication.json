@@ -1,0 +1,6 @@
+{
+  "decision": "BLOCKED_BY_MODEL_ADAPTER",
+  "qualified_count": 0,
+  "models": {},
+  "reason": "at least one of the three prospectively frozen families failed real forward/measurement smoke"
+}

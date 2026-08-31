@@ -1,0 +1,7 @@
+{
+  "decision": "BLOCKED_BY_MODEL_ADAPTER",
+  "q1_research_potential": "NO_FEASIBLE_COHORT",
+  "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE",
+  "activation_patching_executed": false,
+  "mechanism_claims": []
+}

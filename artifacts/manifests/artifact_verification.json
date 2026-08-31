@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "checks": {
+    "historical_freeze": true,
+    "data_validation": true,
+    "three_frozen_families": true,
+    "exact_revisions": true,
+    "weight_hashes_recorded": true,
+    "prediction_contracts": {},
+    "prediction_contract_fields": true,
+    "prediction_contract_status": "NOT_APPLICABLE_NO_PREDICTIONS_BY_RECORDED_BLOCKER",
+    "no_activation_patching_module": true,
+    "no_mechanism_claims": true,
+    "reports_exist": true,
+    "overall_gate": true
+  },
+  "manifest": {
+    "schema_version": 1,
+    "kind": "final_artifact_verification",
+    "created_at": "2026-08-31T10:40:50.023598+00:00",
+    "hostname": "Yangjunjie",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\.venv\\Scripts\\python.exe",
+    "pid": 44148,
+    "git_commit": "cbeb5c98177e2aaaa4e9904f174f278e851a43f8",
+    "git_branch": "codex/three-family-capability-screen",
+    "files": [
+      {
+        "path": "artifacts/atomic/adjudication.json",
+        "bytes": 200,
+        "sha256": "bfefc28c312cb6eaa7ece9b73d0ee9baa6b97a4cd2d2524529650d79cb3ac636"
+      },
+      {
+        "path": "artifacts/joint/analysis.json",
+        "bytes": 177,
+        "sha256": "70d221e3853ffd80a18e695c0aefae81f0aa9df344231f63ddf5e07d13a8a0af"
+      },
+      {
+        "path": "artifacts/manifests/atomic_run.json",
+        "bytes": 136,
+        "sha256": "3745a0c01f2fb0f13c825d26e61e19d594e314a445bdf95217dba5c99ee81c0e"
+      },
+      {
+        "path": "artifacts/manifests/data_manifest.json",
+        "bytes": 120007,
+        "sha256": "f8834f53ba6c03c59443b3c8b638fe4d8e1f2ad9f9d00c3629774119c557085c"
+      },
+      {
+        "path": "artifacts/manifests/data_validation.json",
+        "bytes": 4773,
+        "sha256": "2e92bc264559acf8266a1bd09a10cca4367405e635ebd9fdddb2e36a6f2fd50d"
+      },
+      {
+        "path": "artifacts/manifests/engineering_smoke.json",
+        "bytes": 45038,
+        "sha256": "0ba3c4df6e65c41d831f86f52db0ff3028be5532814c26e0351402e17f8b0ba3"
+      },
+      {
+        "path": "artifacts/manifests/final_decision.json",
+        "bytes": 229,
+        "sha256": "d7860816324cfb2923ec904af412b73e9c99be0c172623e117fac9e5e145ddae"
+      },
+      {
+        "path": "artifacts/manifests/historical_freeze.json",
+        "bytes": 754,
+        "sha256": "c174dbe3bc83a6c984a75cc0c6d9320b8a6316ad8d345d4336b71b2aa407b2a3"
+      },
+      {
+        "path": "artifacts/manifests/joint_screen_status.json",
+        "bytes": 124,
+        "sha256": "8483d02b0362181db2c05c19a3e9f37c0da0f0a326a54254ffb898ae457560f4"
+      },
+      {
+        "path": "artifacts/manifests/report_manifest.json",
+        "bytes": 1237,
+        "sha256": "2172e4538d5fe0d548137ef05e9e29133a7f4fabc1ef9ec0321e2b1ed89a9f8a"
+      },
+      {
+        "path": "artifacts/models/frozen_registry.json",
+        "bytes": 10007,
+        "sha256": "3b6faeef5e9084d12b1388fbad5396aba9a939878c364fe95f556620371994f2"
+      },
+      {
+        "path": "reports/atomic_qualification.md",
+        "bytes": 162,
+        "sha256": "1624fa9a65874ea8e117fa9ecc4f89a2399cb3824e9325dd35b0d0b0e14fde0f"
+      },
+      {
+        "path": "reports/final_qualification_decision.md",
+        "bytes": 1993,
+        "sha256": "c6b62482b2a40b8d5ba33fb535e31383e7779c18f730bb0ecace4fae88b65098"
+      },
+      {
+        "path": "reports/joint_composition_screen.md",
+        "bytes": 148,
+        "sha256": "ea537e0f552f1177344c5d77f41bb5cfb6712bfc9630d1541b98fe29f10119ef"
+      }
+    ]
+  }
+}
