@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "model_key": "glm4_1v_9b",
+  "phase": "atomic_qualification_v2",
+  "classification": "BLOCKED_BY_COMPUTE",
+  "scientific_capability_conclusion": false,
+  "local_compute": {
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "vram_mib": 6144,
+    "driver_version": "566.07",
+    "torch": "2.6.0+cu124",
+    "cuda_runtime": "12.4",
+    "bitsandbytes": "0.50.2"
+  },
+  "worker_evidence": {
+    "returncode": 1,
+    "stderr_sha256": "6a1ad54b0fdaf45b700d92f4ef9368b3893ec93d8379ba152ccace9cdcb938a1",
+    "stderr_last_write_utc": "2026-08-31T18:46:03Z",
+    "terminal_error": "Error an illegal memory access was encountered at line 93 in file D:\\a\\bitsandbytes\\bitsandbytes\\csrc\\ops.cu",
+    "gpu_used_mib_after_worker": 1068
+  },
+  "operating_system_evidence": {
+    "log": "System",
+    "provider": "nvlddmkm",
+    "event_id": 153,
+    "event_record_id": 176086,
+    "level": 2,
+    "time_created_utc": "2026-08-31T18:46:03.8531904Z",
+    "device": "\\Device\\Video3",
+    "event_data": "Error occurred on GPUID: 100"
+  },
+  "formal_output_evidence": {
+    "completed_rows_preserved": 15,
+    "prediction_sha256": "37bc2763c527a77373aa3f1f68f3005a69a0e4f934e3a5e099b291a85fce2ddf",
+    "runtime_failure_sha256": "7490f64969028d15864c94f934ae5c12d9a8cd95b6bed5a3d1e008acdcea8a74",
+    "qwen_rows": 0,
+    "atomic_metrics_computed": false
+  },
+  "adjudication_basis": "The quantized worker exited at the same timestamp as an NVIDIA kernel-driver error on the 6 GiB local GPU. The incomplete formal rows are preserved but are insufficient for any Atomic gate or model-capability conclusion.",
+  "exact_next_action": "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU"
+}

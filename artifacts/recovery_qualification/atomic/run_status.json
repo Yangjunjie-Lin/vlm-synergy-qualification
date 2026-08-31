@@ -1,0 +1,7 @@
+{
+  "status": "FORMAL_ATOMIC_RUNTIME_FAIL",
+  "model_key": "glm4_1v_9b",
+  "completed_prediction_rows_preserved": 15,
+  "error": "RuntimeError: worker glm4_1v_9b exited without a response: None",
+  "engineering_decision_commit": "50f1e6cdb50c353b2c899390aec7a987a28daa27"
+}

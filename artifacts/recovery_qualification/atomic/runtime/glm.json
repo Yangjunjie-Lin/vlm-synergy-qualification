@@ -1,0 +1,7 @@
+{
+  "model_key": "glm4_1v_9b",
+  "release": {
+    "worker_returncode": 1,
+    "gpu_used_mib_after_worker": 1068
+  }
+}

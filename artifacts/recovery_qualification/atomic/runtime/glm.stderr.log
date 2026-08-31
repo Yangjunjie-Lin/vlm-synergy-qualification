@@ -1,0 +1,4 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|##5       | 1/4 [00:07<00:23,  7.73s/it]Loading checkpoint shards:  50%|#####     | 2/4 [00:17<00:17,  8.94s/it]Loading checkpoint shards:  75%|#######5  | 3/4 [00:27<00:09,  9.48s/it]Loading checkpoint shards: 100%|##########| 4/4 [00:35<00:00,  8.98s/it]Loading checkpoint shards: 100%|##########| 4/4 [00:35<00:00,  8.96s/it]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Error an illegal memory access was encountered at line 93 in file D:\a\bitsandbytes\bitsandbytes\csrc\ops.cu
