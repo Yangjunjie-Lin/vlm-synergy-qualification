@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scene_count": 12,
+  "engineering_only": true,
+  "engineering_scene_accuracy_reported": false,
+  "formal_atomic_outputs_before_smoke": 0,
+  "formal_joint_outputs_before_smoke": 0,
+  "model_results": {
+    "qwen2_5_vl_7b": {
+      "status": "MEASUREMENT_IMPLEMENTATION_FAIL",
+      "reason": "Traceback (most recent call last):\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\workers\\_entrypoint.py\", line 167, in _serve\n    adapter.load()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 264, in load\n    self._install_vision_hooks()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 300, in _install_vision_hooks\n    raise MeasurementImplementationError(\"no vision module found for forward proof hook\")\ncapability_gate.recovery.adapters.MeasurementImplementationError: no vision module found for forward proof hook\n",
+      "load_attempts": 1,
+      "scientific_capability_conclusion": false,
+      "worker_release": {
+        "worker_returncode": 0,
+        "gpu_used_mib_after_worker": 1046
+      }
+    },
+    "glm4_1v_9b": {
+      "status": "MEASUREMENT_IMPLEMENTATION_FAIL",
+      "reason": "Traceback (most recent call last):\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\workers\\_entrypoint.py\", line 167, in _serve\n    adapter.load()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 264, in load\n    self._install_vision_hooks()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 300, in _install_vision_hooks\n    if not candidates:\n        ^^^^^^^^^^^^^^^\ncapability_gate.recovery.adapters.MeasurementImplementationError: no vision module found for forward proof hook\n",
+      "load_attempts": 1,
+      "scientific_capability_conclusion": false,
+      "worker_release": {
+        "worker_returncode": 0,
+        "gpu_used_mib_after_worker": 901
+      }
+    },
+    "phi4_multimodal_5_6b": {
+      "status": "BLOCKED_BY_MODEL_ADAPTER",
+      "reason": "Traceback (most recent call last):\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\workers\\_entrypoint.py\", line 167, in _serve\n    adapter.load()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 233, in load\n    loaded = self._model_loader().from_pretrained(\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\phi\\.venv\\lib\\site-packages\\transformers\\models\\auto\\auto_factory.py\", line 559, in from_pretrained\n    return model_class.from_pretrained(\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\phi\\.venv\\lib\\site-packages\\transformers\\modeling_utils.py\", line 4105, in from_pretrained\n    config = cls._autoset_attn_implementation(\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\phi\\.venv\\lib\\site-packages\\transformers\\modeling_utils.py\", line 1525, in _autoset_attn_implementation\n    cls._check_and_enable_flash_attn_2(\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\phi\\.venv\\lib\\site-packages\\transformers\\modeling_utils.py\", line 1659, in _check_and_enable_flash_attn_2\n    raise ImportError(f\"{preface} the package flash_attn seems to be not installed. {install_message}\")\nImportError: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package flash_attn seems to be not installed. Please refer to the documentation of https://huggingface.co/docs/transformers/perf_infer_gpu_one#flashattention-2 to install Flash Attention 2.\n",
+      "load_attempts": 1,
+      "scientific_capability_conclusion": false,
+      "worker_release": {
+        "worker_returncode": 0,
+        "gpu_used_mib_after_worker": 944
+      }
+    }
+  },
+  "activation_patching_executed": false,
+  "fourth_model_used": false,
+  "scientific_capability_conclusion": false
+}

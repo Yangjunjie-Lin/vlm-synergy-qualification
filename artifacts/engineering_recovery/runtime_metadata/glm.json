@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "model_key": "glm4_1v_9b",
+  "sequential_worker_release": {
+    "worker_returncode": 0,
+    "gpu_used_mib_after_worker": 901
+  },
+  "total_runtime_seconds": 2876.4778476000065
+}
