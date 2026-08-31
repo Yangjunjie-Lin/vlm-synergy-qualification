@@ -3,7 +3,7 @@
   "model_key": "qwen2_5_vl_7b",
   "sequential_worker_release": {
     "worker_returncode": 0,
-    "gpu_used_mib_after_worker": 886
+    "gpu_used_mib_after_worker": 1046
   },
-  "total_runtime_seconds": 1049.1654371000186
+  "total_runtime_seconds": 2808.6678654999996
 }

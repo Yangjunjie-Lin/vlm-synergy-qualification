@@ -3,7 +3,7 @@
   "model_key": "phi4_multimodal_5_6b",
   "sequential_worker_release": {
     "worker_returncode": 0,
-    "gpu_used_mib_after_worker": 802
+    "gpu_used_mib_after_worker": 944
   },
-  "total_runtime_seconds": 56.00528360001044
+  "total_runtime_seconds": 1806.1748023999971
 }
