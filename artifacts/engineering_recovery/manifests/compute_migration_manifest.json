@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "kind": "SAME_FROZEN_COHORT_COMPUTE_MIGRATION",
+  "blocked_phase": "atomic_qualification_v2",
+  "minimum_single_gpu_vram_gib": 16,
+  "preferred_single_gpu_vram_gib": 24,
+  "migration_source_commit": "50f1e6cdb50c353b2c899390aec7a987a28daa27",
+  "models": {
+    "glm4_1v_9b": {
+      "model_id": "zai-org/GLM-4.1V-9B-Thinking",
+      "revision": "3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+      "requirements_lock": "envs/glm/requirements.lock",
+      "cuda": "12.4 compatible driver/runtime",
+      "torch": "2.6.0+cu124",
+      "model_cache_manifest": [
+        {
+          "path": "model-00001-of-00004.safetensors",
+          "bytes": 5303216560,
+          "sha256": "56708b3541e1f69c9843ae19eaa23720c5cee9f3d0c9ed101c3b9b43b40974a1"
+        },
+        {
+          "path": "model-00002-of-00004.safetensors",
+          "bytes": 5303216696,
+          "sha256": "7c353db4141fdd9a0c6b990d50040a28812bb56dc91c42154abc5a4ee81fe698"
+        },
+        {
+          "path": "model-00003-of-00004.safetensors",
+          "bytes": 5303216696,
+          "sha256": "f3fab833fe4cad6cbce924908e1a58320217295417bbf87aa810fff6e4b634a4"
+        },
+        {
+          "path": "model-00004-of-00004.safetensors",
+          "bytes": 4675994152,
+          "sha256": "b3c7723fac7de60f2b67e4f84f2d8648d7431ff32c95c630dcc17790091005eb"
+        }
+      ],
+      "expected_disk_requirement": "26-34 GiB",
+      "expected_vram_range": "16-24 GiB single CUDA GPU",
+      "exact_environment_command": "python -m pip install -r envs/glm/requirements.lock"
+    },
+    "qwen2_5_vl_7b": {
+      "model_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+      "requirements_lock": "envs/qwen/requirements.lock",
+      "cuda": "12.4 compatible driver/runtime",
+      "torch": "2.6.0+cu124",
+      "model_cache_manifest": [
+        {
+          "path": "model-00001-of-00005.safetensors",
+          "bytes": 3900233256,
+          "sha256": "e97b877e47fde53a6c6e77aafb36e58e91ee9d95c4a3eeac6f1b5c0e6a1c986e"
+        },
+        {
+          "path": "model-00002-of-00005.safetensors",
+          "bytes": 3864726320,
+          "sha256": "a9a300a43b4724eee2abe7c18ceb26768d0ab011eb0cad19d9bfd2476a24d024"
+        },
+        {
+          "path": "model-00003-of-00005.safetensors",
+          "bytes": 3864726424,
+          "sha256": "111223d173e00bbee81cba1216fad28668df3476706b7fd26f4d5b50f8b3a507"
+        },
+        {
+          "path": "model-00004-of-00005.safetensors",
+          "bytes": 3864733680,
+          "sha256": "ef47f634fa57d46ee134edcc09f34085a47da1e16c12a2abe0d67118be6d72ed"
+        },
+        {
+          "path": "model-00005-of-00005.safetensors",
+          "bytes": 1089994880,
+          "sha256": "0c859795ad3a627a9b95bcb762e059d5b768a4a36fdd4affeff269d93fdecc67"
+        }
+      ],
+      "expected_disk_requirement": "22-28 GiB",
+      "expected_vram_range": "16-24 GiB single CUDA GPU",
+      "exact_environment_command": "python -m pip install -r envs/qwen/requirements.lock"
+    }
+  },
+  "exact_commands": [
+    "python -m capability_gate verify-historical-block",
+    "python -m capability_gate verify-model-environments",
+    "python -m capability_gate run-atomic-qualification-v2"
+  ],
+  "model_or_revision_changed": false,
+  "formal_data_or_prompt_changed": false
+}

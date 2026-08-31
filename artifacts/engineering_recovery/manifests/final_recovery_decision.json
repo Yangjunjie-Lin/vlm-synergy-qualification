@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "decision": "BLOCKED_BY_COMPUTE",
+  "q1_potential": "NOT_EVALUATED_ENGINEERING_BLOCK",
+  "exact_next_action": "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU",
+  "atomic_run": true,
+  "atomic_complete": false,
+  "joint_run": false,
+  "scientific_capability_conclusion": false,
+  "activation_patching_executed": false,
+  "migration_manifest": true
+}
