@@ -79,3 +79,30 @@ def engineering_cohort_decision(model_statuses: Mapping[str, str]) -> dict[str, 
         "activation_patching_authorized": False,
         "fourth_model_authorized": False,
     }
+
+
+def authorize_atomic(engineering_decision: Mapping[str, Any]) -> list[str]:
+    if not engineering_decision.get("atomic_authorized", False):
+        raise RuntimeError("NOT_RUN_BY_ENGINEERING_GATE")
+    models = list(engineering_decision.get("atomic_authorized_models", []))
+    if len(models) < 2:
+        raise RuntimeError("NOT_RUN_BY_ENGINEERING_GATE")
+    if not set(models) <= {"qwen2_5_vl_7b", "glm4_1v_9b", "phi4_multimodal_5_6b"}:
+        raise RuntimeError("fourth model is forbidden")
+    return models
+
+
+def authorize_joint(atomic_labels: Mapping[str, str]) -> list[str]:
+    unknown = set(atomic_labels) - {
+        "qwen2_5_vl_7b",
+        "glm4_1v_9b",
+        "phi4_multimodal_5_6b",
+    }
+    if unknown:
+        raise RuntimeError("fourth model is forbidden")
+    qualified = sorted(
+        key for key, value in atomic_labels.items() if value == "ATOMICALLY_QUALIFIED"
+    )
+    if len(qualified) < 2:
+        raise RuntimeError("NOT_RUN_BY_ATOMIC_GATE")
+    return qualified
