@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "LOCAL_6GB_INCOMPLETE_COMPUTE_PROVENANCE",
+  "source_environment": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "gpu_total_vram_mib": 6144,
+    "torch": "2.6.0+cu124",
+    "cuda_runtime": "12.4"
+  },
+  "source_branch": "codex/root-cause-adapter-recovery",
+  "source_head": "ad539cf11ddbac2fef7d24f6fcf8a99c3da41f51",
+  "source_artifact_commit": "a3217460040e35cce028752b2c347f6c76ef27dd",
+  "model_key": "glm4_1v_9b",
+  "model_id": "zai-org/GLM-4.1V-9B-Thinking",
+  "revision": "3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+  "prediction_path": "artifacts/recovery_qualification/atomic/predictions/glm.jsonl",
+  "row_count": 15,
+  "expected_complete_row_count": 256,
+  "first_scene_id": "5353de0b-5fc9-5c75-b309-3573d2b91845",
+  "last_scene_id": "7066fa7e-fe22-5797-b487-9836e7d28269",
+  "task_rows": {
+    "direct_visual_relation": 15
+  },
+  "reason": "different incomplete compute environment",
+  "scientific_metric_use": "forbidden",
+  "deleted": false,
+  "migration_restart_policy": "restart each eligible model from formal Atomic scene 1; do not continue at scene 16 and do not merge rows across hardware"
+}

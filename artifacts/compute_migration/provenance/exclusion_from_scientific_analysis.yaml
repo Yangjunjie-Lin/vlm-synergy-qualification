@@ -1,0 +1,15 @@
+schema_version: 1
+artifact: artifacts/recovery_qualification/atomic/predictions/glm.jsonl
+model_key: glm4_1v_9b
+row_count: 15
+reason: different incomplete compute environment
+scientific_metric_use: forbidden
+deleted: false
+merge_with_migrated_results: forbidden
+resume_from_scene_16: forbidden
+migrated_run_requirement:
+  qwen2_5_vl_7b: restart from formal Atomic scene 1 and complete all 256 scenes
+  glm4_1v_9b: restart from formal Atomic scene 1 and complete all 256 scenes
+environment_change_policy: >-
+  If the migrated environment changes, freeze the incomplete run as failed and
+  start a new run ID from scene 1. Never combine rows from different environments.
