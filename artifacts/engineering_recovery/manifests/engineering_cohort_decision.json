@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "decision": "PARTIAL_ENGINEERING_COHORT_GO",
+  "passed_count": 2,
+  "passed_models": [
+    "glm4_1v_9b",
+    "qwen2_5_vl_7b"
+  ],
+  "blocked_models": {
+    "phi4_multimodal_5_6b": "BLOCKED_BY_MODEL_ADAPTER"
+  },
+  "atomic_authorized": true,
+  "atomic_authorized_models": [
+    "glm4_1v_9b",
+    "qwen2_5_vl_7b"
+  ],
+  "scientific_capability_conclusion": false,
+  "activation_patching_authorized": false,
+  "fourth_model_authorized": false,
+  "model_statuses": {
+    "qwen2_5_vl_7b": "ENGINEERING_RECOVERY_PASS",
+    "glm4_1v_9b": "ENGINEERING_RECOVERY_PASS",
+    "phi4_multimodal_5_6b": "BLOCKED_BY_MODEL_ADAPTER"
+  },
+  "formal_atomic_outputs_at_adjudication": 0,
+  "formal_joint_outputs_at_adjudication": 0,
+  "activation_patching_executed": false,
+  "third_model_disposition": {
+    "phi4_multimodal_5_6b": "NOT_EVALUABLE_BY_ENGINEERING_BLOCK"
+  }
+}
