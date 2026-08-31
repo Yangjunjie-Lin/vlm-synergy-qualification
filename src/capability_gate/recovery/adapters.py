@@ -292,7 +292,8 @@ class NativeRecoveryAdapter:
         candidates: list[tuple[str, Any]] = []
         for name, module in self.model.named_modules():
             lowered = name.lower()
-            if name == "visual" or any(
+            path_parts = lowered.split(".")
+            if "visual" in path_parts or any(
                 marker in lowered for marker in ("vision", "image_embed", "img_processor")
             ):
                 candidates.append((name, module))

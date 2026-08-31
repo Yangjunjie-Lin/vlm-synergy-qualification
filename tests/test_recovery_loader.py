@@ -18,6 +18,27 @@ from capability_gate.recovery.adapters import (
 from capability_gate.recovery.placement import validate_no_auto_offload
 
 
+class _HookableModule:
+    def __init__(self) -> None:
+        self.hook = None
+
+    def register_forward_hook(self, hook):
+        self.hook = hook
+        return SimpleNamespace(remove=lambda: None)
+
+
+def test_nested_native_visual_module_is_accepted_for_forward_proof() -> None:
+    adapter = QwenRecoveryAdapter()
+    visual = _HookableModule()
+    adapter.model = SimpleNamespace(named_modules=lambda: [("model.visual", visual)])
+
+    adapter._install_vision_hooks()
+
+    assert visual.hook is not None
+    visual.hook(visual, (), None)
+    assert adapter._vision_observed is True
+
+
 def test_native_model_loader_classes_are_frozen() -> None:
     assert DESCRIPTORS["qwen2_5_vl_7b"].loader_class == "Qwen2_5_VLForConditionalGeneration"
     assert DESCRIPTORS["glm4_1v_9b"].loader_class == "Glm4vForConditionalGeneration"
