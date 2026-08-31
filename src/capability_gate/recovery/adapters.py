@@ -117,6 +117,17 @@ def _tensor_is_meta(value: Any) -> bool:
     )
 
 
+def force_attention_implementation(config: Any, implementation: str) -> Any:
+    if implementation not in {"eager", "sdpa"}:
+        raise ValueError(f"unsupported recovery attention implementation: {implementation}")
+    config._attn_implementation = implementation
+    if config._attn_implementation != implementation:
+        raise MeasurementImplementationError(
+            f"attention implementation override failed: {config._attn_implementation}"
+        )
+    return config
+
+
 def inspect_materialization(model: Any, loading_info: Mapping[str, Any]) -> dict[str, Any]:
     meta_parameters = [
         name for name, parameter in model.named_parameters() if _tensor_is_meta(parameter)
@@ -497,6 +508,9 @@ class NativeRecoveryAdapter:
             "loader_class": self.descriptor.loader_class,
             "model_class": type(self.model).__name__,
             "processor_class": type(self.processor).__name__,
+            "attention_implementation": getattr(
+                self.model.config, "_attn_implementation", None
+            ),
             "native_model_class_verified": (
                 type(self.model).__name__ == self.descriptor.expected_model_class
             ),
@@ -622,6 +636,19 @@ class PhiRecoveryAdapter(NativeRecoveryAdapter):
         from transformers import AutoModelForCausalLM
 
         return AutoModelForCausalLM
+
+    def _model_kwargs(self) -> dict[str, Any]:
+        from transformers import AutoConfig
+
+        kwargs = super()._model_kwargs()
+        config = AutoConfig.from_pretrained(
+            self.descriptor.model_id,
+            revision=self.descriptor.revision,
+            trust_remote_code=True,
+        )
+        kwargs["config"] = force_attention_implementation(config, "eager")
+        kwargs.pop("attn_implementation", None)
+        return kwargs
 
     def _encode(self, system: str, user: str, image: Image.Image | None) -> tuple[str, Any]:
         image_token = "<|image_1|>" if image is not None else ""

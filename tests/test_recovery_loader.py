@@ -13,6 +13,7 @@ from capability_gate.recovery.adapters import (
     DESCRIPTORS,
     QwenRecoveryAdapter,
     adapter_for,
+    force_attention_implementation,
     inspect_materialization,
 )
 from capability_gate.recovery.placement import validate_no_auto_offload
@@ -52,12 +53,23 @@ def test_repair_retry_is_limited_to_exact_hook_failure() -> None:
                 "reason": "CUDA out of memory",
             },
             "phi4_multimodal_5_6b": {
-                "status": "ENGINEERING_RECOVERY_PASS",
+                "status": "BLOCKED_BY_MODEL_ADAPTER",
+                "reason": "ImportError: FlashAttention2 has been toggled on",
             },
         }
     }
 
-    assert _repair_retry_models(manifest) == {"qwen2_5_vl_7b"}
+    assert _repair_retry_models(manifest) == {
+        "qwen2_5_vl_7b",
+        "phi4_multimodal_5_6b",
+    }
+
+
+def test_phi_attention_override_explicitly_disables_flash_attention() -> None:
+    config = SimpleNamespace(_attn_implementation="flash_attention_2")
+
+    assert force_attention_implementation(config, "eager") is config
+    assert config._attn_implementation == "eager"
 
 
 def test_native_model_loader_classes_are_frozen() -> None:

@@ -16,7 +16,10 @@ from capability_gate.recovery.environments import ENV_NAMES, worker_python, work
 from capability_gate.recovery.smoke_data import generate_recovery_smoke_scenes
 
 RECOVERY = ARTIFACTS / "engineering_recovery"
-REPAIR_RETRY_SIGNATURE = "no vision module found for forward proof hook"
+REPAIR_RETRY_SIGNATURES = (
+    "no vision module found for forward proof hook",
+    "FlashAttention2 has been toggled on",
+)
 
 
 def _append_jsonl(path: Path, row: dict[str, Any]) -> None:
@@ -155,8 +158,12 @@ def _repair_retry_models(manifest: dict[str, Any]) -> set[str]:
     return {
         model_key
         for model_key, result in manifest.get("model_results", {}).items()
-        if result.get("status") == "MEASUREMENT_IMPLEMENTATION_FAIL"
-        and REPAIR_RETRY_SIGNATURE in str(result.get("reason", ""))
+        if result.get("status")
+        in {"MEASUREMENT_IMPLEMENTATION_FAIL", "BLOCKED_BY_MODEL_ADAPTER"}
+        and any(
+            signature in str(result.get("reason", ""))
+            for signature in REPAIR_RETRY_SIGNATURES
+        )
     }
 
 

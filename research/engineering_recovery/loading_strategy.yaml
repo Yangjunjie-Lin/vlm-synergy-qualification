@@ -62,4 +62,11 @@ models:
       - sdpa
       - eager
     flash_attention_required_on_windows: false
-
+    observed_revision_default_attention: flash_attention_2
+    resolved_windows_recovery_attention: eager
+    attention_resolution_basis: >-
+      The frozen config explicitly sets _attn_implementation=flash_attention_2; the compatible
+      Transformers AutoConfig loader retains that value even when from_pretrained receives the
+      generic eager argument. The native Phi adapter therefore sets the loaded frozen config to
+      eager before model construction. Model ID, revision, weights, processor, prompts, and data
+      remain unchanged.
