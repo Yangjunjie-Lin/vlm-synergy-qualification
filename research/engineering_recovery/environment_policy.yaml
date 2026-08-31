@@ -1,0 +1,47 @@
+schema_version: 1
+isolation_required: true
+shared_transformers_environment_for_all_models: forbidden
+worker_environments:
+  qwen:
+    path: envs/qwen
+    lock_file: envs/qwen/requirements.lock
+    python: "3.11"
+  glm:
+    path: envs/glm
+    lock_file: envs/glm/requirements.lock
+    python: "3.11"
+  phi:
+    path: envs/phi
+    lock_file: envs/phi/requirements.lock
+    python: "3.10"
+local_hardware:
+  gpu: NVIDIA GeForce RTX 3060 Laptop GPU
+  vram_mib: 6144
+  allowed_uses:
+    - dependency preflight
+    - processor test
+    - small engineering-only smoke
+    - 4-bit GPU-only test when the frozen model fits
+  scientific_failure_inference_from_local_oom: forbidden
+adequate_compute:
+  minimum_single_gpu_vram_gib: 16
+  preferred_single_gpu_vram_gib: 24
+  migration_kind: SAME_FROZEN_COHORT_COMPUTE_MIGRATION
+  immutable_during_migration:
+    - model ID
+    - model revision
+    - processor revision
+    - tokenizer revision
+    - prompts
+    - data
+    - candidates
+    - thresholds
+migration_package_required_fields:
+  - requirements lock
+  - CUDA version
+  - Torch version
+  - model-cache manifest
+  - exact command
+  - expected disk requirement
+  - expected VRAM range
+

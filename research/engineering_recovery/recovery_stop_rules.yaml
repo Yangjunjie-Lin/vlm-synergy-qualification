@@ -1,0 +1,56 @@
+schema_version: 1
+frozen_before_atomic_output: true
+activation_patching: FORBIDDEN
+allowed_final_decisions:
+  - QUALIFIED_FOR_NEW_MECHANISTIC_PREREGISTRATION
+  - CAPABILITY_COHORT_NO_GO
+  - JOINT_COMPOSITION_NO_GO
+  - MEASUREMENT_CONTRACT_NO_GO
+  - ENGINEERING_COHORT_NO_GO
+  - BLOCKED_BY_COMPUTE
+  - BLOCKED_BY_MODEL_ADAPTER
+decision_mapping:
+  BLOCKED_BY_MODEL_ADAPTER:
+    q1_potential: NOT_EVALUATED
+    recovery_q1_potential: NOT_EVALUATED_ENGINEERING_BLOCK
+    next_action: ROOT_CAUSE_ADAPTER_RECOVERY
+    final_recovery_next_action: TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE
+  BLOCKED_BY_COMPUTE:
+    q1_potential: NOT_EVALUATED
+    recovery_q1_potential: NOT_EVALUATED_ENGINEERING_BLOCK
+    next_action: MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_COMPUTE
+    final_recovery_next_action: MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU
+  CAPABILITY_COHORT_NO_GO:
+    q1_potential: NO_FEASIBLE_COHORT
+    next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+  JOINT_COMPOSITION_NO_GO:
+    q1_potential: NO_FEASIBLE_COHORT
+    next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+  MEASUREMENT_CONTRACT_NO_GO:
+    q1_potential: NO_FEASIBLE_COHORT
+    next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+engineering_status_vocabulary:
+  - ENGINEERING_RECOVERY_PASS
+  - BLOCKED_BY_COMPUTE
+  - BLOCKED_BY_MODEL_ADAPTER
+  - BLOCKED_BY_DEPENDENCY
+  - MEASUREMENT_IMPLEMENTATION_FAIL
+engineering_cohort_gate:
+  required_pass_families: 2
+  three_pass: ENGINEERING_COHORT_GO
+  exactly_two_pass: PARTIAL_ENGINEERING_COHORT_GO
+  fewer_than_two_pass: ENGINEERING_COHORT_NO_GO
+  exactly_two_third_model_status: NOT_EVALUABLE_BY_ENGINEERING_BLOCK
+  atomic_authorized_only_for_pass_models: true
+atomic_gate:
+  requires_engineering_pass_families_min: 2
+  no_go: CAPABILITY_COHORT_NO_GO
+  no_go_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+joint_gate:
+  requires_atomically_qualified_families_min: 2
+  no_go: JOINT_COMPOSITION_NO_GO
+  no_go_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+go:
+  decision: QUALIFIED_FOR_NEW_MECHANISTIC_PREREGISTRATION
+  next_action: BUILD_HELD_OUT_MECHANISTIC_PILOT
+

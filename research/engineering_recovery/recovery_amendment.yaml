@@ -1,0 +1,48 @@
+schema_version: 1
+base_commit: 32a8333bf0106579834fb7a0747c81d67b49ac10
+previous_decision: BLOCKED_BY_MODEL_ADAPTER
+formal_task_outputs_before_amendment: 0
+scientific_results_observed: false
+amendment_kind: ENGINEERING_RECOVERY_ONLY
+created_on: "2026-08-31"
+unchanged:
+  - model families
+  - model IDs
+  - exact model revisions
+  - processor revisions
+  - tokenizer revisions
+  - formal Atomic data
+  - formal Joint data
+  - task prompts
+  - candidate answers
+  - qualification thresholds
+  - answer contracts
+  - model selection policy
+  - scientific estimands
+allowed_changes:
+  - dependency installation
+  - Python environment isolation
+  - native model class
+  - processor construction
+  - image preprocessing
+  - quantization implementation
+  - device map
+  - CPU/GPU placement
+  - candidate microbatch size
+  - formal-output-independent engineering smoke
+  - engineering reporting logic
+prohibited_descriptions:
+  - new model experiment
+  - checkpoint replacement
+  - prompt tuning
+  - result rescue
+  - scientific amendment
+  - capability evidence
+formal_execution_guards:
+  activation_patching: FORBIDDEN
+  fourth_model: FORBIDDEN
+  checkpoint_replacement: FORBIDDEN
+  task_performance_based_selection: FORBIDDEN
+  atomic_requires_engineering_recovery_pass_families_min: 2
+  joint_requires_atomically_qualified_families_min: 2
+

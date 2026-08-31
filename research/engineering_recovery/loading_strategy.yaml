@@ -1,0 +1,65 @@
+schema_version: 1
+sequential_model_loading: true
+candidate_microbatch_size: 1
+default_quantized_auto_cpu_disk_offload: forbidden
+pre_forward_invariants:
+  meta_parameter_count: 0
+  meta_buffer_count: 0
+  missing_weight_count: 0
+  unexpected_weight_count: 0
+  meta_failure_status: ENGINEERING_RECOVERY_FAIL_META_TENSOR
+placement_inventory_required:
+  - quantized_gpu_modules
+  - full_precision_cpu_modules
+  - disk_offloaded_modules
+  - meta_parameters
+  - unmaterialized_buffers
+models:
+  qwen2_5_vl_7b:
+    native_class: Qwen2_5_VLForConditionalGeneration
+    processor_class: AutoProcessor
+    min_pixels: 200704
+    initial_max_pixels: 401408
+    reduced_max_pixels_if_pre_result_oom: 200704
+    strategies:
+      - id: Q1
+        quantization: 4-bit NF4
+        placement: entire quantized model on cuda:0
+        cpu_offload: false
+        disk_offload: false
+      - id: Q2
+        condition: Q1_RECORDED_CUDA_OOM
+        placement: OFFICIAL_EXPLICIT_DEVICE_MAP_ONLY
+      - id: Q3
+        condition: FROZEN_MODEL_DOES_NOT_FIT_LOCAL_6_GIB_GPU
+        result: BLOCKED_BY_COMPUTE_LOCAL_GPU
+        next_action: migrate unchanged frozen model to at least 16 GiB CUDA GPU
+  glm4_1v_9b:
+    native_class: Glm4vForConditionalGeneration
+    processor_class: AutoProcessor
+    processor_use_fast: true
+    multimodal_encoding: apply_chat_template_tokenize_true_return_dict_true
+    bounded_image_resolution: true
+    strategies:
+      - id: G1
+        quantization: 4-bit NF4
+        placement: entire quantized model on cuda:0
+        cpu_offload: false
+        disk_offload: false
+      - id: G2
+        condition: G1_RECORDED_CUDA_OOM
+        placement: OFFICIAL_EXPLICIT_DEVICE_MAP_ONLY
+      - id: G3
+        condition: FROZEN_MODEL_DOES_NOT_FIT_LOCAL_6_GIB_GPU
+        result: BLOCKED_BY_COMPUTE_LOCAL_GPU
+        next_action: migrate unchanged frozen model to at least 16 GiB CUDA GPU
+  phi4_multimodal_5_6b:
+    native_class: AutoModelForCausalLM
+    trust_remote_code: true
+    dependency_preflight: workers/phi_worker.py --check-dependencies
+    from_pretrained_forbidden_when_preflight_fails: true
+    attention_priority:
+      - sdpa
+      - eager
+    flash_attention_required_on_windows: false
+

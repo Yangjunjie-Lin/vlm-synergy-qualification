@@ -1,0 +1,104 @@
+schema_version: 1
+frozen_before_new_model_load_attempts: true
+evidence_source: artifacts/manifests/engineering_smoke.json
+formal_task_outputs_at_diagnosis: 0
+shared_old_path:
+  quantization: 4-bit NF4 with double quantization
+  device_map: auto
+  cpu_offload_flag: llm_int8_enable_fp32_cpu_offload=true
+  offload_state_dict: true
+  loader: generic AutoModel class selection
+  status: UNVERIFIED_AS_4BIT_CPU_OFFLOAD
+models:
+  qwen2_5_vl_7b:
+    family: Qwen2.5-VL
+    original_failure: Tensor.item() cannot be called on meta tensors
+    observed_path:
+      - 4-bit NF4
+      - device_map=auto
+      - GPU/CPU offload
+      - bitsandbytes quant_state serialization
+      - Accelerate hook attachment
+    actual_root_cause: QUANTIZED_AUTO_OFFLOAD_META_QUANT_STATE
+    traceback_terminal_path:
+      - accelerate.big_modeling.dispatch_model
+      - accelerate.hooks.attach_align_device_hook_on_blocks
+      - torch.nn.Module.state_dict
+      - bitsandbytes.nn.modules._save_to_state_dict
+      - bitsandbytes.functional.QuantState.as_dict
+      - quant_state.offset.item
+      - torch.meta_local_scalar_dense
+    old_attempts:
+      attempt_1: generic 4-bit auto GPU/CPU offload with 4600 MiB GPU max memory
+      attempt_2: generic 4-bit auto GPU/CPU offload with 4100 MiB GPU max memory
+      root_cause_mechanism_changed: false
+      assessment: >-
+        Attempt 2 changed only max_memory and the offload folder. It did not change
+        quantization or offload mechanism and therefore was not a root-cause repair.
+    recovery_action:
+      native_class: Qwen2_5_VLForConditionalGeneration
+      primary: 4-bit GPU-only placement on one CUDA device, no CPU or disk auto-offload
+      fallback: official explicit device map only after a recorded GPU OOM
+      local_compute_boundary: BLOCKED_BY_COMPUTE_LOCAL_GPU
+    original_result: BLOCKED_BY_MODEL_ADAPTER
+
+  glm4_1v_9b:
+    family: GLM-4.1V
+    original_failure: Tensor.item() cannot be called on meta tensors
+    observed_path:
+      - 4-bit NF4
+      - device_map=auto
+      - GPU/CPU offload
+      - bitsandbytes quant_state serialization
+      - Accelerate hook attachment
+    actual_root_cause: QUANTIZED_AUTO_OFFLOAD_META_QUANT_STATE
+    traceback_terminal_path:
+      - accelerate.big_modeling.dispatch_model
+      - accelerate.hooks.attach_align_device_hook_on_blocks
+      - torch.nn.Module.state_dict
+      - bitsandbytes.nn.modules._save_to_state_dict
+      - bitsandbytes.functional.QuantState.as_dict
+      - quant_state.offset.item
+      - torch.meta_local_scalar_dense
+    independent_from_qwen_root_cause: false
+    interpretation: >-
+      The complete traceback has the same terminal chain and error as Qwen. These
+      are two observations of the shared quantized auto-offload failure, not two
+      independent model-adapter defects.
+    old_attempts:
+      attempt_1: generic 4-bit auto GPU/CPU offload with 4600 MiB GPU max memory
+      attempt_2: generic 4-bit auto GPU/CPU offload with 4100 MiB GPU max memory
+      root_cause_mechanism_changed: false
+      assessment: >-
+        Attempt 2 changed only max_memory and the offload folder. It left the
+        failing quantization/offload mechanism intact.
+    recovery_action:
+      native_class: Glm4vForConditionalGeneration
+      processor_contract: apply_chat_template returns tokenized multimodal tensors
+      primary: 4-bit GPU-only placement on one CUDA device, no CPU or disk auto-offload
+      fallback: official explicit device map only after a recorded GPU OOM
+      local_compute_boundary: BLOCKED_BY_COMPUTE_LOCAL_GPU
+    original_result: BLOCKED_BY_MODEL_ADAPTER
+
+  phi4_multimodal_5_6b:
+    family: Phi-4-Multimodal
+    original_failure: "missing dependency: backoff"
+    actual_root_cause: INCOMPLETE_INFERENCE_DEPENDENCY_SET
+    root_cause_category: PACKAGING_ENVIRONMENT_FAILURE
+    old_attempts:
+      attempt_1_backoff_installed: false
+      attempt_2_backoff_installed: false
+      memory_profile_changed: true
+      root_cause_mechanism_changed: false
+      assessment: >-
+        Both attempts called from_pretrained without backoff. Changing max_memory
+        was unrelated to import resolution and did not repair the packaging failure.
+    recovery_action:
+      isolated_python: "3.10"
+      dependency_preflight_before_load: mandatory
+      native_class: AutoModelForCausalLM
+      trust_remote_code: true
+      backoff_version: 2.2.1
+      attention_fallback: eager_or_sdpa_on_windows
+    original_result: BLOCKED_BY_MODEL_ADAPTER
+
