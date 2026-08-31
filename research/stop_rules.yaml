@@ -1,0 +1,38 @@
+schema_version: 1
+frozen_on: 2026-08-31
+decisions:
+  go:
+    label: QUALIFIED_FOR_NEW_MECHANISTIC_PREREGISTRATION
+    requires:
+      atomically_qualified_families_min: 2
+      joint_primary_model: true
+      joint_replication_family: true
+    exact_next_action: BUILD_HELD_OUT_MECHANISTIC_PILOT
+  atomic_no_go:
+    label: CAPABILITY_COHORT_NO_GO
+    when: atomically_qualified_families_less_than_2
+    stop_before: joint_composition_screen
+    exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+  joint_no_go:
+    label: JOINT_COMPOSITION_NO_GO
+    when: atomic_cohort_passes_but_joint_GO_fails
+    exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+  measurement_no_go:
+    label: MEASUREMENT_CONTRACT_NO_GO
+    when: qualification_depends_on_one_answer_contract_or_contracts_directionally_conflict
+    exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+  compute_block:
+    label: BLOCKED_BY_COMPUTE
+    when: fewer_than_three_frozen_models_can_run_on_current_hardware
+  adapter_block:
+    label: BLOCKED_BY_MODEL_ADAPTER
+    when: a_frozen_model_cannot_supply_required_verified_measurement_contracts
+immutable_after_formal_start:
+  - model_cohort
+  - exact_revisions
+  - prompts
+  - thresholds
+  - samples
+  - answer_contracts
+  - model_selection_rule
+

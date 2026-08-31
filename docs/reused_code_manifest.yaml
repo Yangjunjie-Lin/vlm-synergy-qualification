@@ -1,0 +1,21 @@
+schema_version: 1
+clean_room_implementation: true
+source_repository: https://github.com/Yangjunjie-Lin/vlm-synergy-trace
+source_commit: 88741f0301c61c0abf3e63a5903183e9664af552
+reused_files: []
+reviewed_concepts:
+  - concept: artifact hashing
+    source_path: src/synergy_trace/artifacts.py
+    destination_path: src/capability_gate/artifacts.py
+    license: MIT
+    changes_made: independently reimplemented for the new artifact schema
+  - concept: synthetic scene rendering
+    source_path: src/synergy_trace/data/generator.py
+    destination_path: src/capability_gate/data/generator.py
+    license: MIT
+    changes_made: clean-room renderer with new namespace, lexicon, templates, and splits
+excluded:
+  - all formal SynergyTrace behavior quartets
+  - all SynergyTrace outcomes and prompts
+  - all activation-patching code
+

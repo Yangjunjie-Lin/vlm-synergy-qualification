@@ -1,0 +1,43 @@
+schema_version: 1
+frozen_on: 2026-08-31
+primary:
+  contract: length_normalized_conditional_log_likelihood
+  candidate_prefix: " "
+  normalization: arithmetic_mean_candidate_token_log_probability
+  tie_break: candidate_order
+secondary:
+  contract: deterministic_grammar_constrained_generation
+  do_sample: false
+  grammar: prefix_trie_over_exact_candidate_token_sequences
+  independent_forward: true
+agreement:
+  metrics: [exact_agreement, cohens_kappa]
+  kappa_min: 0.80
+statistics:
+  confidence: 0.95
+  atomic_interval: one_sided_clopper_pearson
+atomic_gates:
+  direct_visual_relation: {accuracy_min: 0.80, lower_bound_min: 0.70}
+  direct_text_relation: {accuracy_min: 0.90, lower_bound_min: 0.82}
+  direction_reversal: {accuracy_min: 0.80, lower_bound_min: 0.70}
+  cross_modal_bridge_binding: {accuracy_min: 0.80, lower_bound_min: 0.70}
+required_prediction_fields:
+  - model
+  - revision
+  - scene_id
+  - task
+  - image_path
+  - image_hash
+  - prompt
+  - prompt_hash
+  - candidate_text
+  - candidate_token_ids
+  - raw_log_likelihood
+  - normalized_log_likelihood
+  - candidate_ranking
+  - top_answer
+  - target_margin
+  - constrained_generation_answer
+  - runtime_seconds
+  - config_hash
+

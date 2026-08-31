@@ -1,0 +1,34 @@
+schema_version: 1
+frozen_on: 2026-08-31
+namespace_uuid: c7089ba6-3580-4a7f-bd0d-07ac4b414cd8
+seed: 26083173
+base_quartets: 128
+conditions: [I0T0, I0T1, I1T0, I1T1]
+modes: [joint, image_only, text_only, question_only]
+candidates: [northeast, northwest, southeast, southwest]
+answer_schema: "Return exactly one allowed lowercase diagonal direction word and nothing else."
+system_instruction: >-
+  Combine the image relation and text relation when both are available. Return
+  exactly one allowed lowercase answer word and no explanation.
+prompt: "{premise}\nWhere is {query_a} relative to {query_c}?"
+construction:
+  axis_maps:
+    - {image_factor: [east, west], text_factor: [north, south]}
+    - {image_factor: [north, south], text_factor: [east, west]}
+  factor_interpretation: I0/I1 and T0/T1 are relation levels; modality presence is represented only by mode
+  fixed_target_condition_for_psi: I1T1
+  target_margin: normalized_log_likelihood_minus_mean_other_candidates
+  bootstrap_unit: base_quartet
+  bootstrap_resamples: 50000
+  bootstrap_seed: 9041723
+atomic_retention:
+  scenes_per_task: 64
+  required: all_original_atomic_gates_still_pass_on_retention_sample
+diagnostic_exclusions:
+  severe_option_position_bias:
+    accuracy_range_greater_than: 0.25
+    or_chi_square_p_below: 0.01
+    and_cramers_v_above: 0.20
+  single_answer_class_driver: any_class_accuracy_below_0.25
+  single_template_driver: successful_templates_fewer_than_2
+  directional_measurement_conflict: true

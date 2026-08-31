@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "capability-gate"
+version = "0.1.0"
+description = "Capability-qualified VLM cross-modal composition screen"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "numpy>=2.0",
+  "Pillow>=10.4",
+  "PyYAML>=6.0",
+  "scipy>=1.14",
+]
+
+[project.optional-dependencies]
+inference = [
+  "accelerate>=1.8",
+  "bitsandbytes>=0.46",
+  "huggingface-hub>=0.33",
+  "safetensors>=0.5",
+  "transformers>=4.53",
+]
+test = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.11"]
+
+[project.scripts]
+capability-gate = "capability_gate.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+

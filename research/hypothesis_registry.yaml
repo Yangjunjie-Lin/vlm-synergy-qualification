@@ -1,0 +1,33 @@
+schema_version: 1
+frozen_on: 2026-08-31
+project: CapabilityGate
+confirmatory_scope: qualification_only
+hypotheses:
+  atomic_cohort:
+    question: Do at least two of three frozen VLM families pass every atomic gate?
+    gate: at_least_2_of_3_ATOMICALLY_QUALIFIED
+  joint_primary:
+    question: Does one qualified family show reliable minimal cross-modal composition?
+    criteria:
+      joint_accuracy_min: 0.50
+      joint_advantage_min: 0.10
+      mean_psi: greater_than_0
+      bootstrap_95_lower_psi: greater_than_0
+      atomic_retention: required
+  joint_replication:
+    question: Does an independent qualified family provide behavioral replication?
+    criteria:
+      joint_accuracy_min: 0.40
+      joint_advantage: greater_than_0
+      mean_psi: at_least_0
+      atomic_retention: required
+forbidden_inferences:
+  - circuit_discovery
+  - layer_or_head_localization
+  - universal_VLM_generalization
+  - mechanism_null_from_qualification_failure
+future_data_must_be_new:
+  - mechanism_discovery
+  - mechanism_validation
+  - allocation_swap
+

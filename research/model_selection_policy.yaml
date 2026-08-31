@@ -1,0 +1,29 @@
+schema_version: 1
+frozen_on: 2026-08-31
+cohort_size: 3
+eligibility:
+  official_open_weight_instruction_vlm: required
+  exact_revision: required
+  public_vision_and_language_backbones: required
+  local_forward: required
+  candidate_likelihood_or_verifiable_generation: required
+  parameter_range_billions: [4, 12]
+  independent_families: required
+selection_inputs_only:
+  - official_model_card
+  - license
+  - parameter_count
+  - architecture_independence
+  - hardware_runnability
+prohibited:
+  - task_accuracy_based_selection
+  - within_family_checkpoint_search
+  - fourth_model_rescue
+  - API_models
+  - mock_or_tiny_random_checkpoints
+quantization_allowed: [4bit, 8bit]
+joint_selection:
+  discovery: smallest_parameter_joint_GO_model_with_complete_activation_hooks
+  replication: another_independent_joint_GO_family
+  never_select_by: highest_joint_accuracy
+

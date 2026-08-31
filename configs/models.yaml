@@ -1,0 +1,87 @@
+schema_version: 1
+frozen_on: 2026-08-31
+selection_used_task_accuracy: false
+cohort_frozen_before_task_outputs: true
+sequential_loading: true
+models:
+  - key: qwen2_5_vl_7b
+    family: Qwen2.5-VL
+    model_id: Qwen/Qwen2.5-VL-7B-Instruct
+    revision: cc594898137f460bfe9f0759e9844b3ce807cfb5
+    processor_revision: cc594898137f460bfe9f0759e9844b3ce807cfb5
+    tokenizer_revision: cc594898137f460bfe9f0759e9844b3ce807cfb5
+    parameters: 8292166656
+    parameters_billions: 8.292166656
+    license: Apache-2.0
+    official_instruction_vlm: true
+    architecture: Qwen2.5 decoder plus Qwen dynamic-resolution window-attention ViT
+    adapter: standard_image_text
+    trust_remote_code: false
+    complete_activation_hooks: true
+    dtype: bfloat16_compute
+    quantization: 4bit_NF4_double_quantization
+    device_map: auto_GPU_CPU_offload
+    selection_used_task_accuracy: false
+    expected_weight_sha256:
+      - e97b877e47fde53a6c6e77aafb36e58e91ee9d95c4a3eeac6f1b5c0e6a1c986e
+      - a9a300a43b4724eee2abe7c18ceb26768d0ab011eb0cad19d9bfd2476a24d024
+      - 111223d173e00bbee81cba1216fad28668df3476706b7fd26f4d5b50f8b3a507
+      - ef47f634fa57d46ee134edcc09f34085a47da1e16c12a2abe0d67118be6d72ed
+      - 0c859795ad3a627a9b95bcb762e059d5b768a4a36fdd4affeff269d93fdecc67
+    load_profiles:
+      - {name: primary, gpu_max_memory_mib: 4600, cpu_max_memory_gib: 24, attn_implementation: eager, offload_folder: artifacts/models/offload/qwen_primary}
+      - {name: single_engineering_fix, gpu_max_memory_mib: 4100, cpu_max_memory_gib: 26, attn_implementation: eager, offload_folder: artifacts/models/offload/qwen_fix}
+
+  - key: phi4_multimodal_5_6b
+    family: Phi-4-Multimodal
+    model_id: microsoft/Phi-4-multimodal-instruct
+    revision: 93f923e1a7727d1c4f446756212d9d3e8fcc5d81
+    processor_revision: 93f923e1a7727d1c4f446756212d9d3e8fcc5d81
+    tokenizer_revision: 93f923e1a7727d1c4f446756212d9d3e8fcc5d81
+    parameters: 5574460384
+    parameters_billions: 5.574460384
+    license: MIT
+    official_instruction_vlm: true
+    architecture: Phi-4-Mini-Instruct language backbone plus SigLIP-NaViT vision encoder and multimodal adapters
+    adapter: phi4_multimodal
+    trust_remote_code: true
+    complete_activation_hooks: true
+    dtype: bfloat16_compute
+    quantization: 4bit_NF4_double_quantization
+    device_map: auto_GPU_CPU_offload
+    selection_used_task_accuracy: false
+    expected_weight_sha256:
+      - c46bb03332d82f6a3eaf85bd20af388dd4d4d68b198c2203c965c7381a466094
+      - b3e812c0c8acef4e7f5e34d6c9f77a7640ee4a2b93ea351921365ac62f19918d
+      - 7be96b7339303752634b202d3f377bcf312a03046586eca6cea23347ace1e65a
+    load_profiles:
+      - {name: primary, gpu_max_memory_mib: 4600, cpu_max_memory_gib: 24, attn_implementation: eager, offload_folder: artifacts/models/offload/phi_primary}
+      - {name: single_engineering_fix, gpu_max_memory_mib: 4100, cpu_max_memory_gib: 26, attn_implementation: eager, offload_folder: artifacts/models/offload/phi_fix}
+
+  - key: glm4_1v_9b
+    family: GLM-4.1V
+    model_id: zai-org/GLM-4.1V-9B-Thinking
+    revision: 3c1471e51dc811b589d4d12b1c1c7c1c941267c2
+    processor_revision: 3c1471e51dc811b589d4d12b1c1c7c1c941267c2
+    tokenizer_revision: 3c1471e51dc811b589d4d12b1c1c7c1c941267c2
+    parameters: 10292777472
+    parameters_billions: 10.292777472
+    license: MIT
+    official_instruction_vlm: true
+    architecture: independent GLM 40-layer text decoder plus 24-layer GLM vision encoder
+    adapter: standard_image_text
+    trust_remote_code: false
+    complete_activation_hooks: true
+    dtype: bfloat16_compute
+    quantization: 4bit_NF4_double_quantization
+    device_map: auto_GPU_CPU_offload
+    selection_used_task_accuracy: false
+    expected_weight_sha256:
+      - 56708b3541e1f69c9843ae19eaa23720c5cee9f3d0c9ed101c3b9b43b40974a1
+      - 7c353db4141fdd9a0c6b990d50040a28812bb56dc91c42154abc5a4ee81fe698
+      - f3fab833fe4cad6cbce924908e1a58320217295417bbf87aa810fff6e4b634a4
+      - b3c7723fac7de60f2b67e4f84f2d8648d7431ff32c95c630dcc17790091005eb
+    load_profiles:
+      - {name: primary, gpu_max_memory_mib: 4600, cpu_max_memory_gib: 24, attn_implementation: eager, offload_folder: artifacts/models/offload/glm_primary}
+      - {name: single_engineering_fix, gpu_max_memory_mib: 4100, cpu_max_memory_gib: 26, attn_implementation: eager, offload_folder: artifacts/models/offload/glm_fix}
+

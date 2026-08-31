@@ -1,0 +1,48 @@
+schema_version: 1
+frozen_on: 2026-08-31
+namespace_uuid: 726d56fb-6ac8-4e53-9abe-07ef3a0a21c9
+seed: 83170429
+splits:
+  engineering_smoke: 12
+  atomic_qualification:
+    direct_visual_relation: 64
+    direct_text_relation: 64
+    direction_reversal: 64
+    cross_modal_bridge_binding: 64
+candidates: [north, south, east, west]
+answer_schema: "Return exactly one allowed lowercase direction word and nothing else."
+prompt_policy:
+  demonstrations_per_task: 0
+  frozen_after_engineering_smoke: true
+  smoke_accuracy_tuning_forbidden: true
+system_instruction: >-
+  Solve the relation task using only the supplied evidence. Return exactly one
+  allowed lowercase answer word and no explanation.
+tasks:
+  direct_visual_relation:
+    prompt: "Where is {query_a} relative to {query_b}?"
+  direct_text_relation:
+    prompt: "{premise}\nWhere is {query_b} relative to {query_c}?"
+  direction_reversal:
+    prompt: "{premise}\nWhere is {query_c} relative to {query_b}?"
+  cross_modal_bridge_binding:
+    prompt: >-
+      The bridge entity named {bridge_name} is the {bridge_color} {bridge_shape}
+      shown in the image. Where is that bridge entity relative to the black
+      anchor?
+    construct_interpretation: >-
+      Binary correspondence is operationalized through location recovery: text
+      binds a novel name to a unique color-shape descriptor, the descriptor
+      selects exactly one unlabeled image object, and the answer is that
+      object's cardinal direction from the central anchor. This preserves the
+      frozen four-direction atomic answer schema without a two-hop relation.
+balance:
+  answer_classes_each_per_task: 16
+  correct_option_positions_each_per_task: 16
+  templates: 4
+  colors: 4
+  shapes: 4
+  entity_counts: [2, 3, 4, 5]
+  answer_surface_words: 1
+shortcut_accuracy_max: 0.30
+symbolic_oracle_accuracy_required: 1.00
