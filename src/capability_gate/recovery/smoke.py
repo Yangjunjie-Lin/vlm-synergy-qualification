@@ -19,6 +19,7 @@ RECOVERY = ARTIFACTS / "engineering_recovery"
 REPAIR_RETRY_SIGNATURES = (
     "no vision module found for forward proof hook",
     "FlashAttention2 has been toggled on",
+    "only Tensors of floating point dtype can require gradients",
 )
 
 
@@ -155,16 +156,21 @@ def _deterministic_agreement(first: dict[str, Any], second: dict[str, Any]) -> f
 
 
 def _repair_retry_models(manifest: dict[str, Any]) -> set[str]:
-    return {
-        model_key
-        for model_key, result in manifest.get("model_results", {}).items()
-        if result.get("status")
-        in {"MEASUREMENT_IMPLEMENTATION_FAIL", "BLOCKED_BY_MODEL_ADAPTER"}
-        and any(
-            signature in str(result.get("reason", ""))
-            for signature in REPAIR_RETRY_SIGNATURES
-        )
-    }
+    retry = set()
+    for model_key, result in manifest.get("model_results", {}).items():
+        if result.get("status") not in {
+            "MEASUREMENT_IMPLEMENTATION_FAIL",
+            "BLOCKED_BY_MODEL_ADAPTER",
+        }:
+            continue
+        evidence = str(result.get("reason", ""))
+        env_name = ENV_NAMES.get(model_key)
+        prediction_path = RECOVERY / f"smoke_predictions/{env_name}.jsonl"
+        if prediction_path.exists():
+            evidence += prediction_path.read_text(encoding="utf-8")
+        if any(signature in evidence for signature in REPAIR_RETRY_SIGNATURES):
+            retry.add(model_key)
+    return retry
 
 
 def _archive_repair_attempt(manifest_path: Path, model_keys: set[str]) -> Path:
@@ -380,9 +386,17 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
                 "runtime_recorded": time.perf_counter() > started,
                 "peak_vram_recorded": peak_vram > 0,
             }
-            status = (
-                "ENGINEERING_RECOVERY_PASS"
-                if all(gates.values())
+            failed_response = next(
+                (
+                    response
+                    for response in responses
+                    if response["status"] != "SCORE_AND_GENERATE_PASS"
+                ),
+                None,
+            )
+            status = "ENGINEERING_RECOVERY_PASS" if all(gates.values()) else (
+                failed_response["error_class"]
+                if failed_response and failed_response["error_class"]
                 else "MEASUREMENT_IMPLEMENTATION_FAIL"
             )
             model_results[model_key] = {
@@ -398,6 +412,8 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
                 "scientific_capability_conclusion": False,
                 "engineering_scene_accuracy_reported": False,
             }
+            if failed_response:
+                model_results[model_key]["reason"] = failed_response["traceback"]
         except Exception as error:  # noqa: BLE001 - isolate and preserve worker failure
             model_results[model_key] = {
                 "status": "BLOCKED_BY_MODEL_ADAPTER",

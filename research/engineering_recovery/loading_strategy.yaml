@@ -64,6 +64,16 @@ models:
     flash_attention_required_on_windows: false
     observed_revision_default_attention: flash_attention_2
     resolved_windows_recovery_attention: eager
+    quantization_exclusions:
+      - lm_head
+      - lora_A
+      - lora_B
+    quantization_exclusion_basis: >-
+      Phi remote code switches between frozen vision and speech LoRA adapters during inference.
+      PEFT 0.13.2 requires those adapter matrices to remain floating point; quantizing them to
+      Params4bit makes set_adapter call requires_grad on a non-floating tensor. Only the LoRA
+      adapter matrices and lm_head are excluded from NF4 conversion and remain on cuda:0; no
+      module is moved to CPU or disk.
     attention_resolution_basis: >-
       The frozen config explicitly sets _attn_implementation=flash_attention_2; the compatible
       Transformers AutoConfig loader retains that value even when from_pretrained receives the

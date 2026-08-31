@@ -62,6 +62,8 @@ def _failure_class(error: BaseException) -> str:
     )
     if any(marker in message for marker in compute_markers):
         return "BLOCKED_BY_COMPUTE"
+    if "only tensors of floating point dtype can require gradients" in message:
+        return "MEASUREMENT_IMPLEMENTATION_FAIL"
     return "BLOCKED_BY_MODEL_ADAPTER"
 
 
@@ -248,4 +250,3 @@ def main(model_key: str) -> int:
     if args.check_dependencies:
         return _dependency_check(model_key)
     return _serve(model_key)
-

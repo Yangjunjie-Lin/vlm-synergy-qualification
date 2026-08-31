@@ -128,6 +128,12 @@ def force_attention_implementation(config: Any, implementation: str) -> Any:
     return config
 
 
+def configure_phi_quantization_exclusions(quantization: Any) -> list[str]:
+    exclusions = ["lm_head", "lora_A", "lora_B"]
+    quantization.llm_int8_skip_modules = exclusions
+    return exclusions
+
+
 def inspect_materialization(model: Any, loading_info: Mapping[str, Any]) -> dict[str, Any]:
     meta_parameters = [
         name for name, parameter in model.named_parameters() if _tensor_is_meta(parameter)
@@ -163,6 +169,7 @@ def _device_map(model: Any) -> dict[str, str]:
 
 def placement_inventory(model: Any) -> dict[str, Any]:
     quantized_gpu_modules: set[str] = set()
+    full_precision_gpu_modules: set[str] = set()
     full_precision_cpu_modules: set[str] = set()
     disk_offloaded_modules: set[str] = set()
     for name, module in model.named_modules():
@@ -171,6 +178,8 @@ def placement_inventory(model: Any) -> dict[str, Any]:
         class_name = type(module).__name__.lower()
         if "4bit" in class_name and getattr(device, "type", None) == "cuda":
             quantized_gpu_modules.add(name)
+        elif weight is not None and getattr(device, "type", None) == "cuda":
+            full_precision_gpu_modules.add(name)
         elif weight is not None and getattr(device, "type", None) == "cpu":
             full_precision_cpu_modules.add(name)
     for name, placement in _device_map(model).items():
@@ -178,6 +187,7 @@ def placement_inventory(model: Any) -> dict[str, Any]:
             disk_offloaded_modules.add(name)
     return {
         "quantized_gpu_modules": sorted(quantized_gpu_modules),
+        "full_precision_gpu_modules": sorted(full_precision_gpu_modules),
         "full_precision_cpu_modules": sorted(full_precision_cpu_modules),
         "disk_offloaded_modules": sorted(disk_offloaded_modules),
     }
@@ -195,6 +205,7 @@ class NativeRecoveryAdapter:
         self.materialization: dict[str, Any] = {}
         self.load_seconds: float | None = None
         self.weight_manifest: list[dict[str, Any]] = []
+        self.quantization_exclusions: list[str] = []
         self._vision_observed = False
         self._vision_hook_handles: list[Any] = []
 
@@ -518,6 +529,7 @@ class NativeRecoveryAdapter:
                 type(self.processor).__name__ == self.descriptor.expected_processor_class
             ),
             "placement_policy": "EXPLICIT_SINGLE_GPU_4BIT_NO_CPU_DISK_OFFLOAD",
+            "quantization_exclusions": self.quantization_exclusions,
             "resolved_device_map": _device_map(self.model),
             "materialization": self.materialization,
             "placement_inventory": placement,
@@ -648,6 +660,9 @@ class PhiRecoveryAdapter(NativeRecoveryAdapter):
         )
         kwargs["config"] = force_attention_implementation(config, "eager")
         kwargs.pop("attn_implementation", None)
+        self.quantization_exclusions = configure_phi_quantization_exclusions(
+            kwargs["quantization_config"]
+        )
         return kwargs
 
     def _encode(self, system: str, user: str, image: Image.Image | None) -> tuple[str, Any]:

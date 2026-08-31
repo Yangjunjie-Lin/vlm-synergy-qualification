@@ -13,6 +13,7 @@ from capability_gate.recovery.adapters import (
     DESCRIPTORS,
     QwenRecoveryAdapter,
     adapter_for,
+    configure_phi_quantization_exclusions,
     force_attention_implementation,
     inspect_materialization,
 )
@@ -70,6 +71,15 @@ def test_phi_attention_override_explicitly_disables_flash_attention() -> None:
 
     assert force_attention_implementation(config, "eager") is config
     assert config._attn_implementation == "eager"
+
+
+def test_phi_lora_weights_are_excluded_from_four_bit_conversion() -> None:
+    quantization = SimpleNamespace(llm_int8_skip_modules=None)
+
+    exclusions = configure_phi_quantization_exclusions(quantization)
+
+    assert exclusions == ["lm_head", "lora_A", "lora_B"]
+    assert quantization.llm_int8_skip_modules == exclusions
 
 
 def test_native_model_loader_classes_are_frozen() -> None:
