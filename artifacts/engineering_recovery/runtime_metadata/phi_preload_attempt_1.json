@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "model_key": "phi4_multimodal_5_6b",
+  "sequential_worker_release": {
+    "worker_returncode": 1,
+    "gpu_used_mib_after_worker": 1600
+  },
+  "total_runtime_seconds": 0.5314543999847956
+}

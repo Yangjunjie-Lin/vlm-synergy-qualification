@@ -32,6 +32,18 @@ def generate_recovery_smoke_scenes() -> list[dict[str, Any]]:
     scene_path = manifest_dir / "engineering_only_scenes.jsonl"
     image_dir.mkdir(parents=True, exist_ok=True)
     formal_ids = _formal_ids()
+    if scene_path.exists():
+        with scene_path.open(encoding="utf-8") as handle:
+            existing = [json.loads(line) for line in handle if line.strip()]
+        if len(existing) != 12:
+            raise RuntimeError("existing engineering recovery scene manifest is incomplete")
+        if {row["scene_id"] for row in existing} & formal_ids:
+            raise RuntimeError("existing engineering recovery scenes overlap formal data")
+        if not all(
+            sha256_file(ROOT / row["image_path"]) == row["image_sha256"] for row in existing
+        ):
+            raise RuntimeError("existing engineering recovery image hash mismatch")
+        return existing
     rows = []
     colors = ("royalblue", "darkorange", "seagreen")
     for index in range(12):

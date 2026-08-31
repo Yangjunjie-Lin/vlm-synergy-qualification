@@ -1,0 +1,23 @@
+schema_version: 1
+stage: PRE_FROM_PRETRAINED_RECOVERY_SMOKE
+counts_as_model_load_attempt: false
+counts_as_scientific_attempt: false
+formal_outputs_produced: 0
+failures:
+  qwen2_5_vl_7b:
+    error: torch.cuda.reset_peak_memory_stats(0) raised Invalid device argument
+    root_cause: WINDOWS_TORCH_TELEMETRY_DEVICE_ARGUMENT
+    from_pretrained_called: false
+    repair: use current-device telemetry call without integer device argument
+  glm4_1v_9b:
+    error: torch.cuda.reset_peak_memory_stats(0) raised Invalid device argument
+    root_cause: WINDOWS_TORCH_TELEMETRY_DEVICE_ARGUMENT
+    from_pretrained_called: false
+    repair: use current-device telemetry call without integer device argument
+  phi4_multimodal_5_6b:
+    error: Python 3.10 cannot import datetime.UTC
+    root_cause: MAIN_PACKAGE_PY311_ONLY_DATETIME_ALIAS_IN_WORKER_IMPORT_PATH
+    from_pretrained_called: false
+    repair: use datetime.timezone.utc compatible with Python 3.10 and 3.11
+scientific_capability_conclusion: false
+activation_patching_executed: false

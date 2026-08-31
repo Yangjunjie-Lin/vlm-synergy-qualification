@@ -226,7 +226,7 @@ class NativeRecoveryAdapter:
             raise RuntimeError("CUDA is unavailable for the frozen recovery model")
         self.torch = torch
         torch.cuda.empty_cache()
-        torch.cuda.reset_peak_memory_stats(0)
+        torch.cuda.reset_peak_memory_stats()
         started = time.perf_counter()
         if self.processor is None:
             self.load_processor()
@@ -509,8 +509,8 @@ class NativeRecoveryAdapter:
             "weight_manifest": self.weight_manifest,
             "weight_hashes_verified": bool(self.weight_manifest),
             "load_seconds": self.load_seconds,
-            "peak_vram_bytes": self.torch.cuda.max_memory_allocated(0),
-            "peak_reserved_vram_bytes": self.torch.cuda.max_memory_reserved(0),
+            "peak_vram_bytes": self.torch.cuda.max_memory_allocated(),
+            "peak_reserved_vram_bytes": self.torch.cuda.max_memory_reserved(),
             "gpu": {"name": gpu.name, "total_vram_bytes": gpu.total_memory},
             "hf_home": os.environ.get("HF_HOME"),
         }
@@ -518,7 +518,7 @@ class NativeRecoveryAdapter:
     def close(self) -> dict[str, Any]:
         before = None
         if self.torch is not None and self.torch.cuda.is_available():
-            before = self.torch.cuda.memory_allocated(0)
+            before = self.torch.cuda.memory_allocated()
         for handle in self._vision_hook_handles:
             handle.remove()
         self._vision_hook_handles.clear()
@@ -529,8 +529,8 @@ class NativeRecoveryAdapter:
         after = None
         if self.torch is not None and self.torch.cuda.is_available():
             self.torch.cuda.empty_cache()
-            self.torch.cuda.synchronize(0)
-            after = self.torch.cuda.memory_allocated(0)
+            self.torch.cuda.synchronize()
+            after = self.torch.cuda.memory_allocated()
         return {
             "allocated_before_release_bytes": before,
             "allocated_after_release_bytes": after,

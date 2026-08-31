@@ -35,9 +35,7 @@ def test_meta_parameters_and_buffers_are_detected_before_forward() -> None:
 
 
 def test_historical_auto_offload_is_rejected() -> None:
-    quantization = SimpleNamespace(
-        load_in_4bit=True, llm_int8_enable_fp32_cpu_offload=True
-    )
+    quantization = SimpleNamespace(load_in_4bit=True, llm_int8_enable_fp32_cpu_offload=True)
     with pytest.raises(ValueError):
         validate_no_auto_offload(
             {
@@ -85,13 +83,13 @@ def test_sequential_close_requests_vram_release() -> None:
         def is_available(self) -> bool:
             return True
 
-        def memory_allocated(self, _index: int) -> int:
+        def memory_allocated(self, _index: int | None = None) -> int:
             return 100 if "empty" not in calls else 0
 
         def empty_cache(self) -> None:
             calls.append("empty")
 
-        def synchronize(self, _index: int) -> None:
+        def synchronize(self, _index: int | None = None) -> None:
             calls.append("synchronize")
 
     adapter = QwenRecoveryAdapter()
@@ -106,4 +104,3 @@ def test_sequential_close_requests_vram_release() -> None:
 def test_fourth_model_is_forbidden() -> None:
     with pytest.raises(ValueError, match="fourth"):
         adapter_for("replacement_family")
-

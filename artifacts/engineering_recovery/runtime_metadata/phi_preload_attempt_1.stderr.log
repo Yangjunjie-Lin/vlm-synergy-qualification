@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\UoM_CS\GitHub\vlm-synergy-qualification\workers\phi_worker.py", line 4, in <module>
+    raise SystemExit(main("phi4_multimodal_5_6b"))
+  File "D:\UoM_CS\GitHub\vlm-synergy-qualification\workers\_entrypoint.py", line 250, in main
+    return _serve(model_key)
+  File "D:\UoM_CS\GitHub\vlm-synergy-qualification\workers\_entrypoint.py", line 102, in _serve
+    from capability_gate.recovery.adapters import DESCRIPTORS, adapter_for
+  File "D:\UoM_CS\GitHub\vlm-synergy-qualification\src\capability_gate\recovery\adapters.py", line 14, in <module>
+    from capability_gate.artifacts import canonical_json, sha256_file, sha256_text
+  File "D:\UoM_CS\GitHub\vlm-synergy-qualification\src\capability_gate\artifacts.py", line 10, in <module>
+    from datetime import UTC, datetime
+ImportError: cannot import name 'UTC' from 'datetime' (C:\Users\Yangjunjie Lin\AppData\Roaming\uv\python\cpython-3.10.20-windows-x86_64-none\lib\datetime.py)

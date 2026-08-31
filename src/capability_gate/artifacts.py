@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime as datetime_module
 import hashlib
 import json
 import os
@@ -7,7 +8,6 @@ import platform
 import subprocess
 import sys
 from collections.abc import Iterable
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -65,7 +65,10 @@ def git_value(root: Path, *args: str) -> str | None:
 
 def runtime_metadata(root: Path) -> dict[str, Any]:
     return {
-        "created_at": datetime.now(UTC).isoformat(),
+        # timezone.utc keeps the isolated Python 3.10 Phi worker compatible.
+        "created_at": datetime_module.datetime.now(
+            datetime_module.timezone.utc  # noqa: UP017
+        ).isoformat(),
         "hostname": platform.node(),
         "platform": platform.platform(),
         "python": sys.version,

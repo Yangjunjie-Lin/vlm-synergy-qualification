@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scene_count": 12,
+  "engineering_only": true,
+  "engineering_scene_accuracy_reported": false,
+  "formal_atomic_outputs_before_smoke": 0,
+  "formal_joint_outputs_before_smoke": 0,
+  "model_results": {
+    "qwen2_5_vl_7b": {
+      "status": "BLOCKED_BY_MODEL_ADAPTER",
+      "reason": "Traceback (most recent call last):\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\workers\\_entrypoint.py\", line 167, in _serve\n    adapter.load()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 229, in load\n    torch.cuda.reset_peak_memory_stats(0)\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\qwen\\.venv\\Lib\\site-packages\\torch\\cuda\\memory.py\", line 370, in reset_peak_memory_stats\n    return torch._C._cuda_resetPeakMemoryStats(device)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Invalid device argument \n",
+      "load_attempts": 1,
+      "scientific_capability_conclusion": false,
+      "worker_release": {
+        "worker_returncode": 0,
+        "gpu_used_mib_after_worker": 1600
+      }
+    },
+    "glm4_1v_9b": {
+      "status": "BLOCKED_BY_MODEL_ADAPTER",
+      "reason": "Traceback (most recent call last):\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\workers\\_entrypoint.py\", line 167, in _serve\n    adapter.load()\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\src\\capability_gate\\recovery\\adapters.py\", line 229, in load\n    torch.cuda.reset_peak_memory_stats(0)\n  File \"D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\glm\\.venv\\Lib\\site-packages\\torch\\cuda\\memory.py\", line 370, in reset_peak_memory_stats\n    return torch._C._cuda_resetPeakMemoryStats(device)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Invalid device argument \n",
+      "load_attempts": 1,
+      "scientific_capability_conclusion": false,
+      "worker_release": {
+        "worker_returncode": 0,
+        "gpu_used_mib_after_worker": 1600
+      }
+    },
+    "phi4_multimodal_5_6b": {
+      "status": "BLOCKED_BY_MODEL_ADAPTER",
+      "reason": "RuntimeError: worker phi4_multimodal_5_6b exited without a response: None",
+      "load_attempts": 1,
+      "scientific_capability_conclusion": false,
+      "worker_release": {
+        "worker_returncode": 1,
+        "gpu_used_mib_after_worker": 1600
+      }
+    }
+  },
+  "activation_patching_executed": false,
+  "fourth_model_used": false,
+  "scientific_capability_conclusion": false
+}
