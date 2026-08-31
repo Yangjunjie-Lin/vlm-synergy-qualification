@@ -13,5 +13,5 @@ artifacts/data/**/images/*.png
 artifacts/**/*.jsonl
 artifacts/models/cache/
 artifacts/models/offload/
+artifacts/audit_drafts/
 !artifacts/**/.gitkeep
-

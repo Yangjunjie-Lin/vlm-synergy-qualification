@@ -212,12 +212,29 @@ def validate_all(legacy_root: Path | None = None) -> dict[str, Any]:
 
     legacy_root = legacy_root or ROOT.parent / "vlm-synergy-trace"
     old_ids, old_hashes, old_names = _collect_legacy(legacy_root)
+    legacy_abstract_templates = {
+        "Where is {a} relative to {c}?",
+        "B ({b}) is {relation} of C ({c}).",
+    }
+    new_abstract_templates = {
+        "In which cardinal direction is {a} located from {b}?",
+        "What is {a}'s direction from {b}?",
+        "Taking {b} as the origin, which direction contains {a}?",
+        "Choose {a}'s direction when the reference point is {b}.",
+        "Starting at {c}, {b} lies toward the {relation}.",
+        "Relative to {c}, {b} lies to the {relation}.",
+        "From {c}, move {relation} to reach {b}.",
+        "The position of {b} is {relation} with respect to {c}.",
+    }
     checks["legacy_overlap"] = {
         "legacy_root": str(legacy_root),
         "legacy_available": legacy_root.exists(),
         "uuid_overlap_count": len(new_ids & old_ids),
         "image_hash_overlap_count": len(new_hashes & old_hashes),
         "entity_name_overlap_count": len(new_names & old_names),
+        "abstract_template_overlap_count": len(
+            new_abstract_templates & legacy_abstract_templates
+        ),
     }
     checks["overall_gate"] = (
         checks["count_gate"]
@@ -228,6 +245,7 @@ def validate_all(legacy_root: Path | None = None) -> dict[str, Any]:
         and checks["legacy_overlap"]["uuid_overlap_count"] == 0
         and checks["legacy_overlap"]["image_hash_overlap_count"] == 0
         and checks["legacy_overlap"]["entity_name_overlap_count"] == 0
+        and checks["legacy_overlap"]["abstract_template_overlap_count"] == 0
     )
     output = ARTIFACTS / "manifests" / "data_validation.json"
     write_json(output, checks)

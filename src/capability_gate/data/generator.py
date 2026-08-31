@@ -27,13 +27,13 @@ SHAPES = ("circle", "square", "triangle", "diamond")
 VECTORS = {"north": (0, -1), "south": (0, 1), "east": (1, 0), "west": (-1, 0)}
 REVERSE = {"north": "south", "south": "north", "east": "west", "west": "east"}
 QUESTION_FORMS = (
-    "Where is {a} relative to {b}?",
+    "In which cardinal direction is {a} located from {b}?",
     "What is {a}'s direction from {b}?",
-    "Relative to {b}, which direction contains {a}?",
-    "Choose the direction of {a} when {b} is the reference.",
+    "Taking {b} as the origin, which direction contains {a}?",
+    "Choose {a}'s direction when the reference point is {b}.",
 )
 TEXT_FORMS = (
-    "{b} is {relation} of {c}.",
+    "Starting at {c}, {b} lies toward the {relation}.",
     "Relative to {c}, {b} lies to the {relation}.",
     "From {c}, move {relation} to reach {b}.",
     "The position of {b} is {relation} with respect to {c}.",
@@ -246,8 +246,22 @@ def _atomic_row(
                     "role": "bridge" if direction == relation else "candidate",
                 }
             )
+        extra_count = nuisance_block % 4
+        corner_slots = ((84, 92), (428, 92), (84, 428))
+        for extra_index in range(extra_count):
+            corner = corner_slots[extra_index]
+            objects.append(
+                {
+                    "name": "",
+                    "color": "violet",
+                    "shape": SHAPES[extra_index],
+                    "x": corner[0],
+                    "y": corner[1],
+                    "role": "distractor",
+                }
+            )
         color, shape = descriptor_by_relation[relation]
-        entity_count = 5
+        entity_count = len(objects)
         forms = (
             "The bridge entity named {name} is the {color} {shape} shown in the image. Where is that bridge entity relative to the black anchor?",
             "In the image, bind the name {name} to its {color} {shape}. Which direction is it from the black anchor?",

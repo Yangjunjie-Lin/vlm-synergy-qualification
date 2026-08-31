@@ -1,7 +1,7 @@
 schema_version: 1
 frozen_on: 2026-08-31
-namespace_uuid: 726d56fb-6ac8-4e53-9abe-07ef3a0a21c9
-seed: 83170429
+namespace_uuid: 801c1db9-f862-47d0-9ef8-1cbd37709985
+seed: 61049273
 splits:
   engineering_smoke: 12
   atomic_qualification:
@@ -42,7 +42,11 @@ balance:
   templates: 4
   colors: 4
   shapes: 4
-  entity_counts: [2, 3, 4, 5]
+  entity_counts:
+    direct_visual_relation: [2, 3, 4, 5]
+    direct_text_relation: [2, 3, 4, 5]
+    direction_reversal: [2, 3, 4, 5]
+    cross_modal_bridge_binding: [5, 6, 7, 8]
   answer_surface_words: 1
 shortcut_accuracy_max: 0.30
 symbolic_oracle_accuracy_required: 1.00

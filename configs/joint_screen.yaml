@@ -1,7 +1,7 @@
 schema_version: 1
 frozen_on: 2026-08-31
-namespace_uuid: c7089ba6-3580-4a7f-bd0d-07ac4b414cd8
-seed: 26083173
+namespace_uuid: 3d8787cc-48f7-4728-a532-5d8e68b40fb4
+seed: 73012864
 base_quartets: 128
 conditions: [I0T0, I0T1, I1T0, I1T1]
 modes: [joint, image_only, text_only, question_only]
