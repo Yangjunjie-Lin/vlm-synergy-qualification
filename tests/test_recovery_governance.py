@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from capability_gate.artifacts import sha256_file
+from capability_gate.recovery.formal import classify_formal_runtime_failure
 from capability_gate.recovery.governance import (
     authorize_atomic,
     authorize_joint,
@@ -82,3 +83,14 @@ def test_activation_patching_is_forbidden_and_absent() -> None:
     boundary = (ROOT / "research/engineering_recovery/recovery_amendment.yaml").read_text()
     assert "activation_patching: FORBIDDEN" in boundary
     assert not any("patch" in path.name.lower() for path in (ROOT / "src/capability_gate").rglob("*.py"))
+
+
+def test_formal_cuda_kernel_failure_is_compute_not_capability() -> None:
+    error = RuntimeError("worker exited without a response")
+    stderr = "Error an illegal memory access was encountered in bitsandbytes/csrc/ops.cu"
+    assert classify_formal_runtime_failure(error, stderr) == "BLOCKED_BY_COMPUTE"
+
+
+def test_unknown_formal_worker_failure_remains_adapter_block() -> None:
+    error = RuntimeError("worker exited without a response")
+    assert classify_formal_runtime_failure(error, "") == "BLOCKED_BY_MODEL_ADAPTER"

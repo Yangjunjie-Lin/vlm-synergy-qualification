@@ -6,8 +6,9 @@ from typing import Any
 
 import yaml
 
-from capability_gate.artifacts import read_jsonl, write_json
+from capability_gate.artifacts import read_jsonl, sha256_file, write_json
 from capability_gate.paths import ARTIFACTS, CONFIGS, REPORTS
+from capability_gate.recovery.environments import ENV_NAMES
 from capability_gate.recovery.governance import engineering_cohort_decision
 from capability_gate.statistics.joint import analyze_joint_rows
 from capability_gate.statistics.metrics import atomic_task_metrics, cohens_kappa
@@ -100,6 +101,12 @@ def adjudicate_atomic_v2() -> dict[str, Any]:
     status = json.loads(run_path.read_text(encoding="utf-8"))
     prediction_paths = sorted((root / "predictions").glob("*.jsonl"))
     if status["status"] != "complete":
+        if status["status"] == "FORMAL_ATOMIC_RUNTIME_FAIL":
+            result = _adjudicate_incomplete_atomic(root, status, prediction_paths)
+            write_json(root / "adjudication.json", result)
+            write_json(root / "runtime_failure_adjudication.json", result)
+            _write_atomic_report(result)
+            return result
         result = {
             "decision": status.get("upstream_decision", "ENGINEERING_COHORT_NO_GO"),
             "qualified_count": 0,
@@ -196,10 +203,84 @@ def adjudicate_atomic_v2() -> dict[str, Any]:
     return result
 
 
+def _adjudicate_incomplete_atomic(
+    root: Any, status: dict[str, Any], prediction_paths: list[Any]
+) -> dict[str, Any]:
+    """Adjudicate the engineering reason for an incomplete formal run.
+
+    Partial predictions are counted and preserved but are never passed to the
+    scientific Atomic metrics.
+    """
+
+    model_key = status["model_key"]
+    block_class = status.get("block_class")
+    evidence_path = root / f"runtime/{ENV_NAMES[model_key]}.compute_event.json"
+    evidence_verified = False
+    evidence_file = None
+    if evidence_path.is_file():
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        stderr_path = root / f"runtime/{ENV_NAMES[model_key]}.stderr.log"
+        prediction_path = root / f"predictions/{ENV_NAMES[model_key]}.jsonl"
+        failure_path = root / "runtime_failure.json"
+        expected = evidence["worker_evidence"]["stderr_sha256"]
+        prediction_expected = evidence["formal_output_evidence"]["prediction_sha256"]
+        failure_expected = evidence["formal_output_evidence"]["runtime_failure_sha256"]
+        evidence_verified = (
+            evidence["model_key"] == model_key
+            and sha256_file(stderr_path) == expected
+            and sha256_file(prediction_path) == prediction_expected
+            and sha256_file(failure_path) == failure_expected
+        )
+        if not evidence_verified:
+            raise RuntimeError("formal compute-block evidence hash verification failed")
+        block_class = evidence["classification"]
+        evidence_file = evidence_path.relative_to(ARTIFACTS.parent).as_posix()
+    if block_class not in {"BLOCKED_BY_COMPUTE", "BLOCKED_BY_MODEL_ADAPTER"}:
+        block_class = "BLOCKED_BY_MODEL_ADAPTER"
+    preserved_rows = sum(len(read_jsonl(path)) for path in prediction_paths)
+    status_label = (
+        "ATOMIC_INCOMPLETE_BY_COMPUTE_BLOCK"
+        if block_class == "BLOCKED_BY_COMPUTE"
+        else "ATOMIC_INCOMPLETE_BY_ADAPTER_BLOCK"
+    )
+    return {
+        "decision": block_class,
+        "qualified_count": 0,
+        "models": {},
+        "status": status_label,
+        "failed_model": model_key,
+        "completed_prediction_rows_preserved": preserved_rows,
+        "formal_rows_used_for_scientific_metrics": 0,
+        "atomic_metrics_computed": False,
+        "scientific_capability_conclusion": False,
+        "compute_evidence_verified": evidence_verified,
+        "compute_evidence_file": evidence_file,
+        "exact_next_action": (
+            "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU"
+            if block_class == "BLOCKED_BY_COMPUTE"
+            else "TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE"
+        ),
+    }
+
+
 def _write_atomic_report(result: dict[str, Any]) -> None:
     lines = ["# Atomic Qualification v2", "", f"Decision: **{result['decision']}**", ""]
-    if not result.get("models"):
+    if result.get("status") == "NOT_RUN_BY_ENGINEERING_GATE":
         lines.extend(["**NOT_RUN_BY_ENGINEERING_GATE**", ""])
+    elif not result.get("models"):
+        lines.extend(
+            [
+                f"**{result['status']}**",
+                "",
+                (
+                    f"Preserved partial rows: {result.get('completed_prediction_rows_preserved', 0)}. "
+                    "No partial row was used for Atomic metrics or a model-capability conclusion."
+                ),
+                "",
+                f"Engineering decision: `{result['decision']}`.",
+                "",
+            ]
+        )
     for model_key, model in result.get("models", {}).items():
         lines.extend(
             [
@@ -240,11 +321,21 @@ def analyze_joint_v2() -> dict[str, Any]:
     root = ARTIFACTS / "recovery_qualification/joint"
     status = json.loads((root / "run_status.json").read_text(encoding="utf-8"))
     if status["status"] != "complete":
+        upstream = status.get("upstream_decision", "CAPABILITY_COHORT_NO_GO")
+        next_action = (
+            "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU"
+            if upstream == "BLOCKED_BY_COMPUTE"
+            else "TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE"
+            if upstream == "BLOCKED_BY_MODEL_ADAPTER"
+            else "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
+        )
         result = {
-            "decision": status.get("upstream_decision", "CAPABILITY_COHORT_NO_GO"),
+            "decision": upstream,
             "status": "JOINT_NOT_RUN_BY_UPSTREAM_GATE",
             "models": {},
-            "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE",
+            "exact_next_action": next_action,
+            "scientific_capability_conclusion": upstream
+            not in {"BLOCKED_BY_COMPUTE", "BLOCKED_BY_MODEL_ADAPTER"},
         }
     else:
         predictions = [

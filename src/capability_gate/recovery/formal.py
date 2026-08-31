@@ -23,6 +23,26 @@ from capability_gate.recovery.smoke import WorkerSession
 ATOMIC_ROOT = ARTIFACTS / "recovery_qualification/atomic"
 JOINT_ROOT = ARTIFACTS / "recovery_qualification/joint"
 
+COMPUTE_RUNTIME_SIGNATURES = (
+    "cuda out of memory",
+    "illegal memory access",
+    "cublas_status_alloc_failed",
+    "cudnn_status_alloc_failed",
+)
+
+
+def classify_formal_runtime_failure(error: BaseException, stderr_text: str) -> str:
+    """Separate CUDA/VRAM execution failures from adapter failures.
+
+    This classification is engineering-only. It must never inspect predictions or
+    task correctness.
+    """
+
+    evidence = f"{type(error).__name__}: {error}\n{stderr_text}".lower()
+    if any(signature in evidence for signature in COMPUTE_RUNTIME_SIGNATURES):
+        return "BLOCKED_BY_COMPUTE"
+    return "BLOCKED_BY_MODEL_ADAPTER"
+
 
 def _experiment_hash() -> str:
     return config_hash(
@@ -178,9 +198,8 @@ def run_atomic_qualification_v2() -> dict[str, Any]:
         output = ATOMIC_ROOT / f"predictions/{ENV_NAMES[model_key]}.jsonl"
         if output.exists():
             raise RuntimeError(f"Atomic v2 output already exists: {output}")
-        session = WorkerSession(
-            model_key, ATOMIC_ROOT / f"runtime/{ENV_NAMES[model_key]}.stderr.log"
-        )
+        stderr_path = ATOMIC_ROOT / f"runtime/{ENV_NAMES[model_key]}.stderr.log"
+        session = WorkerSession(model_key, stderr_path)
         try:
             load = session.request(
                 _worker_request(
@@ -231,8 +250,11 @@ def run_atomic_qualification_v2() -> dict[str, Any]:
                 completed += 1
             models_completed.append(model_key)
         except Exception as error:  # noqa: BLE001 - preserve partial formal sequence
+            session.stderr_handle.flush()
+            stderr_text = stderr_path.read_text(encoding="utf-8")
             failure = {
                 "status": "FORMAL_ATOMIC_RUNTIME_FAIL",
+                "block_class": classify_formal_runtime_failure(error, stderr_text),
                 "model_key": model_key,
                 "completed_prediction_rows_preserved": completed,
                 "error": f"{type(error).__name__}: {error}",
@@ -288,9 +310,8 @@ def run_joint_screen_v2() -> dict[str, Any]:
     for model_key in model_keys:
         output = JOINT_ROOT / f"predictions/{ENV_NAMES[model_key]}.jsonl"
         retention_output = JOINT_ROOT / f"retention/{ENV_NAMES[model_key]}.jsonl"
-        session = WorkerSession(
-            model_key, JOINT_ROOT / f"runtime/{ENV_NAMES[model_key]}.stderr.log"
-        )
+        stderr_path = JOINT_ROOT / f"runtime/{ENV_NAMES[model_key]}.stderr.log"
+        session = WorkerSession(model_key, stderr_path)
         cache: dict[str, dict[str, Any]] = {}
         try:
             load = session.request(
@@ -418,8 +439,11 @@ def run_joint_screen_v2() -> dict[str, Any]:
                     ),
                 )
         except Exception as error:  # noqa: BLE001 - preserve partial joint sequence
+            session.stderr_handle.flush()
+            stderr_text = stderr_path.read_text(encoding="utf-8")
             failure = {
                 "status": "FORMAL_JOINT_RUNTIME_FAIL",
+                "block_class": classify_formal_runtime_failure(error, stderr_text),
                 "model_key": model_key,
                 "completed_prediction_rows_preserved": completed,
                 "error": f"{type(error).__name__}: {error}",

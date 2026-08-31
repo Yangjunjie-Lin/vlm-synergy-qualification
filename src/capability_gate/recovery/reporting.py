@@ -47,9 +47,15 @@ def _final_state() -> dict[str, Any]:
         )
         capability_conclusion = False
     elif atomic_status.get("status") != "complete":
-        decision = "BLOCKED_BY_MODEL_ADAPTER"
+        decision = atomic.get("decision", atomic_status.get("block_class"))
+        if decision not in {"BLOCKED_BY_COMPUTE", "BLOCKED_BY_MODEL_ADAPTER"}:
+            decision = "BLOCKED_BY_MODEL_ADAPTER"
         potential = "NOT_EVALUATED_ENGINEERING_BLOCK"
-        next_action = "TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE"
+        next_action = (
+            "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU"
+            if decision == "BLOCKED_BY_COMPUTE"
+            else "TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE"
+        )
         capability_conclusion = False
     elif atomic.get("decision") == "CAPABILITY_COHORT_NO_GO":
         decision = "CAPABILITY_COHORT_NO_GO"
@@ -66,9 +72,15 @@ def _final_state() -> dict[str, Any]:
         next_action = "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
         capability_conclusion = True
     elif joint_status.get("status") != "complete":
-        decision = "BLOCKED_BY_MODEL_ADAPTER"
+        decision = joint.get("decision", joint_status.get("block_class"))
+        if decision not in {"BLOCKED_BY_COMPUTE", "BLOCKED_BY_MODEL_ADAPTER"}:
+            decision = "BLOCKED_BY_MODEL_ADAPTER"
         potential = "NOT_EVALUATED_ENGINEERING_BLOCK"
-        next_action = "TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE"
+        next_action = (
+            "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU"
+            if decision == "BLOCKED_BY_COMPUTE"
+            else "TERMINATE_AFTER_FINAL_ADAPTER_RECOVERY_FAILURE"
+        )
         capability_conclusion = False
     else:
         decision = joint["decision"]
@@ -96,12 +108,25 @@ def _final_state() -> dict[str, Any]:
     }
 
 
-def _migration_manifest(smoke: dict[str, Any]) -> dict[str, Any] | None:
+def _migration_manifest(smoke: dict[str, Any], state: dict[str, Any]) -> dict[str, Any] | None:
     compute_models = [
         key
         for key, value in smoke["model_results"].items()
         if value["status"] == "BLOCKED_BY_COMPUTE"
     ]
+    phase = "engineering_recovery_smoke"
+    if state["decision"] == "BLOCKED_BY_COMPUTE":
+        if state["atomic_status"].get("status") == "FORMAL_ATOMIC_RUNTIME_FAIL":
+            compute_models = list(state["engineering"]["atomic_authorized_models"])
+            phase = "atomic_qualification_v2"
+        elif state["joint_status"].get("status") == "FORMAL_JOINT_RUNTIME_FAIL":
+            compute_models = [
+                key
+                for key, value in state["atomic"].get("models", {}).items()
+                if value.get("label") == "ATOMICALLY_QUALIFIED"
+            ]
+            phase = "joint_composition_screen_v2"
+    compute_models = sorted(set(compute_models))
     if not compute_models:
         return None
     frozen = _read_json(ARTIFACTS / "models/frozen_registry.json", {})
@@ -114,6 +139,12 @@ def _migration_manifest(smoke: dict[str, Any]) -> dict[str, Any] | None:
     result = {
         "schema_version": 1,
         "kind": "SAME_FROZEN_COHORT_COMPUTE_MIGRATION",
+        "blocked_phase": phase,
+        "minimum_single_gpu_vram_gib": 16,
+        "preferred_single_gpu_vram_gib": 24,
+        "migration_source_commit": state["atomic_status"].get(
+            "engineering_decision_commit", "50f1e6cdb50c353b2c899390aec7a987a28daa27"
+        ),
         "models": {
             key: {
                 "model_id": DESCRIPTORS[key].model_id,
@@ -124,10 +155,21 @@ def _migration_manifest(smoke: dict[str, Any]) -> dict[str, Any] | None:
                 "model_cache_manifest": registry[key]["remote_weight_files"],
                 "expected_disk_requirement": disk_gib[key],
                 "expected_vram_range": "16-24 GiB single CUDA GPU",
-                "exact_command": "python -m capability_gate run-adapter-recovery-smoke",
+                "exact_environment_command": (
+                    f"python -m pip install -r envs/{ENV_NAMES[key]}/requirements.lock"
+                ),
             }
             for key in compute_models
         },
+        "exact_commands": [
+            "python -m capability_gate verify-historical-block",
+            "python -m capability_gate verify-model-environments",
+            "python -m capability_gate run-atomic-qualification-v2"
+            if phase == "atomic_qualification_v2"
+            else "python -m capability_gate run-joint-screen-v2"
+            if phase == "joint_composition_screen_v2"
+            else "python -m capability_gate run-adapter-recovery-smoke",
+        ],
         "model_or_revision_changed": False,
         "formal_data_or_prompt_changed": False,
     }
@@ -142,7 +184,7 @@ def build_recovery_report() -> dict[str, Any]:
         (ROOT / "research/engineering_recovery/root_cause_matrix.yaml").read_text(encoding="utf-8")
     )
     environment = _read_json(ENGINEERING_ROOT / "manifests/environment_verification.json")
-    migration = _migration_manifest(smoke)
+    migration = _migration_manifest(smoke, state)
     lines = [
         "# CapabilityGate Final Recovery Decision",
         "",
@@ -233,7 +275,14 @@ def build_recovery_report() -> dict[str, Any]:
         ]
     )
     if state["atomic_status"].get("status") != "complete":
-        lines.append("**NOT_RUN_BY_ENGINEERING_GATE**")
+        if state["atomic_status"].get("status") == "NOT_RUN_BY_ENGINEERING_GATE":
+            lines.append("**NOT_RUN_BY_ENGINEERING_GATE**")
+        else:
+            lines.append(
+                f"**{state['atomic'].get('status', 'ATOMIC_INCOMPLETE_BY_ENGINEERING_BLOCK')}**. "
+                f"Preserved rows: {state['atomic'].get('completed_prediction_rows_preserved', 0)}; "
+                "formal rows used for scientific metrics: 0. No Atomic capability conclusion was made."
+            )
     else:
         lines.append(
             f"Atomic v2 ran only for authorized models. Decision: **{state['atomic']['decision']}**; "
@@ -263,8 +312,9 @@ def build_recovery_report() -> dict[str, Any]:
             "",
             (
                 "The historical decision was produced before any formal forward. This recovery changed "
-                "only engineering paths; all formal scientific parameters remained frozen. Atomic ran: "
-                f"**{state['atomic_status'].get('status') == 'complete'}**. Joint ran: "
+                "only engineering paths; all formal scientific parameters remained frozen. Atomic started: "
+                f"**{bool(state['atomic_status']) and state['atomic_status'].get('status') != 'NOT_RUN_BY_ENGINEERING_GATE'}**; "
+                f"Atomic completed: **{state['atomic_status'].get('status') == 'complete'}**. Joint ran: "
                 f"**{state['joint_status'].get('status') == 'complete'}**. A model-capability conclusion "
                 f"was produced: **{state['scientific_capability_conclusion']}**. Activation patching was "
                 "not run."
@@ -279,7 +329,9 @@ def build_recovery_report() -> dict[str, Any]:
         "decision": state["decision"],
         "q1_potential": state["q1_potential"],
         "exact_next_action": state["exact_next_action"],
-        "atomic_run": state["atomic_status"].get("status") == "complete",
+        "atomic_run": bool(state["atomic_status"])
+        and state["atomic_status"].get("status") != "NOT_RUN_BY_ENGINEERING_GATE",
+        "atomic_complete": state["atomic_status"].get("status") == "complete",
         "joint_run": state["joint_status"].get("status") == "complete",
         "scientific_capability_conclusion": state["scientific_capability_conclusion"],
         "activation_patching_executed": False,
