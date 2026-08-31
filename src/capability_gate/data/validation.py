@@ -232,9 +232,7 @@ def validate_all(legacy_root: Path | None = None) -> dict[str, Any]:
         "uuid_overlap_count": len(new_ids & old_ids),
         "image_hash_overlap_count": len(new_hashes & old_hashes),
         "entity_name_overlap_count": len(new_names & old_names),
-        "abstract_template_overlap_count": len(
-            new_abstract_templates & legacy_abstract_templates
-        ),
+        "abstract_template_overlap_count": len(new_abstract_templates & legacy_abstract_templates),
     }
     checks["overall_gate"] = (
         checks["count_gate"]

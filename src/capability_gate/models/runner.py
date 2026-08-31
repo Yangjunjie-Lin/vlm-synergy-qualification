@@ -149,6 +149,7 @@ def run_engineering_smoke() -> dict[str, Any]:
             adapter = TransformersVLM(spec, profile)
             try:
                 adapter.load()
+                runtime_metadata = adapter.runtime_metadata()
                 for scene in scenes:
                     payload = _prompt(
                         atomic_config["system_instruction"],
@@ -163,23 +164,23 @@ def run_engineering_smoke() -> dict[str, Any]:
                         scene["target"],
                         candidate_prefix=scoring["primary"]["candidate_prefix"],
                     )
-                    _append_jsonl(
-                        output,
-                        _prediction_row(
-                            spec,
-                            scene,
-                            payload,
-                            result,
-                            mode="engineering_smoke",
-                            image_path=scene["image_path"],
-                            image_hash=scene["image_sha256"],
-                        ),
+                    row = _prediction_row(
+                        spec,
+                        scene,
+                        payload,
+                        result,
+                        mode="engineering_smoke",
+                        image_path=scene["image_path"],
+                        image_hash=scene["image_sha256"],
                     )
+                    row["engineering_attempt"] = attempt_index
+                    _append_jsonl(output, row)
                 passed = True
                 model_status[spec["key"]] = {
                     "status": "ENGINEERING_SMOKE_PASS",
                     "successful_attempt": attempt_index,
                     "successful_profile": profile,
+                    "runtime_metadata": runtime_metadata,
                     "scenes_completed": len(scenes),
                 }
                 attempts.append(

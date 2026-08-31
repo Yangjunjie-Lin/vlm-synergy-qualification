@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import gc
+import importlib.metadata
+import os
 import time
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -8,6 +10,8 @@ from pathlib import Path
 from typing import Any
 
 from PIL import Image
+
+from capability_gate.artifacts import canonical_json, sha256_text
 
 
 @dataclass(frozen=True)
@@ -98,6 +102,48 @@ class TransformersVLM:
         gc.collect()
         if self.torch is not None and self.torch.cuda.is_available():
             self.torch.cuda.empty_cache()
+
+    def runtime_metadata(self) -> dict[str, Any]:
+        if self.model is None or self.processor is None:
+            raise RuntimeError("adapter is not loaded")
+        device_map = getattr(self.model, "hf_device_map", None)
+        if isinstance(device_map, dict):
+            device_map = {str(key): str(value) for key, value in device_map.items()}
+        gpu = {}
+        if self.torch.cuda.is_available():
+            properties = self.torch.cuda.get_device_properties(0)
+            gpu = {
+                "name": properties.name,
+                "total_vram_bytes": properties.total_memory,
+                "max_memory_allocated_bytes": self.torch.cuda.max_memory_allocated(0),
+                "max_memory_reserved_bytes": self.torch.cuda.max_memory_reserved(0),
+            }
+        versions = {}
+        for package in ("torch", "transformers", "accelerate", "bitsandbytes"):
+            try:
+                versions[package] = importlib.metadata.version(package)
+            except importlib.metadata.PackageNotFoundError:
+                versions[package] = None
+        weight_hashes = self.spec["expected_weight_sha256"]
+        return {
+            "model_class": type(self.model).__name__,
+            "processor_class": type(self.processor).__name__,
+            "tokenizer_class": type(getattr(self.processor, "tokenizer", None)).__name__,
+            "model_revision": self.spec["revision"],
+            "processor_revision": self.spec["processor_revision"],
+            "tokenizer_revision": self.spec["tokenizer_revision"],
+            "dtype": self.spec["dtype"],
+            "quantization": self.spec["quantization"],
+            "device_map_policy": self.spec["device_map"],
+            "resolved_device_map": device_map,
+            "load_profile": self.profile,
+            "expected_weight_sha256": weight_hashes,
+            "weight_manifest_sha256": sha256_text(canonical_json(weight_hashes)),
+            "gpu": gpu,
+            "software_versions": versions,
+            "hf_home": os.environ.get("HF_HOME"),
+            "hf_hub_cache": os.environ.get("HF_HUB_CACHE"),
+        }
 
     def _render(self, payload: PromptPayload, image: Image.Image | None) -> str:
         if self.spec["adapter"] == "phi4_multimodal":
