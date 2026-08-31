@@ -80,4 +80,3 @@ def dependency_preflight(model_key: str) -> dict[str, Any]:
         "counts_as_model_load_attempt": False,
         "counts_as_scientific_attempt": False,
     }
-

@@ -111,13 +111,16 @@ DESCRIPTORS: dict[str, ModelDescriptor] = {
 
 
 def _tensor_is_meta(value: Any) -> bool:
-    return bool(getattr(value, "is_meta", False)) or getattr(
-        getattr(value, "device", None), "type", None
-    ) == "meta"
+    return (
+        bool(getattr(value, "is_meta", False))
+        or getattr(getattr(value, "device", None), "type", None) == "meta"
+    )
 
 
 def inspect_materialization(model: Any, loading_info: Mapping[str, Any]) -> dict[str, Any]:
-    meta_parameters = [name for name, parameter in model.named_parameters() if _tensor_is_meta(parameter)]
+    meta_parameters = [
+        name for name, parameter in model.named_parameters() if _tensor_is_meta(parameter)
+    ]
     meta_buffers = [name for name, buffer in model.named_buffers() if _tensor_is_meta(buffer)]
     unmaterialized_buffers = [
         name
@@ -231,7 +234,9 @@ class NativeRecoveryAdapter:
             self.descriptor.model_id, **self._model_kwargs()
         )
         if not isinstance(loaded, tuple) or len(loaded) != 2:
-            raise MeasurementImplementationError("output_loading_info did not return model and info")
+            raise MeasurementImplementationError(
+                "output_loading_info did not return model and info"
+            )
         self.model, self.loading_info = loaded
         self.model.eval()
         self.load_seconds = time.perf_counter() - started
@@ -331,7 +336,9 @@ class NativeRecoveryAdapter:
             raise MeasurementImplementationError(f"candidate tokenization is empty: {candidate}")
         return list(ids)
 
-    def _append_candidate(self, prompt_inputs: Mapping[str, Any], ids: Sequence[int]) -> dict[str, Any]:
+    def _append_candidate(
+        self, prompt_inputs: Mapping[str, Any], ids: Sequence[int]
+    ) -> dict[str, Any]:
         torch = self.torch
         full = dict(prompt_inputs)
         input_ids = prompt_inputs["input_ids"]
@@ -380,9 +387,7 @@ class NativeRecoveryAdapter:
         self._vision_observed = False
         rendered, encoded = self._encode(system, user, image)
         visual_keys = sorted(
-            key
-            for key in encoded
-            if key.startswith(("pixel_", "image_", "input_image"))
+            key for key in encoded if key.startswith(("pixel_", "image_", "input_image"))
         )
         if image is not None and not visual_keys:
             raise MeasurementImplementationError("processor produced no visual tensor fields")
@@ -459,14 +464,10 @@ class NativeRecoveryAdapter:
                 f"constrained generation escaped allowed answers: {generated_suffix}"
             )
         target_score = next(
-            score["normalized_log_likelihood"]
-            for score in scores
-            if score["candidate"] == target
+            score["normalized_log_likelihood"] for score in scores if score["candidate"] == target
         )
         other_scores = [
-            score["normalized_log_likelihood"]
-            for score in scores
-            if score["candidate"] != target
+            score["normalized_log_likelihood"] for score in scores if score["candidate"] != target
         ]
         return {
             "rendered_prompt": rendered,
@@ -623,10 +624,7 @@ class PhiRecoveryAdapter(NativeRecoveryAdapter):
 
     def _encode(self, system: str, user: str, image: Image.Image | None) -> tuple[str, Any]:
         image_token = "<|image_1|>" if image is not None else ""
-        rendered = (
-            f"<|system|>{system}<|end|><|user|>{image_token}{user}<|end|>"
-            "<|assistant|>"
-        )
+        rendered = f"<|system|>{system}<|end|><|user|>{image_token}{user}<|end|><|assistant|>"
         kwargs: dict[str, Any] = {"text": [rendered], "return_tensors": "pt"}
         if image is not None:
             kwargs["images"] = [image]

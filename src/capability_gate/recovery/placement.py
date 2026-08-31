@@ -48,4 +48,3 @@ def validate_no_auto_offload(model_kwargs: dict[str, Any]) -> None:
         raise ValueError("recovery Q1 requires explicit 4-bit quantization")
     if getattr(quantization, "llm_int8_enable_fp32_cpu_offload", False):
         raise ValueError("recovery Q1 forbids the historical CPU-offload flag")
-

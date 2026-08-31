@@ -55,7 +55,9 @@ def engineering_cohort_decision(model_statuses: Mapping[str, str]) -> dict[str, 
 
     if set(model_statuses) != {"qwen2_5_vl_7b", "glm4_1v_9b", "phi4_multimodal_5_6b"}:
         raise ValueError("engineering recovery must adjudicate exactly the three frozen models")
-    invalid = {key: value for key, value in model_statuses.items() if value not in ENGINEERING_STATUSES}
+    invalid = {
+        key: value for key, value in model_statuses.items() if value not in ENGINEERING_STATUSES
+    }
     if invalid:
         raise ValueError(f"invalid engineering status values: {invalid}")
     passed = sorted(

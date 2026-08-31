@@ -13,6 +13,17 @@ from capability_gate.models.runner import (
     run_joint_screen,
 )
 from capability_gate.provenance import verify_historical_freeze
+from capability_gate.recovery.adjudication import (
+    adjudicate_atomic_v2,
+    adjudicate_engineering_recovery,
+    analyze_joint_v2,
+)
+from capability_gate.recovery.diagnostics import diagnose_adapters
+from capability_gate.recovery.environments import verify_model_environments
+from capability_gate.recovery.formal import run_atomic_qualification_v2, run_joint_screen_v2
+from capability_gate.recovery.historical import verify_historical_block
+from capability_gate.recovery.reporting import build_recovery_report, verify_recovery_artifacts
+from capability_gate.recovery.smoke import run_adapter_recovery_smoke
 from capability_gate.reporting import build_reports
 from capability_gate.statistics.adjudication import adjudicate_atomic
 from capability_gate.statistics.joint import analyze_joint
@@ -36,6 +47,17 @@ COMMANDS: dict[str, Callable[[], Any]] = {
     "analyze-joint": analyze_joint,
     "build-report": build_reports,
     "verify-artifacts": verify_artifacts,
+    "verify-historical-block": verify_historical_block,
+    "diagnose-adapters": diagnose_adapters,
+    "verify-model-environments": verify_model_environments,
+    "run-adapter-recovery-smoke": run_adapter_recovery_smoke,
+    "adjudicate-engineering-recovery": adjudicate_engineering_recovery,
+    "run-atomic-qualification-v2": run_atomic_qualification_v2,
+    "adjudicate-atomic-v2": adjudicate_atomic_v2,
+    "run-joint-screen-v2": run_joint_screen_v2,
+    "analyze-joint-v2": analyze_joint_v2,
+    "build-recovery-report": build_recovery_report,
+    "verify-recovery-artifacts": verify_recovery_artifacts,
 }
 
 

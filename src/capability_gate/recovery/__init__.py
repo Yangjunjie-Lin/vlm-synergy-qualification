@@ -7,4 +7,3 @@ from capability_gate.recovery.governance import (
 )
 
 __all__ = ["ENGINEERING_STATUSES", "decision_policy", "engineering_cohort_decision"]
-

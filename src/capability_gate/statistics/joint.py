@@ -162,24 +162,12 @@ def _diagnostics(rows: Sequence[dict[str, Any]], key: str) -> dict[str, Any]:
     }
 
 
-def analyze_joint() -> dict[str, Any]:
-    status = json.loads(
-        (ARTIFACTS / "manifests" / "joint_screen_status.json").read_text(encoding="utf-8")
-    )
-    if status["status"] != "complete":
-        result = {
-            "decision": status["upstream_decision"],
-            "status": "JOINT_NOT_RUN_BY_ATOMIC_STOP_RULE",
-            "models": {},
-            "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE",
-        }
-        write_json(ARTIFACTS / "joint" / "analysis.json", result)
-        return result
-
+def analyze_joint_rows(
+    predictions: Sequence[dict[str, Any]],
+    retention_predictions: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
     config = _load("joint_screen.yaml")
     scoring = _load("scoring.yaml")
-    predictions = read_jsonl(ARTIFACTS / "joint" / "predictions.jsonl")
-    retention_predictions = read_jsonl(ARTIFACTS / "joint" / "atomic_retention_predictions.jsonl")
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     retention_grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in predictions:
@@ -321,5 +309,25 @@ def analyze_joint() -> dict[str, Any]:
             else "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
         ),
     }
+    return result
+
+
+def analyze_joint() -> dict[str, Any]:
+    status = json.loads(
+        (ARTIFACTS / "manifests" / "joint_screen_status.json").read_text(encoding="utf-8")
+    )
+    if status["status"] != "complete":
+        result = {
+            "decision": status["upstream_decision"],
+            "status": "JOINT_NOT_RUN_BY_ATOMIC_STOP_RULE",
+            "models": {},
+            "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE",
+        }
+        write_json(ARTIFACTS / "joint" / "analysis.json", result)
+        return result
+    result = analyze_joint_rows(
+        read_jsonl(ARTIFACTS / "joint" / "predictions.jsonl"),
+        read_jsonl(ARTIFACTS / "joint" / "atomic_retention_predictions.jsonl"),
+    )
     write_json(ARTIFACTS / "joint" / "analysis.json", result)
     return result
