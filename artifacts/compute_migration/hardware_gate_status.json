@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "MIGRATED_COMPUTE_HARDWARE_GATE",
+  "evaluated_at_utc": "2026-08-31T19:29:39.1412875Z",
+  "decision": "INADEQUATE_GPU_ENVIRONMENT",
+  "formal_atomic_started": false,
+  "joint_started": false,
+  "activation_patching_executed": false,
+  "required_target": {
+    "os": "Linux x86_64",
+    "single_gpu_vram_gib_min": 24,
+    "free_gpu_vram_gib_min": 22,
+    "heterogeneous_small_gpu_stitching": "forbidden",
+    "cpu_only": "forbidden",
+    "default_cpu_or_disk_offload": "forbidden"
+  },
+  "rejected_current_host": {
+    "hostname": "YANGJUNJIE",
+    "os": "Windows 10 Home China",
+    "os_architecture": "64-bit",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "ram_bytes": 34003582976,
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "gpu_uuid": "GPU-f111cd9c-13af-74da-5c2a-dcd93310f7b3",
+    "driver_version": "566.07",
+    "gpu_total_vram_mib": 6144,
+    "gpu_free_vram_mib": 4316,
+    "python": "3.11.9",
+    "torch": "2.6.0+cu124",
+    "cuda_runtime": "12.4",
+    "transformers": "4.57.6",
+    "accelerate": "1.14.0",
+    "bitsandbytes": "0.50.2",
+    "eligible": false,
+    "violations": [
+      "OS_NOT_LINUX_X86_64",
+      "TOTAL_VRAM_BELOW_24_GIB",
+      "FREE_VRAM_BELOW_22_GIB",
+      "CURRENT_WINDOWS_6GB_GPU_EXPLICITLY_FORBIDDEN"
+    ]
+  },
+  "target_access_audit": {
+    "configured_ssh_destinations_checked": 3,
+    "reachable_destinations": 0,
+    "installed_cloud_gpu_cli_count": 0,
+    "existing_browser_gpu_session_found": false,
+    "eligible_linux_gpu_target_available": false
+  },
+  "stop_rule": "Do not start formal Atomic while available GPU VRAM is below 22 GiB or while no eligible Linux x86_64 target is accessible.",
+  "exact_unblock_requirement": "Provide an already-authorized SSH destination for a Linux x86_64 host with one GPU of at least 24 GiB and at least 22 GiB free, or explicitly authorize provisioning a paid GPU resource."
+}
