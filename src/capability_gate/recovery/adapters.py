@@ -14,6 +14,7 @@ from PIL import Image
 from capability_gate.artifacts import canonical_json, sha256_file, sha256_text
 from capability_gate.models.adapters import PrefixTrie
 from capability_gate.recovery.dependencies import DEPENDENCY_SPECS, dependency_preflight
+from capability_gate.recovery.placement import single_gpu_4bit_model_kwargs
 
 
 class DependencyPreflightError(RuntimeError):
@@ -205,26 +206,12 @@ class NativeRecoveryAdapter:
         raise NotImplementedError
 
     def _model_kwargs(self) -> dict[str, Any]:
-        torch = self.torch
-        from transformers import BitsAndBytesConfig
-
-        quantization = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_use_double_quant=True,
-            bnb_4bit_compute_dtype=torch.bfloat16,
-            llm_int8_enable_fp32_cpu_offload=False,
+        return single_gpu_4bit_model_kwargs(
+            torch=self.torch,
+            revision=self.descriptor.revision,
+            trust_remote_code=self.descriptor.trust_remote_code,
+            attn_implementation="eager",
         )
-        return {
-            "revision": self.descriptor.revision,
-            "trust_remote_code": self.descriptor.trust_remote_code,
-            "quantization_config": quantization,
-            "device_map": {"": 0},
-            "low_cpu_mem_usage": True,
-            "torch_dtype": torch.bfloat16,
-            "attn_implementation": "eager",
-            "output_loading_info": True,
-        }
 
     def load(self) -> None:
         preflight = dependency_preflight(self.descriptor.key)

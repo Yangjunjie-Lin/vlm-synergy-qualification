@@ -6,7 +6,6 @@ import os
 import time
 from collections.abc import Sequence
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
 
 from PIL import Image
@@ -49,52 +48,9 @@ class TransformersVLM:
         self.torch = None
 
     def load(self) -> None:
-        import torch
-        from transformers import (
-            AutoModelForCausalLM,
-            AutoModelForImageTextToText,
-            AutoProcessor,
-            BitsAndBytesConfig,
+        raise RuntimeError(
+            "HISTORICAL_GENERIC_4BIT_AUTO_OFFLOAD_PATH_DISABLED: use an isolated recovery worker"
         )
-
-        if not torch.cuda.is_available():
-            raise RuntimeError("CUDA is unavailable; real frozen VLM smoke cannot run")
-        self.torch = torch
-        revision = self.spec["revision"]
-        common = {
-            "revision": revision,
-            "trust_remote_code": bool(self.spec.get("trust_remote_code", False)),
-            "low_cpu_mem_usage": True,
-        }
-        self.processor = AutoProcessor.from_pretrained(self.spec["model_id"], **common)
-        quantization = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_use_double_quant=True,
-            bnb_4bit_compute_dtype=torch.bfloat16,
-            llm_int8_enable_fp32_cpu_offload=True,
-        )
-        model_kwargs = {
-            **common,
-            "quantization_config": quantization,
-            "device_map": "auto",
-            "max_memory": {
-                0: f"{self.profile['gpu_max_memory_mib']}MiB",
-                "cpu": f"{self.profile['cpu_max_memory_gib']}GiB",
-            },
-            "offload_folder": str(Path(self.profile["offload_folder"]).resolve()),
-            "offload_state_dict": True,
-            "torch_dtype": torch.bfloat16,
-            "attn_implementation": self.profile.get("attn_implementation", "eager"),
-        }
-        Path(model_kwargs["offload_folder"]).mkdir(parents=True, exist_ok=True)
-        auto_class = (
-            AutoModelForCausalLM
-            if self.spec["adapter"] == "phi4_multimodal"
-            else AutoModelForImageTextToText
-        )
-        self.model = auto_class.from_pretrained(self.spec["model_id"], **model_kwargs)
-        self.model.eval()
 
     def close(self) -> None:
         self.model = None
