@@ -9,8 +9,6 @@ dist/
 build/
 *.egg-info/
 .huggingface/
-artifacts/data/**/images/*.png
-artifacts/**/*.jsonl
 artifacts/models/cache/
 artifacts/models/offload/
 artifacts/audit_drafts/

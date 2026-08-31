@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/Yangjunjie-Lin/vlm-synergy-trace",
+  "local_repository": "D:\\UoM_CS\\GitHub\\vlm-synergy-trace",
+  "frozen_branch": "codex/real-vlm-synergy-pilot",
+  "frozen_commit": "88741f0301c61c0abf3e63a5903183e9664af552",
+  "branch_commit": "88741f0301c61c0abf3e63a5903183e9664af552",
+  "annotated_tag": "synergy-trace-behavioral-no-go-2026-08-31",
+  "tag_object_type": "tag",
+  "tag_peeled_target": "88741f0301c61c0abf3e63a5903183e9664af552",
+  "worktree_clean": true,
+  "historical_decision": "BEHAVIORAL_NO_GO",
+  "historical_potential": "NO_POTENTIAL under frozen configuration",
+  "activation_patching_executed": false,
+  "mechanism_claims_present": false,
+  "gate": true
+}

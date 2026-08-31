@@ -1,0 +1,228 @@
+{
+  "counts": {
+    "engineering_smoke": 12,
+    "atomic": 256,
+    "joint_base_quartets": 128,
+    "joint_conditions": 512
+  },
+  "count_gate": true,
+  "atomic_tasks": {
+    "cross_modal_bridge_binding": {
+      "count": 64,
+      "answers": {
+        "north": 16,
+        "south": 16,
+        "east": 16,
+        "west": 16
+      },
+      "correct_option_positions": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "templates": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "colors": {
+        "crimson": 16,
+        "azure": 16,
+        "emerald": 16,
+        "amber": 16
+      },
+      "shapes": {
+        "circle": 16,
+        "triangle": 16,
+        "diamond": 16,
+        "square": 16
+      },
+      "entity_counts": {
+        "5": 16,
+        "6": 16,
+        "7": 16,
+        "8": 16
+      },
+      "symbolic_accuracy": 1.0,
+      "shortcut_accuracy": {
+        "question_only": 0.25,
+        "entity_name": 0.25,
+        "metadata": 0.25,
+        "option_position": 0.25,
+        "majority": 0.25
+      },
+      "gate": true
+    },
+    "direct_text_relation": {
+      "count": 64,
+      "answers": {
+        "north": 16,
+        "south": 16,
+        "east": 16,
+        "west": 16
+      },
+      "correct_option_positions": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "templates": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "colors": {
+        "crimson": 16,
+        "azure": 16,
+        "emerald": 16,
+        "amber": 16
+      },
+      "shapes": {
+        "circle": 16,
+        "diamond": 16,
+        "triangle": 16,
+        "square": 16
+      },
+      "entity_counts": {
+        "2": 16,
+        "3": 16,
+        "4": 16,
+        "5": 16
+      },
+      "symbolic_accuracy": 1.0,
+      "shortcut_accuracy": {
+        "question_only": 0.25,
+        "entity_name": 0.25,
+        "metadata": 0.25,
+        "option_position": 0.25,
+        "majority": 0.25
+      },
+      "gate": true
+    },
+    "direct_visual_relation": {
+      "count": 64,
+      "answers": {
+        "north": 16,
+        "south": 16,
+        "east": 16,
+        "west": 16
+      },
+      "correct_option_positions": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "templates": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "colors": {
+        "crimson": 16,
+        "azure": 16,
+        "emerald": 16,
+        "amber": 16
+      },
+      "shapes": {
+        "circle": 16,
+        "diamond": 16,
+        "triangle": 16,
+        "square": 16
+      },
+      "entity_counts": {
+        "2": 16,
+        "3": 16,
+        "4": 16,
+        "5": 16
+      },
+      "symbolic_accuracy": 1.0,
+      "shortcut_accuracy": {
+        "question_only": 0.25,
+        "entity_name": 0.25,
+        "metadata": 0.25,
+        "option_position": 0.25,
+        "majority": 0.25
+      },
+      "gate": true
+    },
+    "direction_reversal": {
+      "count": 64,
+      "answers": {
+        "north": 16,
+        "south": 16,
+        "east": 16,
+        "west": 16
+      },
+      "correct_option_positions": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "templates": {
+        "0": 16,
+        "1": 16,
+        "2": 16,
+        "3": 16
+      },
+      "colors": {
+        "crimson": 16,
+        "azure": 16,
+        "emerald": 16,
+        "amber": 16
+      },
+      "shapes": {
+        "circle": 16,
+        "diamond": 16,
+        "triangle": 16,
+        "square": 16
+      },
+      "entity_counts": {
+        "2": 16,
+        "3": 16,
+        "4": 16,
+        "5": 16
+      },
+      "symbolic_accuracy": 1.0,
+      "shortcut_accuracy": {
+        "question_only": 0.25,
+        "entity_name": 0.25,
+        "metadata": 0.25,
+        "option_position": 0.25,
+        "majority": 0.25
+      },
+      "gate": true
+    }
+  },
+  "joint": {
+    "answers": {
+      "northeast": 128,
+      "southeast": 128,
+      "northwest": 128,
+      "southwest": 128
+    },
+    "correct_option_positions": {
+      "2": 128,
+      "3": 128,
+      "1": 128,
+      "0": 128
+    },
+    "symbolic_and_factorial_gate": true,
+    "single_modality_nonidentifying": true
+  },
+  "legacy_overlap": {
+    "legacy_root": "D:\\UoM_CS\\GitHub\\vlm-synergy-trace",
+    "legacy_available": true,
+    "uuid_overlap_count": 0,
+    "image_hash_overlap_count": 0,
+    "entity_name_overlap_count": 0,
+    "abstract_template_overlap_count": 0
+  },
+  "overall_gate": true
+}
