@@ -1,0 +1,14 @@
+{
+  "decision": "BLOCKED_BY_COMPUTE",
+  "qualified_count": 0,
+  "models": {},
+  "status": "ATOMIC_INCOMPLETE_BY_COMPUTE_BLOCK",
+  "failed_model": "glm4_1v_9b",
+  "completed_prediction_rows_preserved": 15,
+  "formal_rows_used_for_scientific_metrics": 0,
+  "atomic_metrics_computed": false,
+  "scientific_capability_conclusion": false,
+  "compute_evidence_verified": true,
+  "compute_evidence_file": "artifacts/recovery_qualification/atomic/runtime/glm.compute_event.json",
+  "exact_next_action": "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU"
+}
