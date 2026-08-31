@@ -1,0 +1,11 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+accelerate==1.14.0
+bitsandbytes==0.50.2
+huggingface-hub==0.36.2
+pillow==12.3.0
+qwen-vl-utils==0.0.14
+safetensors==0.6.2
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+transformers==4.57.6
+

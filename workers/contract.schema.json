@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://capability-gate.local/schemas/worker-contract-v1.json",
+  "title": "CapabilityGate recovery worker JSONL contract",
+  "oneOf": [
+    {"$ref": "#/$defs/request"},
+    {"$ref": "#/$defs/response"}
+  ],
+  "$defs": {
+    "request": {
+      "type": "object",
+      "required": [
+        "schema_version", "model_key", "model_revision", "processor_revision",
+        "image_path", "prompt", "candidates", "target", "operation"
+      ],
+      "properties": {
+        "schema_version": {"const": 1},
+        "request_id": {"type": "string", "minLength": 1},
+        "model_key": {"type": "string", "minLength": 1},
+        "model_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "processor_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "image_path": {"type": ["string", "null"]},
+        "prompt": {
+          "type": "object",
+          "required": ["system", "user"],
+          "properties": {
+            "system": {"type": "string"},
+            "user": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "candidates": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+        "target": {"type": "string"},
+        "operation": {
+          "enum": ["dependency_preflight", "processor_preflight", "load_preflight", "score_and_generate"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "schema_version", "status", "model_metadata", "candidate_scores",
+        "constrained_answer", "runtime", "peak_vram", "resolved_device_map",
+        "artifact_hash", "error_class", "traceback"
+      ],
+      "properties": {
+        "schema_version": {"const": 1},
+        "request_id": {"type": ["string", "null"]},
+        "status": {"type": "string"},
+        "model_metadata": {"type": "object"},
+        "candidate_scores": {"type": "array"},
+        "constrained_answer": {"type": ["string", "null"]},
+        "runtime": {"type": "object"},
+        "peak_vram": {"type": ["integer", "number", "null"]},
+        "resolved_device_map": {"type": ["object", "null"]},
+        "artifact_hash": {"type": ["string", "null"]},
+        "error_class": {"type": ["string", "null"]},
+        "traceback": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    }
+  }
+}
+

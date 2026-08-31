@@ -1,4 +1,5 @@
 .venv/
+envs/*/.venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -12,4 +13,6 @@ build/
 artifacts/models/cache/
 artifacts/models/offload/
 artifacts/audit_drafts/
+artifacts/engineering_recovery/load_attempts/*.jsonl.tmp
+artifacts/engineering_recovery/runtime_metadata/worker-*.tmp
 !artifacts/**/.gitkeep

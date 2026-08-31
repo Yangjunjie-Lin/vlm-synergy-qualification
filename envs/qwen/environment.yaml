@@ -1,0 +1,14 @@
+schema_version: 1
+model_key: qwen2_5_vl_7b
+python: "3.11"
+cuda_runtime: "12.4"
+torch: 2.6.0+cu124
+transformers: 4.57.6
+accelerate: 1.14.0
+bitsandbytes: 0.50.2
+additional_dependencies:
+  qwen-vl-utils: 0.0.14
+  torchvision: 0.21.0+cu124
+  Pillow: 12.3.0
+attention: eager
+
