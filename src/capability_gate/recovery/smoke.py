@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+import shutil
 import subprocess
 import time
 from pathlib import Path
@@ -15,6 +16,7 @@ from capability_gate.recovery.environments import ENV_NAMES, worker_python, work
 from capability_gate.recovery.smoke_data import generate_recovery_smoke_scenes
 
 RECOVERY = ARTIFACTS / "engineering_recovery"
+REPAIR_RETRY_SIGNATURE = "no vision module found for forward proof hook"
 
 
 def _append_jsonl(path: Path, row: dict[str, Any]) -> None:
@@ -149,6 +151,37 @@ def _deterministic_agreement(first: dict[str, Any], second: dict[str, Any]) -> f
     return 1.0 if score_agreement and metadata_agreement else 0.0
 
 
+def _repair_retry_models(manifest: dict[str, Any]) -> set[str]:
+    return {
+        model_key
+        for model_key, result in manifest.get("model_results", {}).items()
+        if result.get("status") == "MEASUREMENT_IMPLEMENTATION_FAIL"
+        and REPAIR_RETRY_SIGNATURE in str(result.get("reason", ""))
+    }
+
+
+def _archive_repair_attempt(manifest_path: Path, model_keys: set[str]) -> Path:
+    attempt = 1
+    while True:
+        archive = manifest_path.with_name(
+            f"engineering_recovery_smoke_attempt_{attempt:02d}.json"
+        )
+        if not archive.exists():
+            break
+        attempt += 1
+    shutil.copy2(manifest_path, archive)
+    for model_key in sorted(model_keys):
+        env_name = ENV_NAMES[model_key]
+        for path in (
+            RECOVERY / f"runtime_metadata/{env_name}.json",
+            RECOVERY / f"runtime_metadata/{env_name}.stderr.log",
+        ):
+            if path.exists():
+                versioned = path.with_name(f"{path.stem}.attempt-{attempt:02d}{path.suffix}")
+                shutil.copy2(path, versioned)
+    return archive
+
+
 def _load_gate(metadata: dict[str, Any]) -> dict[str, bool]:
     materialization = metadata.get("materialization", {})
     placement = metadata.get("placement_inventory", {})
@@ -185,25 +218,38 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
     if not historical["overall_gate"] or not diagnosis["overall_gate"]:
         raise RuntimeError("historical or root-cause preflight gate failed")
     existing = RECOVERY / "manifests/engineering_recovery_smoke.json"
+    prior_results: dict[str, Any] = {}
+    retry_models = set(DESCRIPTORS)
+    supersedes_manifest = None
     if existing.exists():
-        return json.loads(existing.read_text(encoding="utf-8"))
+        prior = json.loads(existing.read_text(encoding="utf-8"))
+        retry_models = _repair_retry_models(prior)
+        if not retry_models:
+            return prior
+        supersedes_manifest = _archive_repair_attempt(existing, retry_models).relative_to(
+            ROOT
+        ).as_posix()
+        prior_results = prior["model_results"]
     scenes = generate_recovery_smoke_scenes()
     if len(scenes) != 12:
         raise RuntimeError("engineering recovery smoke must contain exactly 12 scenes")
     allowed = {"north", "south", "east", "west"}
-    model_results = {}
+    model_results = dict(prior_results)
     for model_key in DESCRIPTORS:
+        if model_key not in retry_models:
+            continue
         env_name = ENV_NAMES[model_key]
         load_path = RECOVERY / f"load_attempts/{env_name}.jsonl"
         prediction_path = RECOVERY / f"smoke_predictions/{env_name}.jsonl"
         runtime_path = RECOVERY / f"runtime_metadata/{env_name}.json"
         stderr_path = RECOVERY / f"runtime_metadata/{env_name}.stderr.log"
         env_record = environments["models"][model_key]
+        attempt_number = int(prior_results.get(model_key, {}).get("load_attempts", 0)) + 1
         if env_record["status"] != "DEPENDENCY_PREFLIGHT_PASS":
             model_results[model_key] = {
                 "status": "BLOCKED_BY_DEPENDENCY",
                 "reason": env_record["preflight"],
-                "load_attempts": 0,
+                "load_attempts": attempt_number - 1,
                 "scientific_capability_conclusion": False,
             }
             continue
@@ -214,14 +260,18 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
         close_state: dict[str, Any] = {}
         try:
             load_response = session.request(
-                _request(model_key, f"{model_key}-load-1", "load_preflight")
+                _request(
+                    model_key,
+                    f"{model_key}-load-{attempt_number}",
+                    "load_preflight",
+                )
             )
             _append_jsonl(load_path, load_response)
             if load_response["status"] != "LOAD_PREFLIGHT_PASS":
                 model_results[model_key] = {
                     "status": load_response["error_class"] or "BLOCKED_BY_MODEL_ADAPTER",
                     "reason": load_response["traceback"],
-                    "load_attempts": 1,
+                    "load_attempts": attempt_number,
                     "scientific_capability_conclusion": False,
                 }
                 continue
@@ -330,7 +380,7 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
             )
             model_results[model_key] = {
                 "status": status,
-                "load_attempts": 1,
+                "load_attempts": attempt_number,
                 "gates": gates,
                 "deterministic_rerun_agreement": determinism,
                 "artifact_completeness": artifact_completeness,
@@ -345,7 +395,7 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
             model_results[model_key] = {
                 "status": "BLOCKED_BY_MODEL_ADAPTER",
                 "reason": f"{type(error).__name__}: {error}",
-                "load_attempts": 1,
+                "load_attempts": attempt_number,
                 "scientific_capability_conclusion": False,
             }
         finally:
@@ -372,6 +422,7 @@ def run_adapter_recovery_smoke() -> dict[str, Any]:
         "activation_patching_executed": False,
         "fourth_model_used": False,
         "scientific_capability_conclusion": False,
+        "supersedes_manifest": supersedes_manifest,
     }
     write_json(existing, result)
     return result

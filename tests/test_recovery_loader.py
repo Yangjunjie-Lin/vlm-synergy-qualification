@@ -16,6 +16,7 @@ from capability_gate.recovery.adapters import (
     inspect_materialization,
 )
 from capability_gate.recovery.placement import validate_no_auto_offload
+from capability_gate.recovery.smoke import _repair_retry_models
 
 
 class _HookableModule:
@@ -37,6 +38,26 @@ def test_nested_native_visual_module_is_accepted_for_forward_proof() -> None:
     assert visual.hook is not None
     visual.hook(visual, (), None)
     assert adapter._vision_observed is True
+
+
+def test_repair_retry_is_limited_to_exact_hook_failure() -> None:
+    manifest = {
+        "model_results": {
+            "qwen2_5_vl_7b": {
+                "status": "MEASUREMENT_IMPLEMENTATION_FAIL",
+                "reason": "trace: no vision module found for forward proof hook",
+            },
+            "glm4_1v_9b": {
+                "status": "BLOCKED_BY_COMPUTE",
+                "reason": "CUDA out of memory",
+            },
+            "phi4_multimodal_5_6b": {
+                "status": "ENGINEERING_RECOVERY_PASS",
+            },
+        }
+    }
+
+    assert _repair_retry_models(manifest) == {"qwen2_5_vl_7b"}
 
 
 def test_native_model_loader_classes_are_frozen() -> None:
