@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "base_commit": "32a8333bf0106579834fb7a0747c81d67b49ac10",
+  "frozen_branch": "codex/three-family-capability-screen",
+  "recovery_tag": "capability-gate-adapter-block-2026-08-31",
+  "artifact_hashes": {
+    "reports/final_qualification_decision.md": {
+      "expected": "c6b62482b2a40b8d5ba33fb535e31383e7779c18f730bb0ecace4fae88b65098",
+      "actual": "c6b62482b2a40b8d5ba33fb535e31383e7779c18f730bb0ecace4fae88b65098"
+    },
+    "reports/atomic_qualification.md": {
+      "expected": "1624fa9a65874ea8e117fa9ecc4f89a2399cb3824e9325dd35b0d0b0e14fde0f",
+      "actual": "1624fa9a65874ea8e117fa9ecc4f89a2399cb3824e9325dd35b0d0b0e14fde0f"
+    },
+    "reports/joint_composition_screen.md": {
+      "expected": "ea537e0f552f1177344c5d77f41bb5cfb6712bfc9630d1541b98fe29f10119ef",
+      "actual": "ea537e0f552f1177344c5d77f41bb5cfb6712bfc9630d1541b98fe29f10119ef"
+    },
+    "artifacts/manifests/engineering_smoke.json": {
+      "expected": "0ba3c4df6e65c41d831f86f52db0ff3028be5532814c26e0351402e17f8b0ba3",
+      "actual": "0ba3c4df6e65c41d831f86f52db0ff3028be5532814c26e0351402e17f8b0ba3"
+    },
+    "artifacts/manifests/final_decision.json": {
+      "expected": "d7860816324cfb2923ec904af412b73e9c99be0c172623e117fac9e5e145ddae",
+      "actual": "d7860816324cfb2923ec904af412b73e9c99be0c172623e117fac9e5e145ddae"
+    },
+    "artifacts/manifests/atomic_run.json": {
+      "expected": "3745a0c01f2fb0f13c825d26e61e19d594e314a445bdf95217dba5c99ee81c0e",
+      "actual": "3745a0c01f2fb0f13c825d26e61e19d594e314a445bdf95217dba5c99ee81c0e"
+    },
+    "artifacts/manifests/joint_screen_status.json": {
+      "expected": "8483d02b0362181db2c05c19a3e9f37c0da0f0a326a54254ffb898ae457560f4",
+      "actual": "8483d02b0362181db2c05c19a3e9f37c0da0f0a326a54254ffb898ae457560f4"
+    }
+  },
+  "checks": {
+    "local_frozen_branch_target": true,
+    "remote_frozen_branch_target": true,
+    "recovery_tag_is_annotated": true,
+    "recovery_tag_target": true,
+    "recovery_tag_message": true,
+    "historical_artifacts_unchanged": true,
+    "atomic_predictions_zero": true,
+    "joint_predictions_zero": true,
+    "atomic_prediction_file_absent": true,
+    "joint_prediction_file_absent": true,
+    "historical_decision_adapter_block": true,
+    "historical_no_feasible_is_not_capability_result": true,
+    "synergy_trace_tag_unmoved": true,
+    "recoalign_archived": true,
+    "vlm_construct_audit_archived": true
+  },
+  "overall_gate": true
+}

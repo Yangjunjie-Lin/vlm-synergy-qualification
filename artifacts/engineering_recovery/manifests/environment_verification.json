@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "models": {
+    "qwen2_5_vl_7b": {
+      "model_key": "qwen2_5_vl_7b",
+      "python_executable": "D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\qwen\\.venv\\Scripts\\python.exe",
+      "python_exists": true,
+      "lock_sha256": "29c51f07e6de33f8c6214a96e5f35c403755fb51a767a063a8ed62431a45d096",
+      "lock_package_count": 32,
+      "lock_all_exact": true,
+      "declared_environment": {
+        "schema_version": 1,
+        "model_key": "qwen2_5_vl_7b",
+        "python": "3.11",
+        "cuda_runtime": "12.4",
+        "torch": "2.6.0+cu124",
+        "transformers": "4.57.6",
+        "accelerate": "1.14.0",
+        "bitsandbytes": "0.50.2",
+        "additional_dependencies": {
+          "qwen-vl-utils": "0.0.14",
+          "torchvision": "0.21.0+cu124",
+          "Pillow": "12.3.0"
+        },
+        "attention": "eager"
+      },
+      "counts_as_model_load_attempt": false,
+      "returncode": 0,
+      "preflight": {
+        "counts_as_model_load_attempt": false,
+        "counts_as_scientific_attempt": false,
+        "installed_packages": {
+          "Pillow": "12.3.0",
+          "accelerate": "1.14.0",
+          "bitsandbytes": "0.50.2",
+          "qwen-vl-utils": "0.0.14",
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "4.57.6"
+        },
+        "missing_dependencies": [],
+        "model_key": "qwen2_5_vl_7b",
+        "python_actual": "3.11.9",
+        "python_compatible": true,
+        "python_expected": "3.11",
+        "required_packages": {
+          "Pillow": "12.3.0",
+          "accelerate": "1.14.0",
+          "bitsandbytes": "0.50.2",
+          "qwen-vl-utils": "0.0.14",
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "4.57.6"
+        },
+        "schema_version": 1,
+        "status": "DEPENDENCY_PREFLIGHT_PASS",
+        "version_mismatches": []
+      },
+      "status": "DEPENDENCY_PREFLIGHT_PASS"
+    },
+    "glm4_1v_9b": {
+      "model_key": "glm4_1v_9b",
+      "python_executable": "D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\glm\\.venv\\Scripts\\python.exe",
+      "python_exists": true,
+      "lock_sha256": "066e584393b4fa4e3f5550b8d831440fffa7ccf6e77d1086bddf829d0a0d789d",
+      "lock_package_count": 31,
+      "lock_all_exact": true,
+      "declared_environment": {
+        "schema_version": 1,
+        "model_key": "glm4_1v_9b",
+        "python": "3.11",
+        "cuda_runtime": "12.4",
+        "torch": "2.6.0+cu124",
+        "transformers": "4.57.6",
+        "accelerate": "1.14.0",
+        "bitsandbytes": "0.50.2",
+        "additional_dependencies": {
+          "sentencepiece": "0.2.1",
+          "torchvision": "0.21.0+cu124",
+          "Pillow": "12.3.0"
+        },
+        "attention": "eager"
+      },
+      "counts_as_model_load_attempt": false,
+      "returncode": 0,
+      "preflight": {
+        "counts_as_model_load_attempt": false,
+        "counts_as_scientific_attempt": false,
+        "installed_packages": {
+          "Pillow": "12.3.0",
+          "accelerate": "1.14.0",
+          "bitsandbytes": "0.50.2",
+          "sentencepiece": "0.2.1",
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "4.57.6"
+        },
+        "missing_dependencies": [],
+        "model_key": "glm4_1v_9b",
+        "python_actual": "3.11.9",
+        "python_compatible": true,
+        "python_expected": "3.11",
+        "required_packages": {
+          "Pillow": "12.3.0",
+          "accelerate": "1.14.0",
+          "bitsandbytes": "0.50.2",
+          "sentencepiece": "0.2.1",
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "4.57.6"
+        },
+        "schema_version": 1,
+        "status": "DEPENDENCY_PREFLIGHT_PASS",
+        "version_mismatches": []
+      },
+      "status": "DEPENDENCY_PREFLIGHT_PASS"
+    },
+    "phi4_multimodal_5_6b": {
+      "model_key": "phi4_multimodal_5_6b",
+      "python_executable": "D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\phi\\.venv\\Scripts\\python.exe",
+      "python_exists": true,
+      "lock_sha256": "9b307499482cf943e7929f362ffd4e3af534548deaf8273354330613103d3aae",
+      "lock_package_count": 35,
+      "lock_all_exact": true,
+      "declared_environment": {
+        "schema_version": 1,
+        "model_key": "phi4_multimodal_5_6b",
+        "python": "3.10",
+        "cuda_runtime": "12.4",
+        "torch": "2.6.0+cu124",
+        "transformers": "4.48.2",
+        "accelerate": "1.3.0",
+        "bitsandbytes": "0.45.2",
+        "additional_dependencies": {
+          "backoff": "2.2.1",
+          "peft": "0.13.2",
+          "soundfile": "0.13.1",
+          "Pillow": "11.1.0",
+          "SciPy": "1.15.1",
+          "torchvision": "0.21.0+cu124"
+        },
+        "flash_attention_required_on_windows": false,
+        "attention_fallback": [
+          "sdpa",
+          "eager"
+        ]
+      },
+      "counts_as_model_load_attempt": false,
+      "returncode": 0,
+      "preflight": {
+        "counts_as_model_load_attempt": false,
+        "counts_as_scientific_attempt": false,
+        "installed_packages": {
+          "Pillow": "11.1.0",
+          "accelerate": "1.3.0",
+          "backoff": "2.2.1",
+          "bitsandbytes": "0.45.2",
+          "peft": "0.13.2",
+          "scipy": "1.15.1",
+          "soundfile": "0.13.1",
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "4.48.2"
+        },
+        "missing_dependencies": [],
+        "model_key": "phi4_multimodal_5_6b",
+        "python_actual": "3.10.20",
+        "python_compatible": true,
+        "python_expected": "3.10",
+        "required_packages": {
+          "Pillow": "11.1.0",
+          "accelerate": "1.3.0",
+          "backoff": "2.2.1",
+          "bitsandbytes": "0.45.2",
+          "peft": "0.13.2",
+          "scipy": "1.15.1",
+          "soundfile": "0.13.1",
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "4.48.2"
+        },
+        "schema_version": 1,
+        "status": "DEPENDENCY_PREFLIGHT_PASS",
+        "version_mismatches": []
+      },
+      "status": "DEPENDENCY_PREFLIGHT_PASS"
+    }
+  },
+  "overall_gate": true,
+  "counts_as_model_load_attempt": false,
+  "counts_as_scientific_attempt": false
+}

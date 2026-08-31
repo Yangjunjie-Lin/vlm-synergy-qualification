@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source_sha256": "0ba3c4df6e65c41d831f86f52db0ff3028be5532814c26e0351402e17f8b0ba3",
+  "matrix_sha256": "f74187846fe2b1167acd1fe8c3ae838be9fb8557e07051dfea514f9720c517ba",
+  "observed": {
+    "qwen2_5_vl_7b": {
+      "attempts": 2,
+      "errors": [
+        "Tensor.item() cannot be called on meta tensors",
+        "Tensor.item() cannot be called on meta tensors"
+      ],
+      "same_error_both_attempts": true,
+      "meta_quant_state_path": true,
+      "missing_backoff": false
+    },
+    "phi4_multimodal_5_6b": {
+      "attempts": 2,
+      "errors": [
+        "This modeling file requires the following packages that were not found in your environment: backoff. Run `pip install backoff`",
+        "This modeling file requires the following packages that were not found in your environment: backoff. Run `pip install backoff`"
+      ],
+      "same_error_both_attempts": true,
+      "meta_quant_state_path": false,
+      "missing_backoff": true
+    },
+    "glm4_1v_9b": {
+      "attempts": 2,
+      "errors": [
+        "Tensor.item() cannot be called on meta tensors",
+        "Tensor.item() cannot be called on meta tensors"
+      ],
+      "same_error_both_attempts": true,
+      "meta_quant_state_path": true,
+      "missing_backoff": false
+    }
+  },
+  "checks": {
+    "matrix_frozen_before_load": true,
+    "qwen_shared_meta_root": true,
+    "glm_shared_meta_root": true,
+    "glm_not_independent_from_qwen": true,
+    "phi_missing_backoff_both_attempts": true,
+    "two_attempts_each": true
+  },
+  "overall_gate": true,
+  "counts_as_model_load_attempt": false,
+  "scientific_capability_conclusion": false
+}

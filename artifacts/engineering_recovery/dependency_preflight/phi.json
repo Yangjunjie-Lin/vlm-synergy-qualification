@@ -1,0 +1,70 @@
+{
+  "model_key": "phi4_multimodal_5_6b",
+  "python_executable": "D:\\UoM_CS\\GitHub\\vlm-synergy-qualification\\envs\\phi\\.venv\\Scripts\\python.exe",
+  "python_exists": true,
+  "lock_sha256": "9b307499482cf943e7929f362ffd4e3af534548deaf8273354330613103d3aae",
+  "lock_package_count": 35,
+  "lock_all_exact": true,
+  "declared_environment": {
+    "schema_version": 1,
+    "model_key": "phi4_multimodal_5_6b",
+    "python": "3.10",
+    "cuda_runtime": "12.4",
+    "torch": "2.6.0+cu124",
+    "transformers": "4.48.2",
+    "accelerate": "1.3.0",
+    "bitsandbytes": "0.45.2",
+    "additional_dependencies": {
+      "backoff": "2.2.1",
+      "peft": "0.13.2",
+      "soundfile": "0.13.1",
+      "Pillow": "11.1.0",
+      "SciPy": "1.15.1",
+      "torchvision": "0.21.0+cu124"
+    },
+    "flash_attention_required_on_windows": false,
+    "attention_fallback": [
+      "sdpa",
+      "eager"
+    ]
+  },
+  "counts_as_model_load_attempt": false,
+  "returncode": 0,
+  "preflight": {
+    "counts_as_model_load_attempt": false,
+    "counts_as_scientific_attempt": false,
+    "installed_packages": {
+      "Pillow": "11.1.0",
+      "accelerate": "1.3.0",
+      "backoff": "2.2.1",
+      "bitsandbytes": "0.45.2",
+      "peft": "0.13.2",
+      "scipy": "1.15.1",
+      "soundfile": "0.13.1",
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "4.48.2"
+    },
+    "missing_dependencies": [],
+    "model_key": "phi4_multimodal_5_6b",
+    "python_actual": "3.10.20",
+    "python_compatible": true,
+    "python_expected": "3.10",
+    "required_packages": {
+      "Pillow": "11.1.0",
+      "accelerate": "1.3.0",
+      "backoff": "2.2.1",
+      "bitsandbytes": "0.45.2",
+      "peft": "0.13.2",
+      "scipy": "1.15.1",
+      "soundfile": "0.13.1",
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "4.48.2"
+    },
+    "schema_version": 1,
+    "status": "DEPENDENCY_PREFLIGHT_PASS",
+    "version_mismatches": []
+  },
+  "status": "DEPENDENCY_PREFLIGHT_PASS"
+}
