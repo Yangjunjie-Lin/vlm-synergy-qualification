@@ -364,7 +364,9 @@ def _write_joint_report(result: dict[str, Any]) -> None:
             [
                 "**NOT_RUN_BY_UPSTREAM_GATE**",
                 "",
-                f"Upstream status: `{result.get('status', result['decision'])}`.",
+                f"Upstream decision: `{result['decision']}`.",
+                "",
+                f"Run status: `{result.get('status', result['decision'])}`.",
                 "",
             ]
         )

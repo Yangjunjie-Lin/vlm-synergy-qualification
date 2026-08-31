@@ -1,0 +1,7 @@
+{
+  "decision": "BLOCKED_BY_COMPUTE",
+  "status": "JOINT_NOT_RUN_BY_UPSTREAM_GATE",
+  "models": {},
+  "exact_next_action": "MIGRATE_SAME_FROZEN_COHORT_TO_ADEQUATE_GPU",
+  "scientific_capability_conclusion": false
+}

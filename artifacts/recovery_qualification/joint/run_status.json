@@ -1,0 +1,6 @@
+{
+  "status": "NOT_RUN_BY_ATOMIC_GATE",
+  "upstream_decision": "BLOCKED_BY_COMPUTE",
+  "model_forward_passes": 0,
+  "authorized_models": []
+}
