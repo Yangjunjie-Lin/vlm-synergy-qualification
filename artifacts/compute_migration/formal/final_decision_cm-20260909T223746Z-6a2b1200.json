@@ -1,0 +1,7 @@
+{
+  "decision": "CAPABILITY_COHORT_NO_GO",
+  "q1_potential": "NO_FEASIBLE_COHORT",
+  "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE",
+  "joint_status": "NOT_RUN_BY_ATOMIC_GATE",
+  "models": {}
+}

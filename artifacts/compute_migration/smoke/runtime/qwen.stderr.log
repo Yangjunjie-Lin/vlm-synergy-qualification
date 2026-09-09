@@ -1,0 +1,6 @@
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:14,  3.66s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:08<00:12,  4.33s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:14<00:09,  4.89s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:19<00:05,  5.14s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:19<00:00,  3.41s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:19<00:00,  3.98s/it]
+/workspace/vlm-synergy-qualification/envs/qwen/.venv/lib/python3.11/site-packages/bitsandbytes/backends/cuda/ops.py:957: UserWarning: inner dimension (3420) is not aligned for fast kernel with blocksize=64, falling back to slower implementation.
+  warn(
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.

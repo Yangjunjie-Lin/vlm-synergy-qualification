@@ -1,0 +1,1200 @@
+{
+  "decision": "CAPABILITY_COHORT_NO_GO",
+  "q1_potential": "NO_FEASIBLE_COHORT",
+  "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE",
+  "qualified_count": 0,
+  "models": {
+    "qwen2_5_vl_7b": {
+      "label": "ATOMIC_TEXT_FAIL",
+      "tasks": {
+        "direct_visual_relation": {
+          "cll": {
+            "n": 64,
+            "correct": 60,
+            "accuracy": 0.9375,
+            "one_sided_95_exact_lower": 0.8626601191874561,
+            "confusion_matrix": {
+              "north": {
+                "north": 16,
+                "south": 0,
+                "east": 0,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 3,
+                "east": 13,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 1,
+                "east": 0,
+                "west": 15
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  3,
+                  13
+                ],
+                [
+                  1,
+                  15
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.8125,
+                "1": 0.9375,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "accuracy_range": 0.1875,
+              "chi_square": 6.4,
+              "p_value": 0.09369079040762988,
+              "cramers_v": 0.31622776601683794
+            },
+            "per_answer_accuracy": {
+              "north": 1.0,
+              "south": 1.0,
+              "east": 0.8125,
+              "west": 0.9375
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 60,
+            "accuracy": 0.9375,
+            "one_sided_95_exact_lower": 0.8626601191874561,
+            "confusion_matrix": {
+              "north": {
+                "north": 16,
+                "south": 0,
+                "east": 0,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 4,
+                "east": 12,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 0,
+                "west": 16
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  4,
+                  12
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.75,
+                "1": 1.0,
+                "2": 1.0,
+                "3": 1.0
+              },
+              "accuracy_range": 0.25,
+              "chi_square": 12.799999999999999,
+              "p_value": 0.005089698393436517,
+              "cramers_v": 0.4472135954999579
+            },
+            "per_answer_accuracy": {
+              "north": 1.0,
+              "south": 1.0,
+              "east": 0.75,
+              "west": 1.0
+            }
+          },
+          "cll_gate": true,
+          "generation_gate": true,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 0.96875,
+            "cohens_kappa": 0.9579500657030223
+          }
+        },
+        "direct_text_relation": {
+          "cll": {
+            "n": 64,
+            "correct": 53,
+            "accuracy": 0.828125,
+            "one_sided_95_exact_lower": 0.731579379274526,
+            "confusion_matrix": {
+              "north": {
+                "north": 12,
+                "south": 4,
+                "east": 0,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 3,
+                "east": 11,
+                "west": 2
+              },
+              "west": {
+                "north": 0,
+                "south": 2,
+                "east": 0,
+                "west": 14
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  4,
+                  12
+                ],
+                [
+                  3,
+                  13
+                ],
+                [
+                  1,
+                  15
+                ],
+                [
+                  3,
+                  13
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.75,
+                "1": 0.8125,
+                "2": 0.9375,
+                "3": 0.8125
+              },
+              "accuracy_range": 0.1875,
+              "chi_square": 2.085763293310463,
+              "p_value": 0.5547983112819184,
+              "cramers_v": 0.18052714881140727
+            },
+            "per_answer_accuracy": {
+              "north": 0.75,
+              "south": 1.0,
+              "east": 0.6875,
+              "west": 0.875
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 52,
+            "accuracy": 0.8125,
+            "one_sided_95_exact_lower": 0.7139823911998087,
+            "confusion_matrix": {
+              "north": {
+                "north": 12,
+                "south": 4,
+                "east": 0,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 3,
+                "east": 11,
+                "west": 2
+              },
+              "west": {
+                "north": 0,
+                "south": 3,
+                "east": 0,
+                "west": 13
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  4,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ],
+                [
+                  1,
+                  15
+                ],
+                [
+                  3,
+                  13
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.75,
+                "1": 0.75,
+                "2": 0.9375,
+                "3": 0.8125
+              },
+              "accuracy_range": 0.1875,
+              "chi_square": 2.4615384615384617,
+              "p_value": 0.48228206104156335,
+              "cramers_v": 0.19611613513818404
+            },
+            "per_answer_accuracy": {
+              "north": 0.75,
+              "south": 1.0,
+              "east": 0.6875,
+              "west": 0.8125
+            }
+          },
+          "cll_gate": false,
+          "generation_gate": false,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 0.984375,
+            "cohens_kappa": 0.9782386943216593
+          }
+        },
+        "direction_reversal": {
+          "cll": {
+            "n": 64,
+            "correct": 47,
+            "accuracy": 0.734375,
+            "one_sided_95_exact_lower": 0.6286185745174752,
+            "confusion_matrix": {
+              "north": {
+                "north": 10,
+                "south": 4,
+                "east": 0,
+                "west": 2
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 1,
+                "south": 2,
+                "east": 5,
+                "west": 8
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 0,
+                "west": 16
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  5,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  4,
+                  12
+                ],
+                [
+                  3,
+                  13
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.6875,
+                "1": 0.6875,
+                "2": 0.75,
+                "3": 0.8125
+              },
+              "accuracy_range": 0.125,
+              "chi_square": 0.8811013767209012,
+              "p_value": 0.8299859198676249,
+              "cramers_v": 0.11733375052074352
+            },
+            "per_answer_accuracy": {
+              "north": 0.625,
+              "south": 1.0,
+              "east": 0.3125,
+              "west": 1.0
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 43,
+            "accuracy": 0.671875,
+            "one_sided_95_exact_lower": 0.5628699511408497,
+            "confusion_matrix": {
+              "north": {
+                "north": 9,
+                "south": 5,
+                "east": 0,
+                "west": 2
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 1,
+                "south": 4,
+                "east": 2,
+                "west": 9
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 0,
+                "west": 16
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  5,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  12
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.6875,
+                "1": 0.6875,
+                "2": 0.5625,
+                "3": 0.75
+              },
+              "accuracy_range": 0.1875,
+              "chi_square": 1.3466223698781836,
+              "p_value": 0.7180930175003586,
+              "cramers_v": 0.14505507412478413
+            },
+            "per_answer_accuracy": {
+              "north": 0.5625,
+              "south": 1.0,
+              "east": 0.125,
+              "west": 1.0
+            }
+          },
+          "cll_gate": false,
+          "generation_gate": false,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 0.9375,
+            "cohens_kappa": 0.9060205580029369
+          }
+        },
+        "cross_modal_bridge_binding": {
+          "cll": {
+            "n": 64,
+            "correct": 63,
+            "accuracy": 0.984375,
+            "one_sided_95_exact_lower": 0.9280102451052906,
+            "confusion_matrix": {
+              "north": {
+                "north": 16,
+                "south": 0,
+                "east": 0,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 1,
+                "east": 15,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 0,
+                "west": 16
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  1,
+                  15
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 1.0,
+                "1": 1.0,
+                "2": 1.0,
+                "3": 0.9375
+              },
+              "accuracy_range": 0.0625,
+              "chi_square": 3.0476190476190474,
+              "p_value": 0.38434136905952576,
+              "cramers_v": 0.21821789023599236
+            },
+            "per_answer_accuracy": {
+              "north": 1.0,
+              "south": 1.0,
+              "east": 0.9375,
+              "west": 1.0
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 63,
+            "accuracy": 0.984375,
+            "one_sided_95_exact_lower": 0.9280102451052906,
+            "confusion_matrix": {
+              "north": {
+                "north": 16,
+                "south": 0,
+                "east": 0,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 16,
+                "east": 0,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 1,
+                "east": 15,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 0,
+                "west": 16
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  0,
+                  16
+                ],
+                [
+                  1,
+                  15
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 1.0,
+                "1": 1.0,
+                "2": 1.0,
+                "3": 0.9375
+              },
+              "accuracy_range": 0.0625,
+              "chi_square": 3.0476190476190474,
+              "p_value": 0.38434136905952576,
+              "cramers_v": 0.21821789023599236
+            },
+            "per_answer_accuracy": {
+              "north": 1.0,
+              "south": 1.0,
+              "east": 0.9375,
+              "west": 1.0
+            }
+          },
+          "cll_gate": true,
+          "generation_gate": true,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 1.0,
+            "cohens_kappa": 1.0
+          }
+        }
+      },
+      "failed_tasks": [
+        "direct_text_relation",
+        "direction_reversal"
+      ],
+      "agreement": {
+        "exact": 0.97265625,
+        "cohens_kappa": 0.9626759976672499,
+        "contract_direction_conflict": false
+      }
+    },
+    "glm4_1v_9b": {
+      "label": "MEASUREMENT_CONTRACT_DEPENDENT",
+      "tasks": {
+        "direct_visual_relation": {
+          "cll": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "cll_gate": false,
+          "generation_gate": false,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 1.0,
+            "cohens_kappa": null
+          }
+        },
+        "direct_text_relation": {
+          "cll": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "cll_gate": false,
+          "generation_gate": false,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 1.0,
+            "cohens_kappa": null
+          }
+        },
+        "direction_reversal": {
+          "cll": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "cll_gate": false,
+          "generation_gate": false,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 1.0,
+            "cohens_kappa": null
+          }
+        },
+        "cross_modal_bridge_binding": {
+          "cll": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "constrained_generation": {
+            "n": 64,
+            "correct": 16,
+            "accuracy": 0.25,
+            "one_sided_95_exact_lower": 0.16354063607486652,
+            "confusion_matrix": {
+              "north": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "south": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "east": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              },
+              "west": {
+                "north": 0,
+                "south": 0,
+                "east": 16,
+                "west": 0
+              }
+            },
+            "option_position_dependence": {
+              "table_position_by_incorrect_correct": [
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ]
+              ],
+              "accuracy_by_position": {
+                "0": 0.25,
+                "1": 0.25,
+                "2": 0.25,
+                "3": 0.25
+              },
+              "accuracy_range": 0.0,
+              "chi_square": 0.0,
+              "p_value": 1.0,
+              "cramers_v": 0.0
+            },
+            "per_answer_accuracy": {
+              "north": 0.0,
+              "south": 0.0,
+              "east": 1.0,
+              "west": 0.0
+            }
+          },
+          "cll_gate": false,
+          "generation_gate": false,
+          "contract_direction_conflict": false,
+          "agreement": {
+            "exact": 1.0,
+            "cohens_kappa": null
+          }
+        }
+      },
+      "failed_tasks": [
+        "direct_visual_relation",
+        "direct_text_relation",
+        "direction_reversal",
+        "cross_modal_bridge_binding"
+      ],
+      "agreement": {
+        "exact": 1.0,
+        "cohens_kappa": null,
+        "contract_direction_conflict": false
+      }
+    }
+  },
+  "joint_authorized": false,
+  "activation_patching_executed": false
+}

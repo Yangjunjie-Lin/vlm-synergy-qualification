@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-09-09T23:07:10.1508329Z",
+  "run_id": "cm-20260909T223746Z-6a2b1200",
+  "execution_code": {
+    "branch": "codex/adequate-gpu-atomic-joint-execution",
+    "formal_lock_head": "f4dbfa20dca0b9e02ceac24be17252fd4be6d70c",
+    "remote_branch_head_at_audit": "f4dbfa20dca0b9e02ceac24be17252fd4be6d70c",
+    "recovery_branch_head": "ad539cf11ddbac2fef7d24f6fcf8a99c3da41f51",
+    "recovery_contains_original_screen_head": true,
+    "original_screen_head": "32a8333bf0106579834fb7a0747c81d67b49ac10",
+    "annotated_tag_object": "5e8094970d228da8ce6ec092ac107ff7c5e70055",
+    "annotated_tag_peeled_target": "32a8333bf0106579834fb7a0747c81d67b49ac10"
+  },
+  "formal_outputs": {
+    "qwen_rows": 256,
+    "qwen_unique_scenes": 256,
+    "qwen_first_row_index": 0,
+    "qwen_last_row_index": 255,
+    "qwen_predictions_sha256": "d41ad33bece21d308352d489a8d6deb4aaa2df371aab9b59749137f990772dba",
+    "qwen_row_hashes_sha256": "3cd14b2ddb7e2827a020be821dc3b52d20cbb1a702128ed2e3f8e8f73f7dfa66",
+    "glm_rows": 256,
+    "glm_unique_scenes": 256,
+    "glm_first_row_index": 0,
+    "glm_last_row_index": 255,
+    "glm_predictions_sha256": "cd4e4be6649d4e604bb201698549fc2a89328215ffff15ca6d83e74fec6aebf5",
+    "glm_row_hashes_sha256": "502b36fc59eecd1fc6230329d4dfb37d78bffa5e0f0e2db0369652383f3bc809",
+    "all_result_hashes_verified": true,
+    "all_row_line_hashes_verified": true,
+    "all_completion_bitmaps_complete": true,
+    "local_6gb_partial_rows_included": false
+  },
+  "scientific_freeze": {
+    "tracked_differences_from_recovery_head_in_configs_data_research_or_recovery_reports": [],
+    "working_tree_differences_in_configs_data_research_or_recovery_reports": [],
+    "formal_data_regenerated": false,
+    "model_or_revision_changed": false,
+    "prompt_or_answer_contract_changed": false,
+    "threshold_or_stop_rule_changed": false
+  },
+  "historical_repositories": {
+    "vlm-synergy-trace": {
+      "head": "88741f0301c61c0abf3e63a5903183e9664af552",
+      "working_tree_clean": true,
+      "modified_by_migration": false
+    },
+    "vlm-construct-audit": {
+      "head": "128a26d950dbde039a526930d9132ddab4816e91",
+      "working_tree_clean": true,
+      "modified_by_migration": false
+    },
+    "recoalign": {
+      "head": "e200921af44e9307c60f470c247f808a75e7d625",
+      "working_tree_clean": true,
+      "modified_by_migration": false
+    }
+  },
+  "gates": {
+    "hardware": "ADEQUATE_GPU_ENVIRONMENT",
+    "model_weight_integrity": "MODEL_WEIGHT_INTEGRITY_PASS",
+    "migration_smoke": "MIGRATION_SMOKE_PASS",
+    "atomic": "CAPABILITY_COHORT_NO_GO",
+    "joint": "NOT_RUN_BY_ATOMIC_GATE",
+    "activation_patching_executed": false,
+    "phi_executed": false,
+    "fourth_model_added": false
+  },
+  "final": {
+    "decision": "CAPABILITY_COHORT_NO_GO",
+    "q1_potential": "NO_FEASIBLE_COHORT",
+    "exact_next_action": "TERMINATE_CROSS_MODAL_SYNERGY_LINE"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "model_key": "qwen2_5_vl_7b",
+  "release": {
+    "worker_returncode": 0,
+    "gpu_used_mib_after_worker": 1
+  }
+}

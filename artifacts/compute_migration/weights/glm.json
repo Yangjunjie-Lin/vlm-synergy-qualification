@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "model_key": "glm4_1v_9b",
+  "model": "zai-org/GLM-4.1V-9B-Thinking",
+  "requested_revision": "3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+  "resolved_revision": "3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+  "processor_revision": "3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+  "tokenizer_revision": "3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+  "revision_verified": true,
+  "processor_revision_verified": true,
+  "tokenizer_revision_verified": true,
+  "safetensors_file_count": 4,
+  "shards": [
+    {
+      "path": "model-00001-of-00004.safetensors",
+      "bytes": 5303216560,
+      "sha256": "56708b3541e1f69c9843ae19eaa23720c5cee9f3d0c9ed101c3b9b43b40974a1"
+    },
+    {
+      "path": "model-00002-of-00004.safetensors",
+      "bytes": 5303216696,
+      "sha256": "7c353db4141fdd9a0c6b990d50040a28812bb56dc91c42154abc5a4ee81fe698"
+    },
+    {
+      "path": "model-00003-of-00004.safetensors",
+      "bytes": 5303216696,
+      "sha256": "f3fab833fe4cad6cbce924908e1a58320217295417bbf87aa810fff6e4b634a4"
+    },
+    {
+      "path": "model-00004-of-00004.safetensors",
+      "bytes": 4675994152,
+      "sha256": "b3c7723fac7de60f2b67e4f84f2d8648d7431ff32c95c630dcc17790091005eb"
+    }
+  ],
+  "composite_weight_hash": "f9f2f51ca8ef318775026d36f3687d9b9269363da5247533fa1e3bb1e27abf99",
+  "metadata_files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 1570,
+      "sha256": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4422,
+      "sha256": "7ac0ed3602f183bcf9e0487adb128658d861957c8021443dcea918f8d4460566"
+    },
+    {
+      "path": "chat_template.jinja",
+      "bytes": 922,
+      "sha256": "847603d3ed14387a2b45c197f8d07ddee0f9938051549c727cbc894facfea78b"
+    },
+    {
+      "path": "config.json",
+      "bytes": 1530,
+      "sha256": "141e15cb74afaca3d870970ed405c4bab0f93a3fa46cfab70782b91f5dd526f4"
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 239,
+      "sha256": "e9527bdf03e7d4971f9cacdbcf81a5fe04b10b64fc478bba6bf389cc0e597b72"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "bytes": 66392,
+      "sha256": "d1a77d5ca0b8fa2cb57e097e1d4087bbfcb86e85778ce59e17e5e2610bc6dd86"
+    },
+    {
+      "path": "notebook.ipynb",
+      "bytes": 2537101,
+      "sha256": "4e773310cc43f99e534f54b458655bc6f70c439304ac11b6624edec476b64df1"
+    },
+    {
+      "path": "preprocessor_config.json",
+      "bytes": 364,
+      "sha256": "d71bebc1307f2d1e38e87563b50faa78c72fd2e4093b5c69c756f12c444fec6a"
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 19966496,
+      "sha256": "76ebeac0d8bd7879ead7b43c16b44981f277e47225de2bd7de9ae1a6cc664a8c"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 4795,
+      "sha256": "468e400c12d54be1b1b0e008fa5ee9382c8c9ef29a5dd0b5093421ef261935ed"
+    },
+    {
+      "path": "video_preprocessor_config.json",
+      "bytes": 365,
+      "sha256": "85d5ca37836f20a5edd11800e4380e731612946f8c7b70fba4d8f532fe752932"
+    }
+  ],
+  "snapshot_path": "/workspace/hf-cache/hub/models--zai-org--GLM-4.1V-9B-Thinking/snapshots/3c1471e51dc811b589d4d12b1c1c7c1c941267c2",
+  "integrity": "PASS"
+}

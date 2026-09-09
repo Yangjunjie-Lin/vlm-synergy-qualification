@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "run_id": "cm-20260909T223746Z-6a2b1200",
+  "branch": "codex/adequate-gpu-atomic-joint-execution",
+  "head": "f4dbfa20dca0b9e02ceac24be17252fd4be6d70c",
+  "environment_hash": "c062f443c725322dc874376ae4610154347e378e3be72cb8444eb4919d1ed532",
+  "model_hashes": {
+    "qwen2_5_vl_7b": "f4c5cb6a924afaee0d70f682c262253245a40c5959a63f675bd3d4b04e75bada",
+    "glm4_1v_9b": "f9f2f51ca8ef318775026d36f3687d9b9269363da5247533fa1e3bb1e27abf99"
+  },
+  "data_hashes": {
+    "atomic": "359478bf1f4c8a714dab383d3acdf079e5d5ece74f138c341749d2dd8e88179f",
+    "joint": "c16139ac233a7d8f7d9c6ed020ad10d4bebe40fc693fb061f28ef3ba5b6981ed",
+    "engineering_smoke": "8fffd2b376017897bcdcfc498bfc24a7515364b289b97379918cc34d72038d3d"
+  },
+  "config_hashes": {
+    "models.yaml": "c1626a316474392911bab063333dec6669786c38a719e4809d6795f3f4fc72ef",
+    "atomic_tasks.yaml": "ac8df0fc9074b0a478d536ffa0757721ff081a87b492f7d14db2002eaec07e67",
+    "joint_screen.yaml": "90409dce42ed7ef580d15b91d53871c35bb1d90839937867d405be62135da8c6",
+    "scoring.yaml": "ae87a29128ef928249c01af296f1cf54f87c61ccd948b114aff51e2fb649176e"
+  },
+  "prompt_hashes": {
+    "atomic": "e6f1c508e90f013855dc4115264c8c5fd3b00c14d4f7de2c9633549376e1651e",
+    "joint": "83da7b4a88fdf0effd5b33b4617be2969dd99e056ace7fece16917317b694dd9"
+  },
+  "scoring_hash": "ae87a29128ef928249c01af296f1cf54f87c61ccd948b114aff51e2fb649176e",
+  "threshold_hash": "0f9e40a6e163e4282f73f2a8f1779410b5e5eea34b7f59df4231c14c357532c7",
+  "run_seed": 61049273,
+  "gpu_uuid": "GPU-003aa23b-e452-9262-e517-9bb6ddcd546f",
+  "start_timestamp": "2026-09-09T22:37:46.810723+00:00",
+  "old_local_partial_rows_included": false,
+  "dependencies_mutable_after_lock": false,
+  "activation_patching_executed": false
+}
