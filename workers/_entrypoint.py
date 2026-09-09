@@ -117,9 +117,7 @@ def _serve(model_key: str) -> int:
                 request = WorkerRequest.from_dict(json.loads(line))
                 request_id = request.request_id
                 if request.model_key != model_key:
-                    raise ValueError(
-                        f"worker {model_key} refuses request for {request.model_key}"
-                    )
+                    raise ValueError(f"worker {model_key} refuses request for {request.model_key}")
                 if request.model_revision != descriptor.revision:
                     raise ValueError("worker refuses non-frozen model revision")
                 if request.processor_revision != descriptor.processor_revision:
@@ -205,9 +203,14 @@ def _serve(model_key: str) -> int:
                                         "constrained_generation_token_ids"
                                     ],
                                     "visual_input_keys": result["visual_input_keys"],
-                                    "vision_forward_observed": result[
-                                        "vision_forward_observed"
+                                    "vision_forward_observed": result["vision_forward_observed"],
+                                    "vision_forward_event_count": result[
+                                        "vision_forward_event_count"
                                     ],
+                                    "image_token_count": result["image_token_count"],
+                                    "input_sequence_length": result["input_sequence_length"],
+                                    "pixel_tensor_shapes": result["pixel_tensor_shapes"],
+                                    "image_grid_metadata": result["image_grid_metadata"],
                                     "text_only_forward": result["text_only_forward"],
                                 },
                                 candidate_scores=result["candidate_scores"],

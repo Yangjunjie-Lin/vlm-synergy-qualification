@@ -5,6 +5,18 @@ import json
 from collections.abc import Callable
 from typing import Any
 
+from capability_gate.compute_migration import (
+    adjudicate_migrated_atomic,
+    analyze_migrated_joint,
+    create_formal_run_lock,
+    prepare_compute_migration,
+    prepare_model_weights,
+    run_migrated_atomic_glm,
+    run_migrated_atomic_qwen,
+    run_migrated_joint_glm,
+    run_migrated_joint_qwen,
+    run_migration_smoke,
+)
 from capability_gate.data import generate_all, validate_all
 from capability_gate.models.registry import freeze_registry
 from capability_gate.models.runner import (
@@ -58,6 +70,16 @@ COMMANDS: dict[str, Callable[[], Any]] = {
     "analyze-joint-v2": analyze_joint_v2,
     "build-recovery-report": build_recovery_report,
     "verify-recovery-artifacts": verify_recovery_artifacts,
+    "prepare-compute-migration": prepare_compute_migration,
+    "prepare-model-weights": prepare_model_weights,
+    "run-migration-smoke": run_migration_smoke,
+    "create-formal-run-lock": create_formal_run_lock,
+    "run-migrated-atomic-qwen": run_migrated_atomic_qwen,
+    "run-migrated-atomic-glm": run_migrated_atomic_glm,
+    "adjudicate-migrated-atomic": adjudicate_migrated_atomic,
+    "run-migrated-joint-qwen": run_migrated_joint_qwen,
+    "run-migrated-joint-glm": run_migrated_joint_glm,
+    "analyze-migrated-joint": analyze_migrated_joint,
 }
 
 

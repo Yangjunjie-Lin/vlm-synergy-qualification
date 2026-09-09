@@ -207,6 +207,7 @@ class NativeRecoveryAdapter:
         self.weight_manifest: list[dict[str, Any]] = []
         self.quantization_exclusions: list[str] = []
         self._vision_observed = False
+        self._vision_forward_events = 0
         self._vision_hook_handles: list[Any] = []
 
     def _processor_kwargs(self) -> dict[str, Any]:
@@ -322,14 +323,16 @@ class NativeRecoveryAdapter:
         if not candidates:
             raise MeasurementImplementationError("no vision module found for forward proof hook")
 
+        # Hook exactly one top-level vision module so the counter represents
+        # real model invocations rather than the number of nested visual
+        # submodules traversed by one invocation.
+        candidates.sort(key=lambda item: (item[0].count("."), len(item[0]), item[0]))
+
         def observed(_module: Any, _inputs: Any, _output: Any) -> None:
             self._vision_observed = True
+            self._vision_forward_events += 1
 
-        seen: set[int] = set()
-        for _name, module in candidates:
-            if id(module) not in seen:
-                self._vision_hook_handles.append(module.register_forward_hook(observed))
-                seen.add(id(module))
+        self._vision_hook_handles.append(candidates[0][1].register_forward_hook(observed))
 
     def _encode(self, system: str, user: str, image: Image.Image | None) -> tuple[str, Any]:
         raise NotImplementedError
@@ -408,6 +411,7 @@ class NativeRecoveryAdapter:
                 image = source.convert("RGB")
         started = time.perf_counter()
         self._vision_observed = False
+        self._vision_forward_events = 0
         rendered, encoded = self._encode(system, user, image)
         visual_keys = sorted(
             key for key in encoded if key.startswith(("pixel_", "image_", "input_image"))
@@ -416,6 +420,32 @@ class NativeRecoveryAdapter:
             raise MeasurementImplementationError("processor produced no visual tensor fields")
         prompt_inputs = self._to_model(encoded)
         prompt_length = int(prompt_inputs["input_ids"].shape[1])
+        pixel_tensor_shapes = {
+            key: list(value.shape)
+            for key, value in encoded.items()
+            if key.startswith(("pixel_", "image_", "input_image")) and hasattr(value, "shape")
+        }
+        image_grid_metadata = {
+            key: value.detach().cpu().tolist()
+            for key, value in encoded.items()
+            if "grid" in key and hasattr(value, "detach")
+        }
+        image_token_ids = {
+            int(value)
+            for source in (
+                self.processor,
+                getattr(self.processor, "tokenizer", None),
+                getattr(self.model, "config", None),
+            )
+            for name in ("image_token_id", "image_token_index")
+            if source is not None
+            for value in (getattr(source, name, None),)
+            if isinstance(value, int)
+        }
+        image_token_count = sum(
+            int((prompt_inputs["input_ids"] == token_id).sum().item())
+            for token_id in image_token_ids
+        )
         scores = []
         candidate_sequences = []
         for order, candidate in enumerate(candidates):
@@ -503,6 +533,11 @@ class NativeRecoveryAdapter:
             "runtime_seconds": time.perf_counter() - started,
             "visual_input_keys": visual_keys,
             "vision_forward_observed": self._vision_observed if image is not None else None,
+            "vision_forward_event_count": (self._vision_forward_events if image is not None else 0),
+            "image_token_count": image_token_count,
+            "input_sequence_length": prompt_length,
+            "pixel_tensor_shapes": pixel_tensor_shapes,
+            "image_grid_metadata": image_grid_metadata,
             "text_only_forward": image is None,
         }
 
@@ -519,9 +554,7 @@ class NativeRecoveryAdapter:
             "loader_class": self.descriptor.loader_class,
             "model_class": type(self.model).__name__,
             "processor_class": type(self.processor).__name__,
-            "attention_implementation": getattr(
-                self.model.config, "_attn_implementation", None
-            ),
+            "attention_implementation": getattr(self.model.config, "_attn_implementation", None),
             "native_model_class_verified": (
                 type(self.model).__name__ == self.descriptor.expected_model_class
             ),

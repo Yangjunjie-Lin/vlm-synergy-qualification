@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -24,7 +25,10 @@ WORKER_NAMES = {
 
 
 def worker_python(model_key: str) -> Path:
-    return ROOT / "envs" / ENV_NAMES[model_key] / ".venv" / "Scripts" / "python.exe"
+    environment = ROOT / "envs" / ENV_NAMES[model_key] / ".venv"
+    if os.name == "nt":
+        return environment / "Scripts" / "python.exe"
+    return environment / "bin" / "python"
 
 
 def worker_script(model_key: str) -> Path:
