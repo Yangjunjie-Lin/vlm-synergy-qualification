@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "protocol": "capability_gate_atomic_v2",
+  "source_commit": "eca06a65e9ea7c384ff17859bcd9b28c79630219",
+  "source_branch": "codex/adequate-gpu-atomic-joint-execution",
+  "source_local_matches_remote_branch": true,
+  "source_working_tree_clean": true,
+  "remote_default_HEAD": "32a8333bf0106579834fb7a0747c81d67b49ac10",
+  "invalid_v1_tag": {
+    "name": "capability-gate-atomic-v1-protocol-invalid-2026-09-10",
+    "annotated_object": "bce668ac9f95f2cd0ee4639c45985eff478e3752",
+    "target": "eca06a65e9ea7c384ff17859bcd9b28c79630219",
+    "message": "Freeze Atomic v1 results before construct and renderer correction",
+    "remote_verified": true
+  },
+  "old_annotated_tag": {
+    "name": "capability-gate-adapter-block-2026-08-31",
+    "object": "5e8094970d228da8ce6ec092ac107ff7c5e70055",
+    "target": "32a8333bf0106579834fb7a0747c81d67b49ac10"
+  },
+  "v1_predictions": {
+    "qwen": {
+      "rows": 256,
+      "unique_scenes": 256,
+      "sha256": "d41ad33bece21d308352d489a8d6deb4aaa2df371aab9b59749137f990772dba",
+      "matches_preserved_execution_audit": true
+    },
+    "glm": {
+      "rows": 256,
+      "unique_scenes": 256,
+      "sha256": "cd4e4be6649d4e604bb201698549fc2a89328215ffff15ca6d83e74fec6aebf5",
+      "matches_preserved_execution_audit": true
+    }
+  },
+  "historical_joint_executed": false,
+  "historical_activation_patching_executed": false,
+  "historical_phi_formal_atomic_executed": false,
+  "fourth_model_exists": false,
+  "local_15_partial_rows_in_formal_statistics": false,
+  "historical_repositories": {
+    "vlm-synergy-trace": {
+      "head": "88741f0301c61c0abf3e63a5903183e9664af552",
+      "working_tree_clean": true,
+      "observed_remote_isArchived": false,
+      "archive_state_changed_by_this_task": false
+    },
+    "vlm-construct-audit": {
+      "head": "128a26d950dbde039a526930d9132ddab4816e91",
+      "working_tree_clean": true,
+      "observed_remote_isArchived": true,
+      "archive_state_changed_by_this_task": false
+    },
+    "recoalign": {
+      "head": "e200921af44e9307c60f470c247f808a75e7d625",
+      "working_tree_clean": true,
+      "observed_remote_isArchived": true,
+      "archive_state_changed_by_this_task": false
+    }
+  },
+  "independent_audit": {
+    "within_scene_alias_collision_scenes": 28,
+    "collision_scenes_by_task": {
+      "direct_visual_relation": 8,
+      "direct_text_relation": 8,
+      "direction_reversal": 12,
+      "cross_modal_bridge_binding": 0
+    },
+    "direct_visual_self_relation_scenes": 4,
+    "old_joint_collided_quartets": 2,
+    "glm_python_repr_prompts": 256,
+    "glm_cll_east_outputs": 256,
+    "glm_generation_east_outputs": 256,
+    "glm_exact_contract_agreement": 1.0,
+    "glm_kappa": null,
+    "glm_kappa_status": "UNDEFINED_IDENTICAL_CONSTANT_MARGINALS",
+    "fresh_joint_batch_required_before_atomic_output": true
+  },
+  "compute": {
+    "provider": "Compshare",
+    "instance_name": "capability-gate-atomic-joint",
+    "instance_id": "uhost-1v3ki9v2fp9i",
+    "observed_state": "POWERED_OFF",
+    "gpu_specification": "RTX 3090 x 1",
+    "previous_gpu_uuid": "GPU-003aa23b-e452-9262-e517-9bb6ddcd546f",
+    "ssh_diagnostic": "CONNECTION_TIMEOUT",
+    "billable_restart_performed": false,
+    "continuation_requires": "USER_CONFIRMATION_TO_RESTART_EXISTING_PAY_AS_YOU_GO_INSTANCE"
+  },
+  "execution_status": "PAUSED_BEFORE_V2_IMPLEMENTATION_AND_MODEL_OUTPUT",
+  "scientific_final_decision": null,
+  "v2_data_generated": false,
+  "v2_renderer_repaired": false,
+  "v2_contract_control_executed": false,
+  "v2_formal_atomic_executed": false,
+  "v2_joint_executed": false,
+  "activation_patching_executed": false
+}
