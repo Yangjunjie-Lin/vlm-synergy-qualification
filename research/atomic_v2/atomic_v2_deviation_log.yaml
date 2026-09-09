@@ -1,0 +1,11 @@
+schema_version: 1
+protocol: capability_gate_atomic_v2
+entries:
+  - phase: initialization_before_any_v2_output
+    issue: remote_HEAD_terminology
+    observation: local HEAD equals remote specified execution branch; default remote HEAD differs
+    action: use the explicitly specified branch and commit; do not move default branch
+    scientific_change: false
+data_regenerations_used: 0
+renderer_adapter_repairs_used: 0
+formal_outputs_started: false

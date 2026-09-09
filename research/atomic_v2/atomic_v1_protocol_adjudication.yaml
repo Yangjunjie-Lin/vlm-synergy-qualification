@@ -1,0 +1,28 @@
+schema_version: 1
+protocol: capability_gate_atomic_v1
+source_commit: eca06a65e9ea7c384ff17859bcd9b28c79630219
+historical_decision: CAPABILITY_COHORT_NO_GO
+scientific_admissibility: INVALID_FOR_COHORT_CONCLUSION
+joint_executed: false
+activation_patching_executed: false
+invalidating_findings:
+  - entity_alias_collision_allowed_by_generator
+  - direct_visual_self_relation_present
+  - target_direction_defined_for_self_relation
+  - GLM_system_content_rendered_as_python_object_repr
+  - GLM_degenerate_single_answer_behavior
+  - measurement_contract_dependent_label_not_supported_by_agreement_metrics
+historical_results_preserved: true
+historical_results_overwritten: false
+formal_v1_rows_reused_in_v2: false
+allowed_interpretation:
+  - Qwen showed strong visual and binding performance under v1
+  - Qwen did not meet frozen text and reversal gates under v1
+  - GLM capability was not validly measured
+  - no valid cohort-level scientific conclusion was established
+prohibited_interpretation:
+  - v1 Atomic passed
+  - Qwen is atomically qualified
+  - GLM lacks all atomic capabilities
+  - cross-modal composition has been falsified
+  - activation patching is authorized
