@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "engineering_retry_count": 1,
+  "maximum_retries": 1,
+  "initial_attempt": "v2 system-str implementation; zero model forwards",
+  "failure_signature": "Transformers 4.57.6 multimodal tokenize=True iterates system str",
+  "repair": "official GLM apply_chat_template(tokenize=False) then official processor(text,images,add_special_tokens=False)",
+  "scientific_prompt_changed": false,
+  "candidate_contract_changed": false,
+  "data_changed": false,
+  "model_outputs_before_repair": 0,
+  "initial_failure_snapshots_preserved_at_original_paths": true,
+  "archived_terminal_documents": [
+    {
+      "original_path": "artifacts/atomic_v2/final_decision.json",
+      "archived_path": "artifacts/atomic_v2/attempts/initial_renderer_failure/artifacts/atomic_v2/final_decision.json",
+      "sha256": "9c249b72f1b296f2a009a179c81abfd9031f27306e611c3a38f08ad6f18faf0a"
+    },
+    {
+      "original_path": "artifacts/atomic_v2/manifests/final_manifest.json",
+      "archived_path": "artifacts/atomic_v2/attempts/initial_renderer_failure/artifacts/atomic_v2/manifests/final_manifest.json",
+      "sha256": "6cedca17bb7df3a640a69907b5d36b203f1fb598576cc851e1b714623508c2c0"
+    },
+    {
+      "original_path": "reports/atomic_v2/final_decision.md",
+      "archived_path": "artifacts/atomic_v2/attempts/initial_renderer_failure/reports/atomic_v2/final_decision.md",
+      "sha256": "cada5c563bf6ef40d634453691e4420d8e0a889813ae89e91bd42048970690c7"
+    },
+    {
+      "original_path": "reports/atomic_v2/atomic_qualification.md",
+      "archived_path": "artifacts/atomic_v2/attempts/initial_renderer_failure/reports/atomic_v2/atomic_qualification.md",
+      "sha256": "b887ce3c3ef74e7a4fa439690a6b68f6a9052b52be6f28af287ccd3d81005a5a"
+    },
+    {
+      "original_path": "reports/atomic_v2/joint_composition.md",
+      "archived_path": "artifacts/atomic_v2/attempts/initial_renderer_failure/reports/atomic_v2/joint_composition.md",
+      "sha256": "740a2038a0582aabac79380959fbc5c95025278f1307adbb949d3bccc433c66e"
+    },
+    {
+      "original_path": "reports/atomic_v2/renderer_validation.md",
+      "archived_path": "artifacts/atomic_v2/attempts/initial_renderer_failure/reports/atomic_v2/renderer_validation.md",
+      "sha256": "a52ae53a2ee59412efcb76b66bdbeff4381de918a4e65751e801d9ed974e9125"
+    }
+  ],
+  "timestamp": "2026-09-10T12:28:31.339221+00:00"
+}
