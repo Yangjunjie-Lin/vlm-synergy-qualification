@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import copy
-from types import SimpleNamespace
 
 import pytest
 from PIL import Image
@@ -126,16 +125,27 @@ def test_glm_uses_actual_processor_contract_with_string_system():
         calls.append((messages, kwargs))
         return {"input_ids": [[1]]} if kwargs.get("tokenize") else "rendered"
 
+    class Processor:
+        def apply_chat_template(self, messages, **kwargs):
+            assert kwargs['tokenize'] is False
+            return apply_chat_template(messages, **kwargs)
+
+        def __call__(self, **kwargs):
+            calls.append(kwargs)
+            assert kwargs['add_special_tokens'] is False
+            assert kwargs['text'] == ['rendered']
+            assert len(kwargs['images']) == 1
+            return {'input_ids': [[1]]}
+
     adapter = GlmAtomicV2Adapter()
-    adapter.processor = SimpleNamespace(apply_chat_template=apply_chat_template)
+    adapter.processor = Processor()
     adapter._encode(SYSTEM, "user", Image.new("RGB", (10, 10)))
     assert len(calls) == 2
-    for messages, kwargs in calls:
+    for messages, kwargs in calls[:1]:
         assert messages[0] == {"role": "system", "content": SYSTEM}
         assert len([item for item in messages[1]["content"] if item["type"] == "image"]) == 1
         assert kwargs["add_generation_prompt"] is True
-    assert calls[0][1]["return_dict"] is True
-    assert calls[0][1]["return_tensors"] == "pt"
+    assert calls[1]["return_tensors"] == "pt"
 
 
 def _control_records():

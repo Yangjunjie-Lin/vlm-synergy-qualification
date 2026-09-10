@@ -169,6 +169,71 @@ def freeze_invalid_atomic_v1():
     return result
 
 
+def repair_glm_processor_v2():
+    """One pre-control engineering retry, with the initial failure fully preserved."""
+    record_path = OUT / "renderer_repair_record.json"
+    if record_path.exists():
+        return load(record_path)
+    if (OUT / "formal_run_lock.json").exists() or any((OUT / "formal").rglob("*.jsonl")):
+        raise RuntimeError("RENDERER_REPAIR_AFTER_FORMAL_OUTPUT_FORBIDDEN")
+    if any((OUT / "contract_control").rglob("predictions.jsonl")):
+        raise RuntimeError("THIS_REPAIR_MUST_PRECEDE_ALL_CONTROL_OUTPUTS")
+    failure = load(OUT / "renderer_snapshots/glm4_1v_9b/manifest.json")
+    if failure.get("failure", {}).get("type") != "TypeError" or failure.get("snapshot_count") != 0:
+        raise RuntimeError("UNREGISTERED_RENDERER_REPAIR_FAILURE_SIGNATURE")
+    if "string indices must be integers" not in failure["failure"]["message"]:
+        raise RuntimeError("UNREGISTERED_RENDERER_REPAIR_FAILURE_SIGNATURE")
+    if load(OUT / "renderer_snapshots/qwen2_5_vl_7b/manifest.json")["overall_gate"] is not True:
+        raise RuntimeError("QWEN_RENDERER_NOT_VERIFIED")
+    archive = OUT / "attempts/initial_renderer_failure"
+    mapping = []
+    paths = [
+        OUT / "final_decision.json",
+        OUT / "manifests/final_manifest.json",
+        REPORT / "final_decision.md",
+        REPORT / "atomic_qualification.md",
+        REPORT / "joint_composition.md",
+        REPORT / "renderer_validation.md",
+    ]
+    for path in paths:
+        if path.exists():
+            relative = path.relative_to(ROOT)
+            destination = archive / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            if destination.exists():
+                raise RuntimeError("INITIAL_FAILURE_ARCHIVE_ALREADY_EXISTS")
+            digest = sha256_file(path)
+            path.rename(destination)
+            mapping.append(
+                {
+                    "original_path": relative.as_posix(),
+                    "archived_path": destination.relative_to(ROOT).as_posix(),
+                    "sha256": digest,
+                }
+            )
+    record = {
+        "schema_version": 1,
+        "engineering_retry_count": 1,
+        "maximum_retries": 1,
+        "initial_attempt": "v2 system-str implementation; zero model forwards",
+        "failure_signature": "Transformers 4.57.6 multimodal tokenize=True iterates system str",
+        "repair": "official GLM apply_chat_template(tokenize=False) then official processor(text,images,add_special_tokens=False)",
+        "scientific_prompt_changed": False,
+        "candidate_contract_changed": False,
+        "data_changed": False,
+        "model_outputs_before_repair": 0,
+        "initial_failure_snapshots_preserved_at_original_paths": True,
+        "archived_terminal_documents": mapping,
+        "timestamp": now(),
+    }
+    save_once(record_path, record)
+    _commit(
+        [OUT, REPORT],
+        "audit: preserve initial renderer failure and authorize sole pre-control correction",
+    )
+    return record
+
+
 def python_for(key):
     if key not in KEYS:
         raise RuntimeError("UNAUTHORIZED_MODEL")
@@ -206,16 +271,17 @@ def _subprocess(module, args, logfile):
 
 def validate_model_renderers():
     from capability_gate.atomic_v2_data import validate_atomic_v2_data
+    from capability_gate.atomic_v2_measurement import renderer_manifest_path
 
     validate_atomic_v2_data()
     results = {}
     for key in KEYS:
-        path = OUT / "renderer_snapshots" / key / "manifest.json"
+        path = renderer_manifest_path(ROOT, key)
         if not path.exists():
             _subprocess(
                 "capability_gate.atomic_v2_measurement",
                 ["renderers", "--model-key", key, "--root", str(ROOT)],
-                OUT / "renderer_snapshots" / key / "process.log",
+                path.parent / "process.log",
             )
         if not path.exists():
             raise RuntimeError(f"RENDERER_DID_NOT_PRODUCE_MANIFEST: {key}")

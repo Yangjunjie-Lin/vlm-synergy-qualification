@@ -11,8 +11,20 @@ candidate_prefix: " "
 candidate_answers: [north, south, east, west]
 renderer_adapter_repairs_allowed: 1
 renderer_adapter_repairs_used: 1
-repair_scope: GLM_system_content_representation_only
+repair_scope: GLM_system_content_representation_and_official_processor_encoding_path
 repair_reason: official_GLM_template_renders_system_content_directly
+initial_snapshot_attempt:
+  model_forward_count: 0
+  Qwen: eight_official_snapshots_passed
+  GLM: TypeError_in_generic_multimodal_tokenize_wrapper_iterating_system_string
+  initial_failures_preserved: true
+sole_corrective_retry:
+  count: 1
+  render: official_processor_apply_chat_template_tokenize_false
+  encode: official_Glm4vProcessor_text_plus_images
+  add_special_tokens: false_because_official_template_already_contains_gMASK_sop
+  semantic_or_contract_change: false
+  further_renderer_retries: forbidden
 repair_after_formal_outputs_forbidden: true
 snapshot_cases_per_task_per_model: 2
 snapshot_source: actual_frozen_official_processor
