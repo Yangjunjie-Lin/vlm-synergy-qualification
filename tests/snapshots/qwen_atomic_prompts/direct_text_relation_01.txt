@@ -1,0 +1,9 @@
+<|im_start|>system
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|im_end|>
+<|im_start|>user
+The image is unrelated decoration; use the text statement.
+Relative to yssirprwvs, udomfwnfnx lies to the north.
+What is udomfwnfnx's direction from yssirprwvs?
+Allowed answers in displayed order: south, west, north, east.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|im_end|>
+<|im_start|>assistant

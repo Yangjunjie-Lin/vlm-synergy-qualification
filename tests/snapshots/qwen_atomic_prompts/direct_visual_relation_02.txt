@@ -1,0 +1,7 @@
+<|im_start|>system
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|im_end|>
+<|im_start|>user
+<|vision_start|><|image_pad|><|vision_end|>In which cardinal direction is qxtwbjeaiq located from ruvzufwdxr?
+Allowed answers in displayed order: east, north, south, west.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|im_end|>
+<|im_start|>assistant
