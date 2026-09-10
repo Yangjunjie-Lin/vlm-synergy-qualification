@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "atomic_v2_data",
+  "protocol": "capability_gate_atomic_v2",
+  "files": [
+    {
+      "path": "artifacts/data_v2/atomic_qualification/scenes.jsonl",
+      "bytes": 437311,
+      "sha256": "8f8f36542febbfb04177d70e3d8e9c9c20eeeb1528e09ede2eeaa82aeef5a328"
+    }
+  ]
+}

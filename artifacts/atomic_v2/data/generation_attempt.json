@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "batch": 1,
+  "seeds": {
+    "atomic_scene_order": 92618371,
+    "atomic_template_assignment": 12867043,
+    "atomic_option_permutation": 68201439,
+    "atomic_image": 59318721,
+    "atomic_descriptor_assignment": 73194625,
+    "joint_scene_order": 41297683,
+    "joint_template_assignment": 18294637,
+    "joint_option_permutation": 97163825,
+    "joint_image": 38152749,
+    "grouped_cross_validation": 24591837
+  },
+  "namespace_uuid": "d510287f-fb80-4ee0-9234-c8215cf6f620",
+  "automatic_regenerations": 0,
+  "max_explicit_preoutcome_regenerations": 1
+}

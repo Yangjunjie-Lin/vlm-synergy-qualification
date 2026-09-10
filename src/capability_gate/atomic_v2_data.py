@@ -569,6 +569,11 @@ def validate_atomic_v2_data(root: Path = ROOT, *, raise_on_invalid: bool = True)
     counts = Counter(error for errors in failures.values() for error in errors)
     ids = [row["scene_id"] for row in rows]
     overlap = set(ids) & {row["scene_id"] for row in old}
+    image_overlap = {row["image_sha256"] for row in rows} & {
+        row["image_sha256"] for row in old}
+    new_names = {entity["name"] for row in rows for entity in row["entities"]}
+    old_names = {entity["name"] for row in old for entity in row["entities"] if entity["name"]}
+    name_overlap = new_names & old_names
     task_reports = {}
     for task in TASKS:
         selected = [row for row in rows if row["task"] == task]
@@ -608,6 +613,8 @@ def validate_atomic_v2_data(root: Path = ROOT, *, raise_on_invalid: bool = True)
     manifest_errors = (_manifest_errors(root, manifests / "data_manifest.json")
                        + _manifest_errors(root, manifests / "image_manifest.json"))
     overall = (len(rows) == 256 and len(set(ids)) == 256 and not overlap and not failures
+               and not image_overlap and not name_overlap
+               and len({row["image_sha256"] for row in rows}) == 256
                and not manifest_errors and all(task["gate"] for task in task_reports.values())
                and all(probe["gate"] for probe in pooled_shortcuts.values())
                and binding_shortcut_gate
@@ -618,6 +625,9 @@ def validate_atomic_v2_data(root: Path = ROOT, *, raise_on_invalid: bool = True)
         "status": "ATOMIC_V2_DATA_VALID" if overall else "ATOMIC_V2_DATA_INVALID",
         "overall_gate": bool(overall), "scene_count": len(rows), "task_count": len(task_reports),
         "unique_scene_uuid_count": len(set(ids)), "v1_uuid_overlap_count": len(overlap),
+        "unique_image_hash_count": len({row["image_sha256"] for row in rows}),
+        "v1_image_hash_overlap_count": len(image_overlap),
+        "v1_entity_alias_overlap_count": len(name_overlap),
         "within_scene_alias_collision_count": counts["within_scene_alias_collision"],
         "self_relation_count": counts["self_relation"],
         "duplicate_distractor_count": counts["duplicate_distractor"],
@@ -753,6 +763,7 @@ def _pixel_image_direction(root: Path, quartet: dict[str, Any], condition: dict[
 def validate_joint_rows(rows: list[dict[str, Any]], root: Path) -> dict[str, Any]:
     errors: dict[str, list[str]] = {}
     flattened = []
+    image_relation_cache: dict[str, str] = {}
     for index, quartet in enumerate(rows):
         failed = []
         a, b, c = [quartet["entities"][key] for key in ("A", "B", "C")]
@@ -766,7 +777,10 @@ def validate_joint_rows(rows: list[dict[str, Any]], root: Path) -> dict[str, Any
             failed.append("factorial_quartet_invalid")
         for condition in conditions:
             try:
-                image_relation = _pixel_image_direction(root, quartet, condition)
+                image_key = condition["image_path"]
+                if image_key not in image_relation_cache:
+                    image_relation_cache[image_key] = _pixel_image_direction(root, quartet, condition)
+                image_relation = image_relation_cache[image_key]
                 source, destination, text_relation = _premise_fact(condition["premise"])
                 if (source, destination) != (b, c) or source == destination:
                     failed.append("text_identity_error")
@@ -811,6 +825,14 @@ def validate_joint_rows(rows: list[dict[str, Any]], root: Path) -> dict[str, Any
              and position_counts == Counter(dict.fromkeys(range(4), 128)))
     return {"overall_gate": bool(valid), "quartet_count": len(rows),
             "condition_count": len(flattened), "quartet_failures": errors,
+            "within_scene_alias_collision_count": sum("alias_collision" in value
+                                                       for value in errors.values()),
+            "query_reference_equality_count": sum("query_reference_equality" in value
+                                                   for value in errors.values()),
+            "distractor_collision_count": 0,
+            "distractor_count": 0,
+            "question_only_leakage_count": sum("question_only_leakage" in value
+                                                for value in errors.values()),
             "answer_balance": dict(answer_counts), "option_position_balance": dict(position_counts),
             "shortcut_probes": shortcuts, "single_modality_nonidentifying": not any(
                 "unimodal_uniquely_identifying" in failures for failures in errors.values()),
