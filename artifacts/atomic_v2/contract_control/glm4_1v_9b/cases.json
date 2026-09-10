@@ -1,0 +1,226 @@
+[
+  {
+    "case_id": "d709ddb2-07b5-53a5-91cb-8bbe6754a2ce",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "north",
+    "question": "For this output-contract test, return exactly \"north\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "2b5ae124-2667-5dd1-bf82-d818057d624d",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "south",
+    "question": "For this output-contract test, return exactly \"south\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "e66a2eb8-cb41-5a50-9983-e1b039bb8fe6",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "east",
+    "question": "For this output-contract test, return exactly \"east\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "bd0b2ca6-6f5c-5369-a70e-97c3b015d4fc",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "west",
+    "question": "For this output-contract test, return exactly \"west\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "72d6f0b7-0630-53c6-a46d-ca787c7788c4",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "north",
+    "question": "For this output-contract test, return exactly \"north\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "5d93938b-0098-578d-93f2-25a3af6a9b8b",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "south",
+    "question": "For this output-contract test, return exactly \"south\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "a46d447f-3b27-5d67-bd46-f53fb72eac3e",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "east",
+    "question": "For this output-contract test, return exactly \"east\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "2e5ee357-dae2-5b3e-98e1-3c9a2cd2ebf2",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "west",
+    "question": "For this output-contract test, return exactly \"west\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "7bf64140-53b0-57fc-bd06-7f9c2f63d523",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "north",
+    "question": "For this output-contract test, return exactly \"north\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "9dd9ab57-5233-5257-9783-be67e930bcd8",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "south",
+    "question": "For this output-contract test, return exactly \"south\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "6ac90874-f8c8-5125-906e-7637e8e27c8d",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "east",
+    "question": "For this output-contract test, return exactly \"east\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "7424cc3f-7e3c-5e3e-b42c-e476a5cb6a8c",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "west",
+    "question": "For this output-contract test, return exactly \"west\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "e5b0a1d6-041d-5925-a8d8-743d6718c61f",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "north",
+    "question": "For this output-contract test, return exactly \"north\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "9ccbb913-c663-5c3a-b863-1eceb9fbeaa6",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "south",
+    "question": "For this output-contract test, return exactly \"south\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "470df704-6034-5577-9e7b-5870b6518552",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "east",
+    "question": "For this output-contract test, return exactly \"east\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  },
+  {
+    "case_id": "9c2a4995-7d9e-5078-a30c-638930e096f9",
+    "split": "contract_control",
+    "engineering_only": true,
+    "target": "west",
+    "question": "For this output-contract test, return exactly \"west\".",
+    "options": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "image_path": null
+  }
+]
