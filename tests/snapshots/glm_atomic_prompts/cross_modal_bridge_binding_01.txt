@@ -1,0 +1,5 @@
+[gMASK]<sop><|system|>
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|user|>
+<|begin_of_image|><|image|><|end_of_image|>In the image, bind the name zkuxwrjtma to its azure diamond. Which direction is it from the black anchor?
+Allowed answers in displayed order: west, east, north, south.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|assistant|>

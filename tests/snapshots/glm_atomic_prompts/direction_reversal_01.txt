@@ -1,0 +1,7 @@
+[gMASK]<sop><|system|>
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|user|>
+The image is unrelated decoration; use the text statement.
+Starting at fwvyftkyqh, fmbirbnhbv lies toward the west.
+In which cardinal direction is fwvyftkyqh located from fmbirbnhbv?
+Allowed answers in displayed order: west, south, east, north.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|assistant|>

@@ -1,0 +1,7 @@
+[gMASK]<sop><|system|>
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|user|>
+The image is unrelated decoration; use the text statement.
+From bdgcnjkgcs, move west to reach ekiyhizvhy.
+Taking ekiyhizvhy as the origin, which direction contains bdgcnjkgcs?
+Allowed answers in displayed order: south, east, north, west.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|assistant|>

@@ -1,0 +1,5 @@
+[gMASK]<sop><|system|>
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|user|>
+<|begin_of_image|><|image|><|end_of_image|>Locate jdbxeigide, the azure circle, in the image. Relative to the black anchor, where is it?
+Allowed answers in displayed order: south, west, east, north.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|assistant|>

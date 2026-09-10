@@ -1,0 +1,5 @@
+[gMASK]<sop><|system|>
+Solve the relation task using only the supplied evidence. Return exactly one allowed lowercase answer word and no explanation.<|user|>
+<|begin_of_image|><|image|><|end_of_image|>What is eizadfsanr's direction from fllzxdxvuq?
+Allowed answers in displayed order: east, north, south, west.
+Answer schema: Return exactly one allowed lowercase direction word and nothing else.<|assistant|>
