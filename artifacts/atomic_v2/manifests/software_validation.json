@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "phase": "before_any_model_output",
+  "tested_code_commit": "c6febb7",
+  "pytest": {"passed": 93, "failed": 0},
+  "ruff_check_dot": "PASS",
+  "python_module_verify_artifacts": "PASS_READ_ONLY",
+  "python_module_verify_compute_migration_artifacts": "PASS_READ_ONLY",
+  "old_files_protected": 674,
+  "data_regenerations_used": 0,
+  "real_model_outputs_produced": false,
+  "activation_patching_executed": false
+}

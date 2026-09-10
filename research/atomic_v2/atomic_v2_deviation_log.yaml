@@ -7,5 +7,31 @@ entries:
     action: use the explicitly specified branch and commit; do not move default branch
     scientific_change: false
 data_regenerations_used: 0
-renderer_adapter_repairs_used: 0
+renderer_adapter_repairs_used: 1
 formal_outputs_started: false
+preoutcome_resolutions:
+  - issue: restarted_cloud_instance_received_different_physical_GPU_UUID
+    action: retain same Compshare instance, same RTX3090 24GiB specification and exact existing model environments; freeze actual new UUID
+    previous_gpu_uuid: GPU-003aa23b-e452-9262-e517-9bb6ddcd546f
+    observed_restarted_gpu_uuid: GPU-88e6a144-da6f-aab3-3ea7-4b3c6c476457
+  - issue: remote_v1_directory_contains_untracked_original_outputs
+    action: preserve entire remote v1 directory; clone v2 into a separate sibling directory
+  - issue: literal_name_concatenation_double_counts_identity_mentions
+    action: enforce injective names for distinct entity identities, not unique occurrences of the same entity name
+  - issue: naming_bridge_image_objects_would_change_frozen_construct
+    action: unique internal aliases; retain unlabeled descriptor-selected image objects
+  - issue: full_question_and_metadata_include_legitimate_evidence_and_answers
+    action: freeze explicit evidence-free shortcut feature allowlists; retain unconditional train-only classifiers and all OOF predictions
+  - issue: shortcut_scope_not_separately_specified_per_task
+    action: freeze each shortcut pooled256 OOF hardgate before data generation; disclose per-task diagnostics; additional binding descriptor64 gate
+  - issue: old_text_tasks_used_matched_decorative_images
+    action: create fresh blank provenance files but send no image tensors, satisfying explicit v2 text-only renderer gate
+  - issue: Joint_diagnostic_YAML_and_old_statistical_implementation_differ
+    action: preserve old statistical implementation and all numeric thresholds exactly; no post-outcome reinterpretation
+  - issue: legacy_verify_commands_rewrite_historical_manifests
+    action: v2 command dispatch uses read-only verification of all674 protected files, old annotated tags and actual prediction hashes
+repair:
+  model: glm4_1v_9b
+  scope: system content list changed to plain string in v2-only subclass
+  official_processor_template_modified: false
+  scientific_prompt_semantics_modified: false
