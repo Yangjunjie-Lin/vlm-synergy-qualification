@@ -1,0 +1,31 @@
+schema_version: 1
+protocol: capability_gate_atomic_v2
+data_failure:
+  decision: ATOMIC_V2_DATA_INVALID
+  q1_potential: NOT_EVALUATED_MEASUREMENT_FAILURE
+  exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+measurement_failure:
+  decision: MEASUREMENT_IMPLEMENTATION_NO_GO
+  q1_potential: NOT_EVALUATED_MEASUREMENT_FAILURE
+  exact_next_action: TERMINATE_AFTER_FINAL_MEASUREMENT_FAILURE
+atomic_cohort_failure:
+  decision: CAPABILITY_COHORT_NO_GO
+  q1_potential: NO_FEASIBLE_COHORT
+  exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+joint_failure:
+  decision: JOINT_COMPOSITION_NO_GO
+  q1_potential: NO_MECHANISTIC_STUDY_BASIS
+  exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+success:
+  decision: QUALIFIED_FOR_NEW_MECHANISTIC_PREREGISTRATION
+  q1_potential: MECHANISTIC_STUDY_FEASIBLE
+  exact_next_action: BUILD_HELD_OUT_MECHANISTIC_PILOT
+model_order: [qwen2_5_vl_7b, glm4_1v_9b]
+required_qualified_models: 2
+full_batch_preoutput_regenerations_max: 1
+renderer_adapter_repairs_max: 1
+formal_output_based_modifications: forbidden
+activation_patching_in_this_task: forbidden_even_after_joint_go
+atomic_v3: forbidden
+new_model_or_checkpoint: forbidden
+partial_failures_preserved: true

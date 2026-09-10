@@ -15,3 +15,6 @@ capability-screen:
 test:
 	python -m pytest
 
+.PHONY: atomic-v2-clean-rerun
+atomic-v2-clean-rerun:
+	python -m capability_gate atomic-v2-clean-rerun

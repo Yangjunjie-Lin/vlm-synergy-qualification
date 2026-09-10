@@ -65,7 +65,7 @@ COMMANDS: dict[str, Callable[[], Any]] = {
     "run-adapter-recovery-smoke": run_adapter_recovery_smoke,
     "adjudicate-engineering-recovery": adjudicate_engineering_recovery,
     "run-atomic-qualification-v2": run_atomic_qualification_v2,
-    "adjudicate-atomic-v2": adjudicate_atomic_v2,
+    "adjudicate-recovery-atomic-v2": adjudicate_atomic_v2,
     "run-joint-screen-v2": run_joint_screen_v2,
     "analyze-joint-v2": analyze_joint_v2,
     "build-recovery-report": build_recovery_report,
@@ -81,6 +81,40 @@ COMMANDS: dict[str, Callable[[], Any]] = {
     "run-migrated-joint-glm": run_migrated_joint_glm,
     "analyze-migrated-joint": analyze_migrated_joint,
 }
+
+# The historical verifier writes old manifests. V2 verification is explicitly
+# read-only for all preserved v1 results and historical reports.
+from capability_gate import atomic_v2_protocol as protocol_v2
+
+COMMANDS.update({
+    "freeze-invalid-atomic-v1": protocol_v2.freeze_invalid_atomic_v1,
+    "validate-model-renderers": protocol_v2.validate_model_renderers,
+    "run-contract-control": protocol_v2.run_contract_control,
+    "freeze-atomic-v2-run": protocol_v2.freeze_atomic_v2_run,
+    "run-atomic-v2": protocol_v2.run_atomic_v2,
+    "adjudicate-atomic-v2": protocol_v2.adjudicate_atomic_v2,
+    "run-joint-after-atomic-v2": protocol_v2.run_joint_after_atomic_v2,
+    "analyze-joint-after-atomic-v2": protocol_v2.analyze_joint_after_atomic_v2,
+    "build-atomic-v2-report": protocol_v2.build_atomic_v2_report,
+    "verify-atomic-v2-artifacts": protocol_v2.verify_atomic_v2_artifacts,
+    "verify-compute-migration-artifacts": protocol_v2.verify_v1,
+    "verify-artifacts": protocol_v2.verify_v1,
+    "atomic-v2-clean-rerun": protocol_v2.clean_rerun,
+})
+
+
+def _v2_data_command(name):
+    def invoke():
+        from capability_gate import atomic_v2_data
+        return getattr(atomic_v2_data, name)()
+    return invoke
+
+
+COMMANDS.update({
+    "generate-atomic-v2-data": _v2_data_command("generate_atomic_v2_data"),
+    "validate-atomic-v2-data": _v2_data_command("validate_atomic_v2_data"),
+    "validate-joint-data-before-atomic-v2": _v2_data_command("validate_joint_data_before_atomic_v2"),
+})
 
 
 def main() -> None:

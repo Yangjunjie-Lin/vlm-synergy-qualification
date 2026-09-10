@@ -1,0 +1,86 @@
+schema_version: 1
+protocol: capability_gate_atomic_v2
+source_commit: eca06a65e9ea7c384ff17859bcd9b28c79630219
+models: [qwen2_5_vl_7b, glm4_1v_9b]
+required_models: 2
+required_scenes_per_model: 256
+required_scenes_per_task: 64
+complete_same_scene_cohort_required: true
+partial_outputs_scientifically_admissible: false
+partial_outputs_preserved_by_orchestrator: true
+frozen_scoring_source: configs/scoring.yaml
+statistical_formulas_source: src/capability_gate/statistics/metrics.py
+confidence: 0.95
+atomic_interval: one_sided_clopper_pearson
+atomic_gates:
+  direct_visual_relation: {accuracy_min: 0.80, lower_bound_min: 0.70}
+  direct_text_relation: {accuracy_min: 0.90, lower_bound_min: 0.82}
+  direction_reversal: {accuracy_min: 0.80, lower_bound_min: 0.70}
+  cross_modal_bridge_binding: {accuracy_min: 0.80, lower_bound_min: 0.70}
+kappa_min: 0.80
+kappa_gate_scope: model_overall_not_per_task
+task_kappa: report_without_introducing_a_new_gate
+undefined_kappa:
+  value: null
+  report_exact_agreement: true
+  report_constant_common_answer: true
+  qualifies: false
+  implies_contract_disagreement: false
+  both_contracts_fail: use_frozen_task_failure_priority
+measurement_contract_dependent_only_if:
+  - at_least_one_task_cll_gate_differs_from_generation_gate
+  - defined_model_overall_cohens_kappa_below_0.80
+  - additional_preregistered_directional_conflict
+additional_atomic_directional_conflict_rule: null
+additional_atomic_directional_conflict_note: >-
+  No additional Atomic directional contrast is registered; per-task contract-gate
+  comparisons are the frozen Atomic directional comparisons. This entry does not
+  permit inventing a conflict rule after formal outputs.
+primary_failure_priority:
+  - MEASUREMENT_CONTRACT_DEPENDENT_if_supported_by_actual_conflict
+  - ATOMIC_VISUAL_FAIL
+  - ATOMIC_TEXT_FAIL
+  - ATOMIC_DIRECTION_FAIL
+  - ATOMIC_BINDING_FAIL
+all_failed_tasks_must_be_reported: true
+task_average_compensation_allowed: false
+atomic_go: both_exact_frozen_families_ATOMICALLY_QUALIFIED
+atomic_common_failure:
+  decision: CAPABILITY_COHORT_NO_GO
+  q1_potential: NO_FEASIBLE_COHORT
+  exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+invalid_or_incomplete_measurement:
+  decision: MEASUREMENT_IMPLEMENTATION_NO_GO
+  q1_potential: NOT_EVALUATED_MEASUREMENT_FAILURE
+  exact_next_action: TERMINATE_AFTER_FINAL_MEASUREMENT_FAILURE
+actual_contract_conflict:
+  decision: MEASUREMENT_CONTRACT_NO_GO
+  q1_potential: NOT_EVALUATED_MEASUREMENT_FAILURE
+  exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+joint_analysis:
+  implementation: unchanged_src/capability_gate/statistics/joint.py_analyze_joint_rows
+  data_before_atomic_outputs: required
+  quartets_per_model: 128
+  conditions: [I0T0, I0T1, I1T0, I1T1]
+  modes: [joint, image_only, text_only, question_only]
+  atomic_retention_scenes_per_task: 64
+  bootstrap_resamples: 50000
+  bootstrap_seed: 9041723
+  bootstrap_unit: base_quartet
+  fixed_psi_target_condition: I1T1
+  strong: {joint_accuracy_min: 0.50, advantage_min: 0.10, psi_mean_gt: 0, psi_lower_gt: 0}
+  support: {joint_accuracy_min: 0.40, advantage_gt: 0, psi_mean_min: 0}
+  diagnostic_and_selection_implementation_unchanged: true
+  yaml_diagnostic_wording_discrepancy_disclosed: >-
+    The historical joint_screen.yaml shorthand for single-answer-class and
+    single-template exclusions differs from the frozen executable diagnostic
+    implementation. The executable implementation remains unchanged; no new
+    diagnostic threshold or favorable post-outcome mapping is introduced.
+  successful_result:
+    q1_potential: MECHANISTIC_STUDY_FEASIBLE
+    exact_next_action: BUILD_HELD_OUT_MECHANISTIC_PILOT
+  common_failure:
+    q1_potential: NO_MECHANISTIC_STUDY_BASIS
+    exact_next_action: TERMINATE_CROSS_MODAL_SYNERGY_LINE
+activation_patching_authorized_in_this_task: false
+activation_patching_executed: false
