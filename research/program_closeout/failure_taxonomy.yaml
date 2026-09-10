@@ -1,0 +1,40 @@
+schema_version: 1
+
+atomic_v1:
+  failure_class: PROTOCOL_INVALIDITY
+  capability_inference: FORBIDDEN
+  scientific_admissibility: INVALID_FOR_COHORT_CONCLUSION
+  preserved_findings:
+    - entity_alias_collision_allowed_by_generator
+    - direct_visual_self_relation_present
+    - target_direction_defined_for_self_relation
+    - GLM_system_content_rendered_as_python_object_repr
+    - GLM_degenerate_single_answer_behavior
+    - measurement_contract_dependent_label_not_supported_by_agreement_metrics
+
+atomic_v2_glm:
+  failure_class: MEASUREMENT_CONTRACT_FAILURE
+  observed_behavior:
+    cll_top_answer: east_16_of_16
+    constrained_generation: east_16_of_16
+  possible_causes:
+    - model_contract_incompatibility
+    - first_token_prior
+    - reasoning_output_structure_mismatch
+    - quantized_logit_bias
+    - unidentified_measurement_implementation_factor
+  possible_causes_status: UNVERIFIED_EXPLANATIONS_NOT_ESTABLISHED_CAUSES
+  causal_diagnosis: NOT_IDENTIFIED
+  model_capability_inference: FORBIDDEN
+  failed_engineering_gates:
+    - all_four_answers_generated
+    - nonconstant_constrained_output
+  controls_completed: 16
+  control_artifact_completeness: 1.0
+
+current_program:
+  formal_scientific_endpoint: NOT_OBSERVED
+  mechanism_identification: NOT_REACHED
+  decision: TERMINATE_CURRENT_LINE
+  capability_failure_label: FORBIDDEN
+  further_causal_experimentation: NOT_AUTHORIZED

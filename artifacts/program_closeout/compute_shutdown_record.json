@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "timestamp": "2026-09-10T15:19:24.8508081Z",
+  "provider": "Compshare / 优云智算",
+  "instance_id": "uhost-1v3ki9v2fp9i",
+  "instance_name": "capability-gate-atomic-joint",
+  "gpu_model": "NVIDIA GeForce RTX 3090",
+  "previous_hourly_rate": {
+    "amount": 1.19,
+    "currency": "CNY"
+  },
+  "pre_shutdown_process_state": {
+    "basis": "preserved prior model-release attestations; not a new PID inventory",
+    "models": {
+      "qwen2_5_vl_7b": {
+        "release": {
+          "allocated_before_release_bytes": 5945963008,
+          "allocated_after_release_bytes": 8520704,
+          "released": true
+        },
+        "source_file": "artifacts/atomic_v2/contract_control/qwen2_5_vl_7b/runtime.json",
+        "source_sha256": "35b1790462d1fb24197eba2321ca5c692bc13eb391ce9da1e417dfb05e29f769",
+        "gpu": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_vram_bytes": 25297354752
+        }
+      },
+      "glm4_1v_9b": {
+        "release": {
+          "allocated_before_release_bytes": 7220892160,
+          "allocated_after_release_bytes": 8520704,
+          "released": true
+        },
+        "source_file": "artifacts/atomic_v2/contract_control/glm4_1v_9b/runtime.json",
+        "source_sha256": "b3dc84ac02c3f6ffe93854e9512de7cf8c8b8beb0503ca8527d4fff854a2a2ae",
+        "gpu": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_vram_bytes": 25297354752
+        }
+      }
+    },
+    "live_process_inventory_this_turn": "NOT_AVAILABLE_INSTANCE_ALREADY_STOPPED",
+    "live_nvidia_smi_this_turn": "NOT_EXECUTED_INSTANCE_ALREADY_STOPPED",
+    "local_laptop_gpu_not_substituted_for_cloud_gpu": true
+  },
+  "shutdown_command": "Prior user-authorized Compshare web-console action: 更多操作 > 关闭 > acknowledge shutdown retention warning > 确定",
+  "shutdown_operation_this_turn": "IDEMPOTENT_QUERY_ONLY_ALREADY_STOPPED",
+  "shutdown_executed_this_turn": false,
+  "instance_started_this_turn": false,
+  "new_model_or_processor_loads": 0,
+  "new_model_forwards": 0,
+  "provider_response": {
+    "current_state_text": "关机",
+    "current_instance_rate_text": "实例： 0 /小时 按量",
+    "current_disk_rate_text": "系统盘：0.00 元 /小时 按量",
+    "prior_shutdown_result_text": "成功：1 失败：0 剩余：0; 操作成功"
+  },
+  "post_shutdown_state": "stopped",
+  "shutdown_confirmed": true,
+  "manual_action_required": false,
+  "instance_deleted_by_this_task": false,
+  "evidence_file": "artifacts/program_closeout/provider_shutdown_evidence.json",
+  "evidence_hash": "ed32f8e7197f91a229bb0a4c1b91154c58d297fcae3c9a2416624c5d17c99c4f",
+  "provider_retention_warning": "Automatic release after seven continuous powered-off days; displayed release time 2026-09-17 14:47 (provider UI display, not converted to UTC).",
+  "canonical_evidence_backed_up_locally_and_in_github": true
+}

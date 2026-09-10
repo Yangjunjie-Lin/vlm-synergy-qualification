@@ -1,0 +1,59 @@
+schema_version: 1
+source_commit: eb12bd64da6cb37d4e43631e4f2e08492a9007fb
+terminal: true
+decision: TERMINATE_CURRENT_CROSS_MODAL_SYNERGY_LINE
+source_protocol_decision: MEASUREMENT_IMPLEMENTATION_NO_GO
+source_protocol_next_action: TERMINATE_AFTER_FINAL_MEASUREMENT_FAILURE
+trigger: frozen GLM engineering output-contract control failed before formal Atomic
+q1_potential: NOT_EVALUATED_MEASUREMENT_FAILURE
+q1_readiness: NO-GO
+exact_next_action: NO_FURTHER_EXPERIMENTS_ON_THIS_LINE
+report_next_action: ARCHIVE EVIDENCE AND PERFORM NO FURTHER COMPUTE
+permitted_closeout_operations:
+  - read_existing_evidence
+  - recompute_existing_artifact_hashes
+  - run_cpu_only_non_model_tests_and_read_only_verifiers
+  - query_non_model_process_and_compute_resource_status
+  - stop_existing_cloud_gpu_instance_without_starting_it
+  - append_closeout_audit_evidence_without_overwriting_prior_artifacts
+  - create_and_verify_terminal_commit_and_annotated_tag
+  - push_without_force_and_verify_fresh_clone
+  - archive_current_repository_after_integrity_verification
+terminal_rerun: READ_ONLY_VERIFICATION_ONLY
+forbidden_operations:
+  - model_forward
+  - model_load
+  - processor_load
+  - rerun_contract_control
+  - regenerate_atomic_or_joint_data
+  - modify_prompt_or_chat_template
+  - modify_candidate_prefix_or_candidate_words
+  - modify_cll_or_constrained_generation
+  - add_reasoning_then_answer_extraction_or_answer_parser
+  - modify_quantization_checkpoint_revision_or_model_cohort
+  - add_phi_or_a_fourth_model
+  - run_formal_atomic
+  - run_joint_or_atomic_retention
+  - run_activation_patching
+  - create_atomic_v3_or_a_qualification_rescue
+  - delete_or_overwrite_partial_null_failure_or_final_artifacts
+  - overwrite_final_decision
+  - modify_or_move_historical_tags
+  - squash_failure_history_or_force_push
+  - modify_or_unarchive_historical_repositories
+integrity_mismatch:
+  decision: CLOSEOUT_INTEGRITY_FAILURE
+  action: stop and report the mismatch; never fill missing evidence with experiments
+future_independent_research:
+  initiated_by_this_closeout: false
+  current_repository_experimentation: FORBIDDEN
+  requires:
+    - completely_independent_research_identity
+    - new_novelty_audit
+    - new_preregistration
+    - separate_explicit_authorization
+  forbidden_identity:
+    - Atomic v3
+    - repair
+    - rescue
+    - next stage of the current project

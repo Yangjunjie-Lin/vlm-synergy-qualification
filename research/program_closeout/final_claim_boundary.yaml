@@ -1,0 +1,40 @@
+schema_version: 1
+source_commit: eb12bd64da6cb37d4e43631e4f2e08492a9007fb
+source_decision: MEASUREMENT_IMPLEMENTATION_NO_GO
+validated_claims:
+  - fresh Atomic v2 data passed preregistered validation
+  - Qwen passed the frozen engineering output-contract control
+  - GLM failed the frozen engineering output-contract control
+  - the stopping rule was triggered before formal Atomic
+  - no Joint or mechanistic inference was executed
+  - both model-specific renderer validations passed after the recorded permitted correction
+  - all 16 GLM controls completed with east as both CLL top answer and constrained output
+  - the current frozen GLM exact-answer measurement contract failed its engineering gate
+invalid_claims:
+  - GLM lacks spatial reasoning
+  - GLM lacks atomic capability
+  - the two-model cohort lacks atomic capability
+  - cross-modal synergy is absent
+  - internal multimodal mediation is absent
+  - activation patching failed
+  - Qwen passed full Atomic qualification
+  - the two-model formal Atomic cohort was completed
+  - current evidence supports a positive Q1 mechanism paper
+  - engineering reproducibility alone establishes a scientific contribution
+unresolved:
+  - why GLM assigns dominant first-answer probability to east
+  - whether native reasoning-output parsing would change the result
+  - whether quantization contributes to the result
+  - whether another preregistered contract would measure the model validly
+unresolved_status: hypotheses and questions only; no causal diagnosis identified
+new_experiments_for_unresolved_items: FORBIDDEN_IN_CURRENT_LINE
+scientific_endpoints:
+  glm_atomic_capability: NOT_EVALUATED
+  cohort_capability: NOT_EVALUATED
+  joint_composition: NOT_EXECUTED
+  cross_modal_synergy: NOT_EVALUATED
+  mechanism: NOT_EXECUTED
+historical_atomic_v1:
+  scientific_admissibility: INVALID_FOR_COHORT_CONCLUSION
+  clean_capability_no_go_interpretation: FORBIDDEN
+  predictions_and_failure_evidence: PRESERVE_UNCHANGED

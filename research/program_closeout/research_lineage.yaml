@@ -1,0 +1,54 @@
+schema_version: 1
+program: CapabilityGate / Cross-Modal Synergy Research Line
+source_repository: Yangjunjie-Lin/vlm-synergy-qualification
+source_branch: codex/atomic-protocol-v2-clean-rerun
+source_commit: eb12bd64da6cb37d4e43631e4f2e08492a9007fb
+historical_records:
+  ReCoAlign:
+    repository: Yangjunjie-Lin/ReCoAlign
+    status: ARCHIVED_NEGATIVE_EVIDENCE_RELEASE
+    allowed_role: MOTIVATING_NEGATIVE_CASE_ONLY
+    modification_authorized: false
+    unarchive_authorized: false
+  VLM_Construct_Audit:
+    repository: Yangjunjie-Lin/vlm-construct-audit
+    status: TIER0_INCONCLUSIVE
+    scientific_pilot: NOT_AUTHORIZED
+    modification_authorized: false
+    unarchive_authorized: false
+  SynergyTrace:
+    repository: Yangjunjie-Lin/vlm-synergy-trace
+    status: BEHAVIORAL_NO_GO
+    activation_patching: NOT_EXECUTED
+    modification_authorized: false
+    unarchive_authorized: false
+  CapabilityGate:
+    repository: Yangjunjie-Lin/vlm-synergy-qualification
+    status: MEASUREMENT_IMPLEMENTATION_NO_GO
+    formal_atomic: NOT_EXECUTED
+    formal_atomic_scope: Atomic v2 under the corrected protocol
+    joint: NOT_EXECUTED
+    activation_patching: NOT_EXECUTED
+    atomic_v1:
+      source_commit: eca06a65e9ea7c384ff17859bcd9b28c79630219
+      tag: capability-gate-atomic-v1-protocol-invalid-2026-09-10
+      status: INVALID_FOR_COHORT_CONCLUSION
+      preserved_formal_prediction_rows:
+        qwen: 256
+        glm: 256
+      capability_inference: FORBIDDEN
+    atomic_v2:
+      data_validation: PASS
+      renderer_validation: PASS
+      qwen_engineering_contract_control: PASS
+      glm_engineering_contract_control: FAIL
+      controls_completed_per_model: 16
+      formal_prediction_rows: 0
+      cohort_capability_result: NOT_EVALUATED
+      joint_composition_result: NOT_EXECUTED
+      mechanism_result: NOT_EXECUTED
+aggregation_policy:
+  pooled_statistics_across_repositories: FORBIDDEN
+  pooled_unregistered_scientific_conclusion: FORBIDDEN
+  relationship: historical provenance only; each record retains its own admissibility boundary
+program_decision: TERMINATE_CURRENT_CROSS_MODAL_SYNERGY_LINE

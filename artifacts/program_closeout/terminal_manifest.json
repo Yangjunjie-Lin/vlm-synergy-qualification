@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "kind": "TERMINAL_PROGRAM_SEAL",
+  "source_commit": "eb12bd64da6cb37d4e43631e4f2e08492a9007fb",
+  "canonical_branch": "codex/atomic-protocol-v2-clean-rerun",
+  "terminal_tag": "capability-gate-terminal-measurement-no-go-2026-09-10",
+  "decision": "TERMINATE_CURRENT_CROSS_MODAL_SYNERGY_LINE",
+  "exact_next_action": "NO_FURTHER_EXPERIMENTS_ON_THIS_LINE",
+  "hash_algorithm": "SHA-256",
+  "file_hash_policy": "strict raw bytes; new closeout and terminal-entry text files have explicit LF git attributes",
+  "self_exclusion": "artifacts/program_closeout/terminal_manifest.json",
+  "preserved_baseline_inventory": "artifacts/program_closeout/canonical_artifact_index.json",
+  "source_canonical_file_count": 1344,
+  "post_publication_attestation": "Stored outside sealed repository tree to avoid self-referential commit/tag/archive claims",
+  "files": [
+    {
+      "sha256": "f5d539fccaa59a2392d9848048f3d40523a162058c9aeec7b320f6afc349a11c",
+      "path": ".gitattributes",
+      "bytes": 655
+    },
+    {
+      "sha256": "2c09c6e23f0618a8ba11e1cc9e95c928a48efe551def34930ee1ffca900b1af9",
+      "path": "artifacts/program_closeout/canonical_artifact_index.json",
+      "bytes": 425256
+    },
+    {
+      "sha256": "5e03a5b8d07ec944a3b998bf4193e73313b7fadbe0c237c342799a7d0a58e59e",
+      "path": "artifacts/program_closeout/compute_shutdown_record.json",
+      "bytes": 2873
+    },
+    {
+      "sha256": "7e8d5c17f1e5276bab6aceb929931a6276f6c22f15c7d172852c833d36613436",
+      "path": "artifacts/program_closeout/cross_repository_provenance.json",
+      "bytes": 3913
+    },
+    {
+      "sha256": "b908bfd4d41334332720c8f6a63f5881441053b9f2f79b91ec203e9094fd3931",
+      "path": "artifacts/program_closeout/final_integrity_verification.json",
+      "bytes": 3677
+    },
+    {
+      "sha256": "ed32f8e7197f91a229bb0a4c1b91154c58d297fcae3c9a2416624c5d17c99c4f",
+      "path": "artifacts/program_closeout/provider_shutdown_evidence.json",
+      "bytes": 1098
+    },
+    {
+      "sha256": "211fb5f94d4bf375ae69f51d10cc9d6cf9eccbf1ed5cab311e3876c7560b1b42",
+      "path": "reports/program_closeout/evidence_lineage.md",
+      "bytes": 4890
+    },
+    {
+      "sha256": "a65e37a24c05e78354d125533ee309989792d8007e0a86239ab3a0b464807efd",
+      "path": "reports/program_closeout/final_program_decision.md",
+      "bytes": 3532
+    },
+    {
+      "sha256": "465e05071e8fe6eca0d89ad5afdadc9537e543256768b549fe7cb1f8018d5171",
+      "path": "reports/program_closeout/measurement_failure_analysis.md",
+      "bytes": 3521
+    },
+    {
+      "sha256": "32e18718377802deda86642c2e2b119235c89b4d187dfa6d9e920ae0bd8e8a17",
+      "path": "reports/program_closeout/q1_readiness_assessment.md",
+      "bytes": 2351
+    },
+    {
+      "sha256": "85579c8ab70ba4ed0112911e2f7989bafff5267f91653cd8415c74fc5f444bfb",
+      "path": "reports/program_closeout/repository_archive_report.md",
+      "bytes": 3550
+    },
+    {
+      "sha256": "6c553743454a57db6e7c63e859cd40a4006532ed954071d601a904731a94c67b",
+      "path": "research/program_closeout/failure_taxonomy.yaml",
+      "bytes": 1392
+    },
+    {
+      "sha256": "fb3875196812c10c0db6a745f0a9fc54dca0d73d48bf523bb314b2c08fd82036",
+      "path": "research/program_closeout/final_claim_boundary.yaml",
+      "bytes": 1964
+    },
+    {
+      "sha256": "eda67924befc79f7cbd3fa3ef463468bdc6f3c302ef809e743a6530f47a47b42",
+      "path": "research/program_closeout/prohibited_future_reinterpretations.yaml",
+      "bytes": 2148
+    },
+    {
+      "sha256": "6c335786201f8207fcb6f9941eada0fd49c3b8bc8b617d51702f4b7b4dae57b4",
+      "path": "research/program_closeout/research_lineage.yaml",
+      "bytes": 2114
+    },
+    {
+      "sha256": "f211fd239e7d69c07fd4813751fd76b297c5b4d62f4b4f4cafef638113460944",
+      "path": "research/program_closeout/terminal_stop_rule.yaml",
+      "bytes": 2355
+    },
+    {
+      "sha256": "d5be64320fbafd58467b37fc72b2485bfc15724e615f30c52d89b352a32f8a8c",
+      "path": "src/capability_gate/__init__.py",
+      "bytes": 195
+    },
+    {
+      "sha256": "16527ad8cd7ae310e600cd2bf95baf49bc036ce708c3de382b5df1c9c04886e7",
+      "path": "src/capability_gate/cli.py",
+      "bytes": 147
+    },
+    {
+      "sha256": "df84020ce3e3b8896b0ea5cbee88388f3d42e5cb9d79dcc02d3854cdf7f83ceb",
+      "path": "src/capability_gate/program_closeout.py",
+      "bytes": 11849
+    },
+    {
+      "sha256": "8e26cbfa84661c3a1c523c00aaed370626699827de01b355ed4aa338777a9e7f",
+      "path": "src/capability_gate/terminal_guard.py",
+      "bytes": 3870
+    },
+    {
+      "sha256": "a7699c9dacf6f9e06105b068f816fb2a82386fe948207826127fec013f262760",
+      "path": "tests/test_program_closeout.py",
+      "bytes": 3829
+    },
+    {
+      "sha256": "eabb8b67c4661eade472d2e1cde98112385d9625dae36727a55c874f2e865e53",
+      "path": "workers/_entrypoint.py",
+      "bytes": 11763
+    }
+  ]
+}

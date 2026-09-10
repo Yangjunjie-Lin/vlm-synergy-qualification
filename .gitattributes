@@ -5,3 +5,13 @@ reports/atomic_v2/** text eol=lf
 artifacts/atomic_v2/** -text
 artifacts/data_v2/** -text
 tests/snapshots/*_atomic_prompts/** -text
+.gitattributes text eol=lf
+src/capability_gate/__init__.py text eol=lf
+src/capability_gate/cli.py text eol=lf
+src/capability_gate/program_closeout.py text eol=lf
+src/capability_gate/terminal_guard.py text eol=lf
+workers/_entrypoint.py text eol=lf
+tests/test_program_closeout.py text eol=lf
+research/program_closeout/** text eol=lf
+reports/program_closeout/** text eol=lf
+artifacts/program_closeout/** -text

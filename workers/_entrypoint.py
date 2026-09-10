@@ -36,6 +36,10 @@ def _peak_ram_bytes() -> int | None:
 
 
 def _failure_class(error: BaseException) -> str:
+    from capability_gate.terminal_guard import TerminalProgramStop
+
+    if isinstance(error, TerminalProgramStop):
+        return "PROGRAM_TERMINATED"
     from capability_gate.recovery.adapters import (
         DependencyPreflightError,
         FrozenRevisionError,
@@ -122,6 +126,10 @@ def _serve(model_key: str) -> int:
                     raise ValueError("worker refuses non-frozen model revision")
                 if request.processor_revision != descriptor.processor_revision:
                     raise ValueError("worker refuses non-frozen processor revision")
+                if request.operation != "dependency_preflight":
+                    from capability_gate.terminal_guard import deny_execution
+
+                    deny_execution()
                 if request.operation == "dependency_preflight":
                     preflight = dependency_preflight(model_key)
                     response = _response(

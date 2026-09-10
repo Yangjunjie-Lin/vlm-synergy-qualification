@@ -1,0 +1,74 @@
+{
+  "repositories": [
+    {
+      "tags": [
+        "5a8b6eed1a40b36ed4cfef4fd6aba21f465fccf7 refs/tags/pivot-exp-a-v1",
+        "3fd776cab8bfd50e1d211c863d8fa91a651a9de7 refs/tags/recoalign-evidence-freeze-2026-08-25",
+        "6dbb62d97a940c726cf1ed62bcf9af2947ed321a refs/tags/recoalign-negative-evidence-v1",
+        "a9c5bd00c6154353a204f0565f405fdd844aa59d refs/tags/v1.0-pre-structure-interface"
+      ],
+      "remote_default_branch_sha": "3e9a81432e83d651db59bf4d9a337984db7cf0fc",
+      "local_tree": "538f9aa8be2c7b8837d4be517d80d902a1a4f74e",
+      "remote_default_branch": "main",
+      "repository": "Yangjunjie-Lin/recoalign",
+      "local_head": "e200921af44e9307c60f470c247f808a75e7d625",
+      "observed_archived": true,
+      "modified_by_closeout": false,
+      "worktree_clean_at_this_capture": true
+    },
+    {
+      "tags": [
+        "c4851df7ed0809eac5619b4e23186a67255cb5ae refs/tags/construct-v2-automated-preaudit-freeze",
+        "d643118c4f0f63d2d4a05f669d24b9b3bca5f95a refs/tags/construct-v2-human-gate-policy-freeze",
+        "a58898f7b1cbd50f61296cd12476ef599c1ba546 refs/tags/p-mini-pilot-preregistered",
+        "86964cccf987cd34af1d941e998a2fe3212d6d67 refs/tags/p-mini-pilot-preregistration-audit-no-pass",
+        "cee1e63583c1634200a7fc1052caf50ae46bba49 refs/tags/vlm-construct-audit-final-closeout-2026-08-30",
+        "2a6e05ee4c62e5c1282953dbf44b9e026d1277c0 refs/tags/vlm-construct-audit-post-stop-final",
+        "a48cd5128e8c6fa4e18c34d4e8d2cd63f7b308b3 refs/tags/vlm-construct-audit-tier0-5-stop"
+      ],
+      "remote_default_branch_sha": "ce0e797a4926ab5d2309915c2eef14fd9c5be44d",
+      "local_tree": "5bc4b0e3c7e750f9ad3b3d7252d15f1116423f3b",
+      "remote_default_branch": "codex/tier0-5-three-loop-triage",
+      "repository": "Yangjunjie-Lin/vlm-construct-audit",
+      "local_head": "128a26d950dbde039a526930d9132ddab4816e91",
+      "observed_archived": true,
+      "modified_by_closeout": false,
+      "worktree_clean_at_this_capture": true
+    },
+    {
+      "tags": [
+        "ea1e110c64004c236ed5a0fb069f170ed3290303 refs/tags/synergy-trace-behavioral-no-go-2026-08-31"
+      ],
+      "remote_default_branch_sha": "88741f0301c61c0abf3e63a5903183e9664af552",
+      "local_tree": "ad682a8baeee1dc77ded78f91bc6fdd20b85d191",
+      "remote_default_branch": "codex/real-vlm-synergy-pilot",
+      "repository": "Yangjunjie-Lin/vlm-synergy-trace",
+      "local_head": "88741f0301c61c0abf3e63a5903183e9664af552",
+      "observed_archived": false,
+      "modified_by_closeout": false,
+      "worktree_clean_at_this_capture": true
+    },
+    {
+      "tags": [
+        "5e8094970d228da8ce6ec092ac107ff7c5e70055 refs/tags/capability-gate-adapter-block-2026-08-31",
+        "bce668ac9f95f2cd0ee4639c45985eff478e3752 refs/tags/capability-gate-atomic-v1-protocol-invalid-2026-09-10"
+      ],
+      "remote_default_branch_sha": "32a8333bf0106579834fb7a0747c81d67b49ac10",
+      "local_tree": "be23719b8c97d88ee5786d5300159c99c0bc96a1",
+      "remote_default_branch": "codex/three-family-capability-screen",
+      "repository": "Yangjunjie-Lin/vlm-synergy-qualification",
+      "local_head": "eb12bd64da6cb37d4e43631e4f2e08492a9007fb",
+      "observed_archived": false,
+      "modified_by_closeout": true,
+      "worktree_clean_at_this_capture": false,
+      "initial_source_worktree_clean": true,
+      "capture_note": "New authorized closeout files and terminal invocation guards are pending commit; source cleanliness was verified before edits."
+    }
+  ],
+  "statistics_aggregated_across_repositories": false,
+  "historical_repositories_unmodified": true,
+  "canonical_remote_branch_sha": "eb12bd64da6cb37d4e43631e4f2e08492a9007fb",
+  "schema_version": 1,
+  "captured_at_utc": "2026-09-10T15:18:28.0414548Z",
+  "scope": "Read-only provenance capture; no cross-repository pooling or archive changes. Qualification alone receives the requested terminal closeout."
+}

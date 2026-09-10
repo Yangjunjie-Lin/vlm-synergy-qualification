@@ -1,0 +1,30 @@
+schema_version: 1
+scope: terminal evidence release of the current cross-modal synergy research line
+prohibited_reinterpretations:
+  - converting invalid Atomic v1 outcomes into a clean cohort capability NO-GO
+  - converting GLM engineering measurement failure into lack of spatial or atomic capability
+  - presenting Qwen engineering controls as full Atomic qualification
+  - presenting zero formal rows as zero accuracy or as a completed two-model cohort
+  - treating absent Joint observations as a negative Joint composition result
+  - treating absent mechanism observations as failed activation patching
+  - claiming cross-modal synergy or internal multimodal mediation was falsified
+  - claiming one of the possible GLM failure explanations is an identified cause
+  - treating model-local contract agreement as validation of a nonresponsive measurement
+  - selecting a favorable contract or reparsing the recorded outputs into a new result
+  - pooling the four repositories into an unregistered statistical conclusion
+  - presenting engineering integrity or complete artifacts as a positive Q1 mechanism contribution
+  - restarting the line as Atomic v3, repair, rescue, or the current project's next stage
+  - using this closeout as authorization for a new experiment or compute charge
+  - declaring resource shutdown or repository archival without verifiable provider evidence
+preservation_requirements:
+  atomic_v1_predictions_hashes_and_invalidity_evidence: UNCHANGED
+  atomic_v2_data_renderer_controls_and_final_decision: UNCHANGED
+  partial_null_and_failure_artifacts: PRESERVED
+  historical_repositories_and_archive_settings: UNCHANGED
+  historical_tags_and_commit_reachability: PRESERVED
+allowed_interpretation:
+  - the frozen GLM exact-answer contract did not pass the engineering control
+  - the preregistered rule stopped the protocol before formal Atomic
+  - formal capability, Joint composition, synergy and mechanism conclusions were not identified
+  - this termination applies to this research line, not to all VLM research questions
+future_unresolved_questions: may be listed as unresolved but may not trigger work in this line

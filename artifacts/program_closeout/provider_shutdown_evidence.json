@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-10T15:14:31Z",
+  "source": "authenticated Compshare provider web console; fresh read-only observation in final closeout turn",
+  "source_url": "https://console.compshare.cn/light-gpu/console/resources",
+  "relevant_provider_text": [
+    "capability-gate-atomic-joint",
+    "ID: uhost-1v3ki9v2fp9i",
+    "关机",
+    "规格详情 3090 * 1 华北二A",
+    "实例： 0 /小时 按量",
+    "关机不收费",
+    "系统盘：0.00 元 /小时 按量",
+    "释放时间：2026-09-17 14:47",
+    "7天后释放"
+  ],
+  "normalized_state": "stopped",
+  "prior_user_authorized_shutdown_action": "更多操作 > 关闭 > 确认关机提示 > 确定",
+  "prior_provider_completion_text": "成功：1 失败：0 剩余：0; 操作成功",
+  "prior_completion_evidence_source": "preceding user-requested shutdown turn's provider UI tool result",
+  "current_turn_operation": "QUERY_ONLY_ALREADY_STOPPED",
+  "instance_started_this_turn": false,
+  "instance_deleted_or_released_by_assistant": false,
+  "account_balance_and_credentials_omitted": true
+}
