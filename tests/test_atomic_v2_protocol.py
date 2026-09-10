@@ -75,3 +75,14 @@ def test_old_tag_mutation_fails_closed(monkeypatch):
     monkeypatch.setattr(protocol, "git", fake_git)
     with pytest.raises(RuntimeError, match="V1_TAG_CHANGED"):
         protocol.verify_v1()
+
+
+def test_terminal_pipeline_is_read_only_and_does_not_restart(tmp_path, monkeypatch):
+    monkeypatch.setattr(protocol, "OUT", tmp_path)
+    protocol.save_once(
+        tmp_path / "final_decision.json", {"decision": "MEASUREMENT_IMPLEMENTATION_NO_GO"}
+    )
+    monkeypatch.setattr(protocol, "verify_atomic_v2_artifacts", lambda: {"overall_gate": True})
+    result = protocol.clean_rerun()
+    assert result["terminal_run_reused_read_only"] is True
+    assert result["final"]["decision"] == "MEASUREMENT_IMPLEMENTATION_NO_GO"

@@ -938,6 +938,13 @@ def verify_atomic_v2_artifacts():
 
 def clean_rerun():
     """Single-entry gated execution; terminal failures stop without outcome tuning."""
+    if (OUT / "final_decision.json").exists():
+        verified = verify_atomic_v2_artifacts()
+        return {
+            "final": load(OUT / "final_decision.json"),
+            "verification_gate": verified["overall_gate"],
+            "terminal_run_reused_read_only": True,
+        }
     from capability_gate.atomic_v2_data import (
         DataValidationError,
         generate_atomic_v2_data,

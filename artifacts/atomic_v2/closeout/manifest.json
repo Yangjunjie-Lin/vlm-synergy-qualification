@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "supplemental_closeout_manifest",
+  "original_final_manifest_unchanged": true,
+  "files": [
+    {
+      "path": "artifacts/atomic_v2/closeout/initial_execution.log",
+      "bytes": 635,
+      "sha256": "e735a0108fe39962b050bef69ab8b621656fee0fa1469a5f1227fdfc09c725f0"
+    },
+    {
+      "path": "artifacts/atomic_v2/closeout/corrected_execution.log",
+      "bytes": 635,
+      "sha256": "ca727dce5df7c52812549f85343245e8f44d61592fa0229b5192323a9cea4278"
+    },
+    {
+      "path": "artifacts/atomic_v2/closeout/verification.json",
+      "bytes": 1509,
+      "sha256": "d44a66eb4143ee98a4fd0bdd7ced4f463b3deb4e3052eb705ad81819fb02dc68"
+    },
+    {
+      "path": "artifacts/atomic_v2/manifests/final_manifest.json",
+      "bytes": 131915,
+      "sha256": "3063781da5430a1f8875dc38e701c5bf4cf377c6145d3adfae8e46d7e85c1884"
+    },
+    {
+      "path": "reports/atomic_v2/execution_summary.md",
+      "bytes": 6132,
+      "sha256": "18b5469279f4ba785ecd73a7200674449b36c676763a36bde45cce539617b70c"
+    },
+    {
+      "path": "src/capability_gate/atomic_v2_protocol.py",
+      "bytes": 40934,
+      "sha256": "b2e8f43fce22edc3b953d9b40b4c93f68dac8509e76cde65314de3abcecae930"
+    },
+    {
+      "path": "tests/test_atomic_v2_protocol.py",
+      "bytes": 3683,
+      "sha256": "02a9bc71d4b10e1eb376a69ac83c0c7ec0b931c8b6d2591e81caddc06d87e61e"
+    }
+  ]
+}
