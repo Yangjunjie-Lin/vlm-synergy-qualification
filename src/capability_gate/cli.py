@@ -88,6 +88,7 @@ from capability_gate import atomic_v2_protocol as protocol_v2
 
 COMMANDS.update({
     "freeze-invalid-atomic-v1": protocol_v2.freeze_invalid_atomic_v1,
+    "repair-glm-processor-v2": protocol_v2.repair_glm_processor_v2,
     "validate-model-renderers": protocol_v2.validate_model_renderers,
     "run-contract-control": protocol_v2.run_contract_control,
     "freeze-atomic-v2-run": protocol_v2.freeze_atomic_v2_run,

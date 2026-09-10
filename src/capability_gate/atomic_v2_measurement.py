@@ -76,17 +76,26 @@ class GlmAtomicV2Adapter(GlmRecoveryAdapter):
             {"role": "system", "content": system},
             {"role": "user", "content": content},
         ]
-        encoded = self.processor.apply_chat_template(
-            messages,
-            tokenize=True,
-            add_generation_prompt=True,
-            return_dict=True,
-            return_tensors="pt",
-        )
         rendered = self.processor.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
         )
+        # Transformers 4.57.6's generic tokenize=True wrapper iterates system
+        # strings as if they were multimodal content objects. Use the official
+        # GLM processor's documented text+images entry point after rendering its
+        # unchanged official template. The rendered template already supplies
+        # [gMASK]<sop>, so adding tokenizer special tokens would duplicate them.
+        encoded = self.processor(
+            text=[rendered], images=[image] if image is not None else None,
+            add_special_tokens=False, return_tensors="pt",
+        )
         return rendered, encoded
+
+
+def renderer_manifest_path(root: Path, model_key: str) -> Path:
+    base = root / "artifacts/atomic_v2/renderer_snapshots" / model_key
+    if model_key == "glm4_1v_9b" and (root / "artifacts/atomic_v2/renderer_repair_record.json").exists():
+        base = base / "repair_01"
+    return base / "manifest.json"
 
 
 def adapter_for(model_key: str) -> NativeRecoveryAdapter:
@@ -288,8 +297,8 @@ def _scene_names(scene: Mapping[str, Any]) -> tuple[str | None, str | None]:
 def validate_model_renderers(model_key: str, root: Path = ROOT) -> dict[str, Any]:
     """Load actual frozen processor, not weights; save eight immutable snapshots."""
     adapter = adapter_for(model_key)
-    destination = root / "artifacts/atomic_v2/renderer_snapshots" / model_key
-    manifest_path = destination / "manifest.json"
+    manifest_path = renderer_manifest_path(root, model_key)
+    destination = manifest_path.parent
     existing = _read_verified_existing(manifest_path, root)
     if existing is not None:
         return existing
@@ -447,7 +456,7 @@ def run_contract_control(model_key: str, root: Path = ROOT) -> dict[str, Any]:
     _, scenes = _preoutcome_gate(root)
     # Both processor gates must precede any engineering or formal model inference.
     for key in MODEL_KEYS:
-        renderer_path = root / "artifacts/atomic_v2/renderer_snapshots" / key / "manifest.json"
+        renderer_path = renderer_manifest_path(root, key)
         renderer = _read_verified_existing(renderer_path, root)
         if renderer is None or renderer.get("overall_gate") is not True:
             raise MeasurementImplementationError(f"renderer gate not passed: {key}")
@@ -524,7 +533,8 @@ def aggregate_measurement_validation(root: Path = ROOT) -> dict[str, Any]:
     for key in MODEL_KEYS:
         models[key] = {}
         for kind in ("renderer_snapshots", "contract_control"):
-            path = root / "artifacts/atomic_v2" / kind / key / "manifest.json"
+            path = (renderer_manifest_path(root, key) if kind == "renderer_snapshots"
+                    else root / "artifacts/atomic_v2" / kind / key / "manifest.json")
             models[key][kind] = _read_verified_existing(path, root)
     complete = all(value and value.get("overall_gate") is True
                    for model in models.values() for value in model.values())
