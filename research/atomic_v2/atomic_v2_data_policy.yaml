@@ -1,0 +1,104 @@
+schema_version: 1
+protocol: capability_gate_atomic_v2
+frozen_before_data_generation: true
+source_commit: eca06a65e9ea7c384ff17859bcd9b28c79630219
+source_config_unchanged: configs/atomic_tasks.yaml
+tasks:
+  direct_visual_relation: 64
+  direct_text_relation: 64
+  direction_reversal: 64
+  cross_modal_bridge_binding: 64
+namespace_uuid: d510287f-fb80-4ee0-9234-c8215cf6f620
+seeds:
+  atomic_scene_order: 92618371
+  atomic_template_assignment: 12867043
+  atomic_option_permutation: 68201439
+  atomic_image: 59318721
+  atomic_descriptor_assignment: 73194625
+  joint_scene_order: 41297683
+  joint_template_assignment: 18294637
+  joint_option_permutation: 97163825
+  joint_image: 38152749
+  grouped_cross_validation: 24591837
+aliases:
+  method: HMAC-SHA256 per scene UUID, role and entity index, alphabetic encoding
+  secret_seed: capability-gate-atomic-v2/pre-outcome/2026-09-10/alias/78210693
+  length: 10
+  alphabet: abcdefghijklmnopqrstuvwxyz
+  forbidden_substrings: [north, south, east, west]
+  scene_identity_aliases_unique: true
+  query_reference_distinct: true
+  collision_response: regenerate entire scene alias assignment before rendering
+  bridge_internal_aliases: unique
+  bridge_display_labels: absent_as_required_by_frozen_descriptor_binding_construct
+freshness:
+  source_v1_rows_reused: false
+  zero_v1_scene_uuid_overlap: true
+  new_images_and_image_seeds: true
+  formal_rows_never_overwritten: true
+  partial_generation_artifacts_preserved: true
+  automatic_batch_regeneration_count: 0
+  maximum_explicit_preoutcome_batch_regenerations: 1
+  regeneration_after_formal_lock_or_output: forbidden
+design:
+  nuisance_blocks_per_task: 16
+  complete_answers_per_block: [north, south, east, west]
+  answer_count_each_per_task: 16
+  correct_option_position_count_each_per_task: 16
+  template_assignment: seeded_balanced_shuffle
+  option_order: seeded_base_permutation_and_seeded_balanced_rotation_assignment
+  entity_aliases: fresh_per_scene_not_shared_across_nuisance_block
+  bridge_descriptor: fixed_within_nuisance_block_with_all_four_target_locations
+  bridge_candidates: four_distinct_colors_with_unique_color_shape_combinations
+  text_tasks: no image tensor or image token; fresh blank provenance image files
+  text_prompt: frozen question semantics including existing unrelated-image sentence
+  geometry: distinct cardinal entities, no overlapping bounding regions
+oracles:
+  atomic_visual: coordinates plus rendered center pixel presence
+  atomic_text: parse frozen premise and resolve ordered query identities
+  atomic_reversal: parse premise and compute strict inverse
+  atomic_bridge: unique descriptor match plus coordinates
+  joint: rendered color centroids plus parsed premise and vector composition
+  required_accuracy: 1.0
+shortcut_probes:
+  classifier: frozen_categorical_and_unconditional_train_only_ridge
+  fallback: training_marginal_majority_with_frozen_candidate_order_ties
+  cross_validation_folds: 4
+  groups_atomic: complete_answer_balanced_nuisance_block
+  groups_joint: complete_factorial_quartet
+  seed: 24591837
+  maximum_cross_validated_accuracy: 0.30
+  gate_scope: each_requested_shortcut_pooled_256_out_of_fold_predictions
+  per_task_values: transparently_reported_diagnostics_not_28_additional_gates
+  additional_binding_gate: descriptor_aware_text_only_and_color_shape_probes_n64
+  numeric_index_features: scaled_index, sixteen_bins, one_hot_modulo_2_3_4_5_7_8_16
+  string_features: signed_SHA256_hashed_character_1_2_3_grams_256_dimensions
+  ridge_alpha: 1.0
+  ridge_signal_screen: forbidden
+  ridge_model_selection: none
+  categorical_features: [template, option_position, option_order, binding_descriptors]
+  learned_features: [scene_index, entity_name, question_text, image_filename, metadata]
+  fold_stratification: nuisance_option_order_only_never_model_outcomes
+  record_every_out_of_fold_prediction: true
+  features:
+    scene_index: one_based_shuffled_scene_index
+    entity_name: ordered_query_aliases
+    question_text: entity_question_excluding_premise_or_binding_descriptor_evidence
+    template: template_id
+    option_position: diagnostic_correct_option_position
+    option_order: model_visible_candidate_order
+    image_filename: basename
+    metadata: [task, template_id, entity_count, color, shape]
+    descriptor_aware_text_only: [template_id, color, shape]
+    descriptor_color: color
+    descriptor_shape: shape
+  excluded_metadata: [target, symbolic_answer, coordinates, seeds, target_role_annotations]
+  limitation: finite categorical and ridge probes do not exclude every nonlinear shortcut
+joint:
+  audit_old_before_atomic_outputs: true
+  any_invalidity_response: wholly_new_128_quartets_never_local_repair
+  preserve_construct_thresholds_statistics_and_bootstrap_seed: true
+  freeze_data_and_image_hashes_before_formal_atomic_output: true
+  unimodal_nonidentification: holding either factor fixed leaves exactly two answers
+invalid_data_status: ATOMIC_V2_DATA_INVALID
+invalid_data_model_inference: forbidden

@@ -1,0 +1,7 @@
+src/capability_gate/atomic_v2*.py text eol=lf
+tests/test_atomic_v2*.py text eol=lf
+research/atomic_v2/** text eol=lf
+reports/atomic_v2/** text eol=lf
+artifacts/atomic_v2/** -text
+artifacts/data_v2/** -text
+tests/snapshots/*_atomic_prompts/** -text
